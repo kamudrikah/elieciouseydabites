@@ -177,7 +177,7 @@ while ($row = mysqli_fetch_assoc($rs_result)) {
                     <?php $product_id = $row["unique_id"];   ?>
                     
                     <input type="hidden" name="product_id" value="<?php echo $product_id; ?>">
-                    <input type="hidden" name="price_id" value="<?php echo $price_id; ?>">
+                    <input type="hidden" name="price_id[]" value="<?php echo $price_id; ?>">
                     
                     <img src="image.php?id=<?php echo $row["unique_id"]; ?>" height="220" width="30" />
                     
