@@ -1,5 +1,6 @@
 <?php
 session_start();
+include "./controller/db_connect.php";
 ?>
 <html lang="en">
 <head>
@@ -99,9 +100,6 @@ session_start();
 				<div class="col-sm-12">
 					<div id="slider-carousel" class="carousel slide" data-ride="carousel">
 					<?php
-
-						include "config.php";
-
 						$query1= "SELECT * FROM product";
 						$rs_result1 = mysqli_query($conn, $query1); 		
 						$z=0;
