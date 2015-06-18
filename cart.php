@@ -1,7 +1,9 @@
 <?php
-include('controller/session.php');
+include('./controller/session.php');
+if(!isset($_SESSION['user_id'])){
+  header("Location: ./cust_signin.php");
+}
 $cust_id = $_SESSION['cust_id'];
-include("./mysqli_con.php");
 ?>
 
 <!DOCTYPE html>

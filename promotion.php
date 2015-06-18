@@ -1,5 +1,8 @@
 <?php
-include('controller/session.php');
+include('./controller/session.php');
+if(!isset($_SESSION['user_id'])){
+  header("Location: ./cust_signin.php");
+}
 ?>
 
 <!DOCTYPE html>
@@ -157,13 +160,11 @@ include('controller/session.php');
             
 $num_rec_per_page=6;
 
-include "config.php";
-
 
 if (isset($_GET["page"])) { $page  = $_GET["page"]; } else { $page=1; }; 
 $start_from = ($page-1) * $num_rec_per_page; 
 
-$query1= "SELECT * FROM product WHERE product_category = 'Promotion' LIMIT $start_from , $num_rec_per_page";
+$query1= "SELECT * FROM product WHERE product_category = '1' LIMIT $start_from , $num_rec_per_page";
 $rs_result = mysqli_query($conn, $query1); 
 
 $z = 0;
@@ -174,12 +175,12 @@ while ($row = mysqli_fetch_assoc($rs_result)) {
                               <div class="single-products">
                   <div class="productinfo text-center">
 
-                    <?php $product_id = $row["unique_id"];   ?>
+                    <?php $product_id = $row["product_id"];   ?>
                     
                     <input type="hidden" name="product_id" value="<?php echo $product_id; ?>">
                     <input type="hidden" name="price_id[]" value="<?php echo $price_id; ?>">
                     
-                    <img src="image.php?id=<?php echo $row["unique_id"]; ?>" height="220" width="30" />
+                    <img src="image.php?id=<?php echo $row["product_id"]; ?>" height="220" width="30" />
                     
                     <h2><?php echo $row["product_name"];   ?></h2> <br/>
                     <p>

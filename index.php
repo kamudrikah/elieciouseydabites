@@ -1,6 +1,5 @@
 <?php
-session_start();
-include "./controller/db_connect.php";
+include "./controller/session.php";
 ?>
 <html lang="en">
 <head>
@@ -8,7 +7,7 @@ include "./controller/db_connect.php";
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
     <meta name="author" content="">
-    <title>About Us | Elie`cious Eyda Bites</title>
+    <title>Home | Elie`cious Eyda Bites</title>
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <link href="css/font-awesome.min.css" rel="stylesheet">
     <link href="css/prettyPhoto.css" rel="stylesheet">
@@ -80,7 +79,11 @@ include "./controller/db_connect.php";
 						</div>
 						<div class="mainmenu pull-left">
 							<?php
-							include('./controller/session_option.php');
+							if(isset($_SESSION['user_id'])){
+								include('./subMenu.php');
+							}else{
+								include('./subMenu_check.php');
+							}
 						?>
 						</div>
 					</div>
@@ -189,7 +192,7 @@ include "./controller/db_connect.php";
 									
 								</div>
 								<div class="col-sm-6">
-								<img src="image.php?id=<?php echo $row["unique_id"]; ?>" class="girl img-responsive" alt="" height="1000" width="300" />
+								<img src="image.php?id=<?php echo $row["product_id"]; ?>" class="girl img-responsive" alt="" height="1000" width="300" />
 								
 
 								</div>
@@ -251,7 +254,7 @@ include "./controller/db_connect.php";
 									
 								</div>
 								<div class="col-sm-6">
-								<img src="image.php?id=<?php echo $row["unique_id"]; ?>" class="girl img-responsive" alt="" height="1000" width="300" />
+								<img src="image.php?id=<?php echo $row["product_id"]; ?>" class="girl img-responsive" alt="" height="1000" width="300" />
 								
 
 								</div>

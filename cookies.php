@@ -1,5 +1,8 @@
 <?php
-include('controller/session.php');
+include('./controller/session.php');
+if(!isset($_SESSION['user_id'])){
+  header("Location: ./cust_signin.php");
+}
 ?>
 
 <!DOCTYPE html>
@@ -86,7 +89,13 @@ include('controller/session.php');
 							</button>
 						</div>
 						<div class="mainmenu pull-left">
-							<?php include 'subMenu.php';?>
+							<?php
+							if(isset($_SESSION['user_id'])){
+								include('./subMenu.php');
+							}else{
+								include('./subMenu_check.php');
+							}
+							?>
 						</div>
 					</div>
 					<div class="col-sm-3">
