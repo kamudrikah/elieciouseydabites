@@ -33,7 +33,7 @@ if($resultProc->num_rows == 1){
 		}
 		echo "d";
 		foreach ($sqlInsertTempProd as $key => $query) {
-			echo "e";
+			echo "ea";
 			if ($conn->query($query) === TRUE) {
 				echo "f";
 				foreach ($resultPrice as $key => $value) {
