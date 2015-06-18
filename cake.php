@@ -234,7 +234,7 @@ while ($row = mysqli_fetch_assoc($rs_result)) {
                       
                       
                       ?>
-                        <input type="checkbox" name="price_id" value="<?php echo $row1["price_id"]; ?>" >
+                        <input type="checkbox" name="price_id[]" value="<?php echo $row1["price_id"]; ?>" >
                         <?php 
                                     if($row1["product_weight"] != "Not Available")
                                     {
