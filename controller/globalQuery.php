@@ -48,7 +48,7 @@ function updateQty($order_id, $qty, $conn_obj){
 
 // Update Reciept Image
 function updateReciept($order_id, $img, $conn_obj){
-	echo $sql = "UPDATE `order` SET order_reciept='$img' WHERE order_id='$order_id'";
+	$sql = "UPDATE `order` SET order_reciept='$img' WHERE order_no='$order_id'";
 	if($conn_obj->query($sql) === TRUE){
 		return TRUE;
 	}
