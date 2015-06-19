@@ -1,6 +1,13 @@
 <?php
+$mystring = $_SERVER["PHP_SELF"];
+$findme   = 'pages';
+$pos = strpos($mystring, $findme);
 
-require_once("./controller/db_connect.php");
+if ($pos !== false) {
+	require_once("../controller/db_connect.php");
+} else {
+	require_once("./controller/db_connect.php");
+}
 
 
 /*---------------- PRODUCT PART --------------------*/
