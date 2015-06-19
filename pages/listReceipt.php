@@ -35,6 +35,13 @@
     <!-- Custom Fonts -->
     <link href="../bower_components/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
 
+    <link href="../css/bootstrap.min.css" rel="stylesheet">
+    <link href="../css/plugins/metisMenu/metisMenu.min.css" rel="stylesheet">
+    <link href="../css/plugins/dataTables.bootstrap.css" rel="stylesheet">
+    <link href="../css/sb-admin-2.css" rel="stylesheet">
+    <link href="../css/sb-admin-2-2.css" rel="stylesheet">
+    <link href="font-awesome-4.1.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -147,55 +154,51 @@
             <!-- /.row -->
             <div class="row">
                 <div class="col-lg-12">
+                <!-- ------------------------------------------------ -->
+
                     <div class="panel panel-default">
                         <div class="panel-heading">
                             List of Receipt Payment
                         </div>
                         <!-- /.panel-heading -->
                         <div class="panel-body">
-                            <div class="dataTable_wrapper">
-                            	<table class="table table-striped table-bordered table-hover" width="1036">
-                                 <form action="" method="">
-                                 <tr>
-                                    	<td colspan="3">    
-                   	                          <select name="act">
-                   	                            <option value='' selected>Bulk Actions </option>
-                   	                            <option value='delete'>Delete</option>
-               	                            </select>                                        
-               	                            <button type="button" class="btn btn-info">Apply</button>
-               	                          </td>      
-                                          <td colspan="2"><input type="text" placeholder="Order ID"/> 
-                                        <button type="button" class="btn btn-info">Search</button></td>
-                                   <tr>
-                                   <td colspan="5"> </br> </td>
-                                   </tr>
-									<tr>
-                                              <td width="7%"><input type="checkbox"> </td>
-                                              <td width="36%">Name</td>
-                                              <td width="19%">Order ID</td>
-                                              <td width="17%">Number Phone</td>
-                                              <td width="21%">Receipt Payment</td>
-                                             
-                                   </tr>
+                            <div class="table-responsive">
+                                <table class="table table-striped table-bordered table-hover" id="dataTables-example">
+                                    <thead>
+                                    <td colspan="9">                                          
+                                          <div align="left">
+                                              <select name="act">
+                                                <option value='' selected>Bulk Actions </option>
+                                                <option value='delete'>Delete</option>
+                                            </select>                                        
+                                            <button type="button" class="btn btn-info">Apply</button>
+                                          </div></td>
+                                        <tr>
+                                        <center>
+                                              <th width="7%"><input type="checkbox"> </th>
+                                              <th width="36%">Name</th>
+                                              <th width="19%">Order ID</th>
+                                              <th width="17%">Number Phone</th>
+                                              <th width="21%">Receipt Payment</th>
+                                        </center>
+                                        </tr>
+                                    </thead>
                                     <tbody>
                                         <tr>
                                             <td><input type="checkbox"> </td>
                                             <td>Attir Hannany </td>
                                             <td>123</td>
-                                         	<td>017 - 6668900</td>
-                                          	<td>&nbsp;</td>
-                                            
+                                          <td>017 - 6668900</td>
+                                            <td>&nbsp;</td>
                                       </tr>
                                     </tbody>   
-                                  </form>
-                              </table>
-                          </div>
-                            <!-- /.table-responsive -->
-                          
+                                </table>
+                            </div>
                         </div>
                         <!-- /.panel-body -->
                     </div>
-                    <!-- /.panel -->
+
+                    <!-- ------------------------------------------------ -->
                 </div>
                 <!-- /.col-lg-12 -->
             </div>
@@ -205,29 +208,19 @@
 
     </div>
     <!-- /#wrapper -->
-
-    <!-- jQuery -->
-    <script src="../bower_components/jquery/dist/jquery.min.js"></script>
+<script src="../js/jquery-1.11.0.js"></script>
 
     <!-- Bootstrap Core JavaScript -->
-    <script src="../bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
-
-    <!-- Metis Menu Plugin JavaScript -->
-    <script src="../bower_components/metisMenu/dist/metisMenu.min.js"></script>
-
-    <!-- DataTables JavaScript -->
-    <script src="../bower_components/datatables/media/js/jquery.dataTables.min.js"></script>
-    <script src="../bower_components/datatables-plugins/integration/bootstrap/3/dataTables.bootstrap.min.js"></script>
-
-    <!-- Custom Theme JavaScript -->
-    <script src="../dist/js/sb-admin-2.js"></script>
+    <script src="../js/bootstrap.min.js"></script>
+    <script src="../js/plugins/metisMenu/metisMenu.min.js"></script>
+    <script src="../js/plugins/dataTables/jquery.dataTables.js"></script>
+    <script src="../js/plugins/dataTables/dataTables.bootstrap.js"></script>
+    <script src="../js/sb-admin-2.js"></script>
 
     <!-- Page-Level Demo Scripts - Tables - Use for reference -->
     <script>
     $(document).ready(function() {
-        $('#dataTables-example').DataTable({
-                responsive: true
-        });
+        $('#dataTables-example').dataTable();
     });
     </script>
 

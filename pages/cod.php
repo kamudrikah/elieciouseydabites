@@ -242,13 +242,13 @@
     <!-- /#wrapper -->
 
     <!-- jQuery -->
-     <script src="js/jquery-1.11.0.js"></script>
+     <script src="../bower_components/jquery/dist/jquery.min.js"></script>
 
     <!-- Bootstrap Core JavaScript -->
-    <script src="js/bootstrap.min.js"></script>
+    <script src="../bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
 
     <!-- Metis Menu Plugin JavaScript -->
-    <script src="js/plugins/metisMenu/metisMenu.min.js"></script>
+    <script src="../bower_components/metisMenu/dist/metisMenu.min.js"></script>
 
     <!-- DataTables JavaScript -->
     <script src="js/plugins/dataTables/jquery.dataTables.js"></script>

@@ -13,7 +13,7 @@ if(empty($logName) || empty($pass))
   ?>
     <script language="javascript">
    alert('Please Insert Data');
-   window.location.href="http://elieciouseydabites.com/pages/login.php";
+   window.location.href="../pages/login.php";
 </script>
 
     <?php
@@ -46,7 +46,7 @@ else
 ?>
     <script language="javascript">
    alert('Login Successful');
-   window.location.href="http://elieciouseydabites.com/pages/index.php";
+   window.location.href="../pages/index.php";
 </script>
 
     <?php

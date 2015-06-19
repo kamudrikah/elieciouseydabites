@@ -1,6 +1,7 @@
 <?php
    include('../controller/session_admin.php');
    include('../controller/javasript.php');
+   include('../controller/globalQuery.php');
 ?>
 
 
@@ -34,6 +35,13 @@
 
     <!-- Custom Fonts -->
     <link href="../bower_components/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+    <link href="../css/bootstrap.min.css" rel="stylesheet">
+    <link href="../css/plugins/metisMenu/metisMenu.min.css" rel="stylesheet">
+    <link href="../css/plugins/dataTables.bootstrap.css" rel="stylesheet">
+    <link href="../css/sb-admin-2.css" rel="stylesheet">
+    <link href="../css/sb-admin-2-2.css" rel="stylesheet">
+    <link href="font-awesome-4.1.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -147,88 +155,65 @@
             <!-- /.row -->
             <div class="row">
                 <div class="col-lg-12">
+                    
+                     <!-- ------------------------------------------------ -->
+
                     <div class="panel panel-default">
                         <div class="panel-heading">
-                            List of Products
+                            List of Receipt Payment
                         </div>
                         <!-- /.panel-heading -->
                         <div class="panel-body">
-                            <div class="dataTable_wrapper">
-                               <table class="table table-striped table-bordered table-hover" width="1036">
-                                 <form action="" method="">
-                                   <tr>
-                                    	<td colspan="3">                   	                      
-               	                          <div align="left">
-                   	                          <select name="act">
-                   	                            <option value='' selected>Bulk Actions </option>
-                   	                            <option value='delete'>Delete</option>
-               	                            </select>                                        
-               	                            <button type="button" class="btn btn-info">Apply</button>
-               	                          </div></td>
-                                        <td>
-                                          
+                            <div class="table-responsive">
+                                <table class="table table-striped table-bordered table-hover" id="dataTables-example">
+                                    <thead>
+                                    <td colspan="9">                                          
                                           <div align="left">
-                                              <select name="cat">
-                                            	  <option value='' selected>Select a Category </option>
-  												  <option value='promotion'>Promotion</option>
-   												  <option value='cake'>Cake</option>
-                                                  <option value='dessert'>Dessert</option>
-                                                  <option value='cookies'>Cookies</option>
-                                                  <option value='cupcake'>Cup Cake</option>
-                                            </select>                		   		   
-                                          </div> </td>
-                                        <td> <button type="button" class="btn btn-info">Filter</button></td>
-						<!-- Search by barcode-->
-                                   		<td><input type="text" placeholder="Barcode"/></td>
-                                        <td colspan="3"> <button type="button" class="btn btn-info">Search</button></td>
-                                   <tr>
-                                     <td colspan="9"> </br> </td>
+                                              <select name="act">
+                                                <option value='' selected>Bulk Actions </option>
+                                                <option value='delete'>Delete</option>
+                                            </select>                                        
+                                            <button type="button" class="btn btn-info">Apply</button>
+                                          </div></td>
+                                        <tr>
+                                        <center>
+                                              <th width="3%"><input type="checkbox" id="selecctall"> </th>
+                                              <th width="21%">Image</th>
+                                              <th width="21%">Name</th>
+                                              <th width="12%">Barcode</th>
+                                              <th width="12%">Stock</th>
+                                              <th width="14%">Weight</th>
+                                              <th width="14%">Price</th>
+                                              <th width="20%">Categories</th>
+                                              <th width="20%">Action</th>
+                                              </center>
                                    </tr>
-									<tr>
-                                              <td width="7%"><input type="checkbox"> </td>
-                                              <td width="21%">Image</td>
-                                              <td width="21%">Name</td>
-                                              <td width="12%">Barcode</td>
-                                              <td width="12%">Stock</td>
-                                              <td width="14%">Weight</td>
-                                              <td width="14%">Price</td>
-                                              <td width="20%">Categories</td>
-                                              <td width="20%">Action</td>
-                                   </tr>
+                                    </thead>
                                     <tbody>
-                                        <?php 
-					$q = "SELECT * FROM product p, product_price pr WHERE p.unique_id = pr.product_id";
-					require_once("config.php");
-					$r = mysqli_query($dbc,$q);
-					while($row = mysqli_fetch_array($r))
-					{
-					print "<tr>";
-					print "<td></td>";
-					print "<td><img src=image.php?id={$row['unique_id']} height=180 width=180 /></td>";
-					print "<td>{$row['product_name']}</td>";
-					print "<td>{$row['product_code']}</td>";
-					print "<td>{$row['product_stock']}</td>";
-					print "<td>{$row['product_weight']}</td>";
-					print "<td>{$row['product_price']}</td>";
-					print "<td>{$row['product_category']}</td>";
-					print "<td>Edit</td>";
-					print "</tr>";
-					}
-
-					mysqli_close($dbc);
-					?>
-
-
-                                    </tbody>
-                                  </form>
-                              </table>
+                                    <?php
+                                    do {
+                                        ?>  
+                                        <tr>
+                                            <td><input class="checkbox1" type="checkbox" name="check[]" > </td>
+                                            <td><img src="image.php?id=<?php echo $row_product["product_id"]; ?>" height="225" width="200" /></td>
+                                            <td><?php echo $row_product['product_name']; ?></td>
+                                            <td><?php echo $row_product['product_code']; ?></td>
+                                            <td><?php echo $row_product['product_stock']; ?></td>
+                                            <td><?php echo $row_product['product_weight']; ?></td>
+                                            <td><?php echo $row_product['product_price']; ?></td>
+                                            <td><?php echo $row_product['product_category']; ?></td>
+                                            <td></td>
+                                      </tr>
+                                      <?php } while ($row_product = mysqli_fetch_assoc($product)); ?>
+                                    
+                                    </tbody>   
+                                </table>
                             </div>
-                            <!-- /.table-responsive -->
-                          
                         </div>
                         <!-- /.panel-body -->
                     </div>
-                    <!-- /.panel -->
+
+                    <!-- ------------------------------------------------ -->
                 </div>
                 <!-- /.col-lg-12 -->
             </div>
@@ -239,28 +224,19 @@
     </div>
     <!-- /#wrapper -->
 
-    <!-- jQuery -->
-    <script src="../bower_components/jquery/dist/jquery.min.js"></script>
+    <script src="../js/jquery-1.11.0.js"></script>
 
     <!-- Bootstrap Core JavaScript -->
-    <script src="../bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
-
-    <!-- Metis Menu Plugin JavaScript -->
-    <script src="../bower_components/metisMenu/dist/metisMenu.min.js"></script>
-
-    <!-- DataTables JavaScript -->
-    <script src="../bower_components/datatables/media/js/jquery.dataTables.min.js"></script>
-    <script src="../bower_components/datatables-plugins/integration/bootstrap/3/dataTables.bootstrap.min.js"></script>
-
-    <!-- Custom Theme JavaScript -->
-    <script src="../dist/js/sb-admin-2.js"></script>
+    <script src="../js/bootstrap.min.js"></script>
+    <script src="../js/plugins/metisMenu/metisMenu.min.js"></script>
+    <script src="../js/plugins/dataTables/jquery.dataTables.js"></script>
+    <script src="../js/plugins/dataTables/dataTables.bootstrap.js"></script>
+    <script src="../js/sb-admin-2.js"></script>
 
     <!-- Page-Level Demo Scripts - Tables - Use for reference -->
     <script>
     $(document).ready(function() {
-        $('#dataTables-example').DataTable({
-                responsive: true
-        });
+        $('#dataTables-example').dataTable();
     });
     </script>
 

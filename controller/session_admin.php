@@ -1,13 +1,13 @@
 <?php
 session_start();
 
-if(!isset($_COOKIE['rand_id']))
-{
+// if(!isset($_COOKIE['rand_id']))
+// {
 
-$_COOKIE['rand_id'] = $ip = $_SERVER['HTTP_CLIENT_IP'];
-print $ip;
+// $_COOKIE['rand_id'] = $ip = $_SERVER['HTTP_CLIENT_IP'];
+// print $ip;
 
-}
+// }
 
 ?>
 
@@ -31,7 +31,7 @@ if(!isset($login_session))
  ?>
     <script language="javascript">
    alert('Please Login');
-   window.location.href="http://elieciouseydabites.com/pages/login.php";
+   window.location.href="../pages/login.php";
 </script>
 
     <?php

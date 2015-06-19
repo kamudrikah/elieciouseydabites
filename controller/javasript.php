@@ -3,6 +3,10 @@
 
 <script language="JavaScript">
 
+function myFunction() {
+			document.getElementById("form_name").reset();
+		}
+
 	<!-- Waktu Dan Tarikh
 	<!--
 	function clock(){
@@ -50,4 +54,21 @@
    		txb.value = txb.value.replace(/[^\0-9]/ig, "");
 		}
 	//-->
+
+	// check box all in product
+
+	$(document).ready(function() {
+    $('#selecctall').click(function(event) {  //on click 
+        if(this.checked) { // check select status
+            $('.checkbox1').each(function() { //loop through each checkbox
+                this.checked = true;  //select all checkboxes with class "checkbox1"               
+            });
+        }else{
+            $('.checkbox1').each(function() { //loop through each checkbox
+                this.checked = false; //deselect all checkboxes with class "checkbox1"                       
+            });         
+        }
+	    });
+	    
+	});
 	</script>	

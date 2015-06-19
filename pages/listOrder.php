@@ -18,7 +18,7 @@
     <title>Admin Panel | Elie`cious Eyda Bites</title>
 
     <!-- Bootstrap Core CSS -->
-    <link href="../bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+   <link href="../bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
 
     <!-- MetisMenu CSS -->
     <link href="../bower_components/metisMenu/dist/metisMenu.min.css" rel="stylesheet">
@@ -35,6 +35,12 @@
     <!-- Custom Fonts -->
     <link href="../bower_components/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
 
+    <link href="../css/bootstrap.min.css" rel="stylesheet">
+    <link href="../css/plugins/metisMenu/metisMenu.min.css" rel="stylesheet">
+    <link href="../css/plugins/dataTables.bootstrap.css" rel="stylesheet">
+    <link href="../css/sb-admin-2.css" rel="stylesheet">
+    <link href="../css/sb-admin-2-2.css" rel="stylesheet">
+    <link href="font-awesome-4.1.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -147,56 +153,42 @@
             <!-- /.row -->
             <div class="row">
                 <div class="col-lg-12">
+                    
+
+                    <!-- ------------------------------------------------ -->
+
                     <div class="panel panel-default">
                         <div class="panel-heading">
                             List of Orders
                         </div>
                         <!-- /.panel-heading -->
                         <div class="panel-body">
-                            <div class="dataTable_wrapper">
-                            
-                            	<table class="table table-striped table-bordered table-hover" width="1036">
-                                 <form action="" method="">
-                                <tr>
-                                    	<td colspan="3">                   	                      
-               	                          <div align="left">
-                   	                          <select name="act">
-                   	                            <option value='' selected>Bulk Actions </option>
-                   	                            <option value='delete'>Delete</option>
-               	                            </select>                                        
-               	                            <button type="button" class="btn btn-info">Apply</button>
-               	                          </div></td>
-                                        <td>
-                                          
+                            <div class="table-responsive">
+                                <table class="table table-striped table-bordered table-hover" id="dataTables-example">
+                                    <thead>
+                                    <td colspan="9">                                          
                                           <div align="left">
-                                              <select name="cat">
-                                            	  <option value='' selected>Select a Category </option>
-                                                <option value='processing'>Processing</option>
-                                                <option value='completed'>Completed</option>
-						<option value='onhold'>On Hold</option>
-                                                <option value='refund'>Refund</option>
-                                                	
-                                            </select>                		   		   
-                                          </div> </td>
-                                        <td> <button type="button" class="btn btn-info">Filter</button></td>
-                                   		<td><input type="text" placeholder="Order ID"/></td>
-                                        <td colspan="3"> <button type="button" class="btn btn-info">Search</button></td>
-                                   <tr>
-                                     <td colspan="8"> </br> </td>
-                                  
-                                   </tr>
-								   <tr>
-                                              <td width="38"><div align="center">
+                                              <select name="act">
+                                                <option value='' selected>Bulk Actions </option>
+                                                <option value='delete'>Delete</option>
+                                            </select>                                        
+                                            <button type="button" class="btn btn-info">Apply</button>
+                                          </div></td>
+                                        <tr>
+                                        <center>
+                                            <th width="2%"><div align="center">
                                               <input type="checkbox"> 
-                                              </td>
-                                              <td width="70"><div align="center"><strong>Status</strong></div></td>
-                                              <td width="326"><div align="center"><strong>Order</strong></div></td>
-                                              <td width="200"><div align="center"><strong>Purchased</strong></div></td>
-                                              <td width="188"><div align="center"><strong>Cash On Delivery</strong></div></td>
-                                              <td width="70"><div align="center"><strong>Delivery Date</strong></div></td>
-                                              <td width="38"><div align="center"><strong>Total</strong></div></td>
-                                              <td width="56"><div align="center"><strong>Actions</strong></div></td>
-                                   </tr>
+                                              </th>
+                                              <th width="10%"><div align="center"><strong>Status</strong></div></th>
+                                              <th width="20%"><div align="center"><strong>Order</strong></div></th>
+                                              <th width="15%"><div align="center"><strong>Purchased</strong></div></th>
+                                              <th width="188"><div align="center"><strong>Cash On Delivery</strong></div></th>
+                                              <th width="15%"><div align="center"><strong>Delivery Date</strong></div></th>
+                                              <th width="15%"><div align="center"><strong>Total</strong></div></th>
+                                              <th width="8%"><div align="center"><strong>Actions</strong></div></th>
+                                        </center>
+                                        </tr>
+                                    </thead>
                                     <tbody>
                                         <tr>
                                             <td><div align="center">
@@ -223,15 +215,13 @@
                                             <td><a href="editOrder.php" >Change Status</a></td>
                                         </tr>
                                     </tbody>
-                                  </form>
-                              </table>
+                                </table>
                             </div>
-                            <!-- /.table-responsive -->
-                          
                         </div>
                         <!-- /.panel-body -->
                     </div>
-                    <!-- /.panel -->
+
+                    <!-- ------------------------------------------------ -->
                 </div>
                 <!-- /.col-lg-12 -->
             </div>
@@ -241,29 +231,19 @@
 
     </div>
     <!-- /#wrapper -->
-
-    <!-- jQuery -->
-    <script src="../bower_components/jquery/dist/jquery.min.js"></script>
+    <script src="../js/jquery-1.11.0.js"></script>
 
     <!-- Bootstrap Core JavaScript -->
-    <script src="../bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
-
-    <!-- Metis Menu Plugin JavaScript -->
-    <script src="../bower_components/metisMenu/dist/metisMenu.min.js"></script>
-
-    <!-- DataTables JavaScript -->
-    <script src="../bower_components/datatables/media/js/jquery.dataTables.min.js"></script>
-    <script src="../bower_components/datatables-plugins/integration/bootstrap/3/dataTables.bootstrap.min.js"></script>
-
-    <!-- Custom Theme JavaScript -->
-    <script src="../dist/js/sb-admin-2.js"></script>
+    <script src="../js/bootstrap.min.js"></script>
+    <script src="../js/plugins/metisMenu/metisMenu.min.js"></script>
+    <script src="../js/plugins/dataTables/jquery.dataTables.js"></script>
+    <script src="../js/plugins/dataTables/dataTables.bootstrap.js"></script>
+    <script src="../js/sb-admin-2.js"></script>
 
     <!-- Page-Level Demo Scripts - Tables - Use for reference -->
     <script>
     $(document).ready(function() {
-        $('#dataTables-example').DataTable({
-                responsive: true
-        });
+        $('#dataTables-example').dataTable();
     });
     </script>
 
