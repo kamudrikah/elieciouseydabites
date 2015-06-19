@@ -20,8 +20,20 @@ $countResultObj = $conn_obj->query($countCartList);
 $row_count = $countResultObj->fetch_assoc();
 $countResult = $row_count['count'];
 
+// Generate Random no from DB
 $sqlRandNo = "SELECT FLOOR(RAND() * 99999) AS random_num FROM `order` WHERE \"random_num\" NOT IN (SELECT order_id FROM `order`) LIMIT 1";
 $randNoResult = $conn_obj->query($sqlRandNo);
 $rowRand = $randNoResult->fetch_assoc();
 $orderNoRand = $rowRand['random_num'];
+
+function getUserInfo($user_id, $conn_obj){
+	$sql = "SELECT * FROM `user` WHERE user_id='$user_id'";
+	$user = Array();
+	$resultUser = $conn_obj->query($sql);
+	if($resultUser->num_rows == 1){
+		while($row = $resultUser->fetch_assoc()){
+			return $row;
+		}
+	}
+}
 ?>
