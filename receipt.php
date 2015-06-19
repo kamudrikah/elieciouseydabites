@@ -104,11 +104,18 @@
 	<section id="do_action">
 		<div class="container">
 			<div class="heading">
+				<?php
+				if(isset($_GET['uploaded'])){
+				?>
+				<p class="bg-success">Receipt has been uploaded seccessfully!</p>
+				<?php
+				}
+				?>
 				<h3>Upload Receipt Payment</h3>
 			</div>
 			<div class="row">
 				<div class="col-sm-6">
-				 <form action="#" method="post" enctype="multipart/form-data">
+				 <form action="./add_reciept.php" method="post" enctype="multipart/form-data">
                                         <table >
                                         	<tr>
                                            		 <td width="107">First Name :</td>
@@ -146,7 +153,7 @@
                                             </tr>
                                             <tr>
                                                  <td colspan="3" align="center">
-                                                 <a class="btn btn-default check_out">Save</a>
+                                                 <button type="submit" class="btn btn-default check_out">Save</button>
                                                  </td>
                                             </tr>  
                                         </table>
