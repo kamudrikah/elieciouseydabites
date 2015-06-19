@@ -1,5 +1,6 @@
 <?php
 include('./controller/session.php');
+include('./controller/globalQuery.php');
 if(!isset($_SESSION['user_id'])){
   header("Location: ./cust_signin.php");
 }
@@ -68,7 +69,7 @@ if(!isset($_SESSION['user_id'])){
           <div class="col-sm-8">
             <div class="shop-menu pull-right">
               <ul class="nav navbar-nav">
-                <li><a href="cart.php?res=getcart"><i class="fa fa-shopping-cart"></i> Cart</a></li>
+                <li><a href="cart.php?res=getcart"><i class="fa fa-shopping-cart"></i> Cart <span> <?php if(isset($countResult)){echo ": ".$countResult." items";} ?></span></a></li>
               </ul>
             </div>
           </div>
@@ -107,12 +108,6 @@ if(!isset($_SESSION['user_id'])){
       </div>
     </div><!--/header-bottom-->
   </header><!--/header-->
-  
-  <section id="advertisement">
-    <div class="container">
-      <img src="images/shop/advertisement.jpg" alt="" />
-    </div>
-  </section>
   
   <section>
     <div class="container">
@@ -180,68 +175,35 @@ if(!isset($_SESSION['user_id'])){
             
 $num_rec_per_page=6;
 
-include "config.php";
-
 if (isset($_GET["page"])) { $page  = $_GET["page"]; } else { $page=1; }; 
 $start_from = ($page-1) * $num_rec_per_page; 
 
 
-$query1= "SELECT * FROM product WHERE product_category = 'Dessert' LIMIT $start_from , $num_rec_per_page";
+$query1= "SELECT * FROM product p JOIN product_price USING (product_id) WHERE product_category = '3' LIMIT $start_from , $num_rec_per_page";
 $rs_result = mysqli_query($conn, $query1);  
 
 
     // output data of each row
   $z = 0;
+  $i = 1;
 while ($row = mysqli_fetch_assoc($rs_result)) { 
-
-
-  ?>          <FORM ACTION="cart.php" method="post">
+  ?>          <FORM ACTION="add_cart.php" method="post">
             <div class="col-sm-4">
               <div class="product-image-wrapper">
                               <div class="single-products">
                   <div class="productinfo text-center">
 
-                    <?php $product_id = $row["unique_id"];   ?>
+                    <?php $product_id = $row["product_id"];   ?>
                     
-                    <input type="hidden" name="item_name[<?php $z; ?>]" value="<?php echo $row["product_name"]; ?>">
-                    <input type="hidden" name="item_code[<?php $z; ?>]" value="<?php echo $product_id; ?>">
+                    <input type="hidden" name="price_id[]" value="<?php echo $row['price_id']; ?>">
+                    <input type="hidden" name="location" value="dessert.php">
                     
                     
-                    <img src="image.php?id=<?php echo $row["unique_id"]; ?>" height="220" width="30" />
+                    <img src="image.php?id=<?php echo $row["product_id"]; ?>" height="220" width="30" />
                     
                     <h2><?php echo $row["product_name"];   ?></h2> <br/>
-                    <p>
-                                         <!-- <h5> <?php //echo $row["product_description"];   ?></h5> --> 
-                                        
-                                          
-                      <?php
-                      $query2= "SELECT * FROM product_price WHERE product_id = '$product_id' ";
-                      $rs_result1 = mysqli_query($conn, $query2);  
-                      $i = 0;
-                      $y = 0;
-                      while ($row1 = mysqli_fetch_assoc($rs_result1)) { 
-                      
-                      
-                      ?>
-                                                <INPUT TYPE="hidden" NAME="item_price[<?php $i ;?>]" VALUE="<?php echo $row1["product_price"]; ?>" >
-                        <input type="hidden" name="item_weight[<?php $i ?>]" value="<?php echo $row1["product_weight"]; ?>">
-                        <?php 
-                        if($row1["product_weight"] != "Not Available")
-                        {
-                        echo $row1["product_weight"] ." " .$row1["product_price"];  } 
-                        else {
-
-                        echo $row1["product_price"];
-
-                        }?><BR>
-                                            
-
-                      
-                      <?php $i =$i +1; } ?>
-                      
-                                                                                        
-                                        </p>
-                    <input type="submit" name="submit" value="Add to cart" class="btn btn-default add-to-cart" />
+                    <p><?=$row['product_weight'];?></p>
+                    <input type="submit" class="btn btn-default add-to-cart" />
                     </FORM>
                     
                   </div>
@@ -263,7 +225,7 @@ while ($row = mysqli_fetch_assoc($rs_result)) {
     
 
 
-$query3= "SELECT * FROM product WHERE product_category = 'Dessert' ";
+$query3= "SELECT * FROM product WHERE product_category = '3' ";
 $result = mysqli_query($conn, $query3);
 $total_records = mysqli_num_rows($result);  //count number of records
 $total_pages = ceil($total_records / $num_rec_per_page); 

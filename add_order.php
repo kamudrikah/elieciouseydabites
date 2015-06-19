@@ -1,7 +1,21 @@
 <?php
-session_start();
 include('./controller/session.php');
-include("./mysqli_con.php");
+include('./controller/globalQuery.php');
+
+// print_r($_POST);
+$order_id = $_POST['orderId'];
+$number = $_POST['number'];
+
+for ($i=0; $i < sizeof($order_id) ; $i++) { 
+	$sql = "UPDATE `order` SET order_no='$orderNoRand', order_qty='$number[$i]', order_status='3' WHERE order_id=$order_id[$i]";
+	if($conn_obj->query($sql) === TRUE){
+		//Send email
+		header("Location: ./invoice.php?order_no=$orderNoRand");
+	}else{
+		die("Connection failed: " . $conn_obj->connect_error);
+	}
+}
+die();
 
 $cust_id=$_SESSION['cust_id'];
 $productId=json_encode($_POST["productId"]);

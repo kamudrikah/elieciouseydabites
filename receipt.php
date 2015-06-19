@@ -1,4 +1,4 @@
-
+<?php include('./controller/session.php'); ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -83,7 +83,11 @@
 						</div>
 						<div class="mainmenu pull-left">
 							<?php
-								include('controller/session_option.php');
+								if(isset($_SESSION['user_id'])){
+									include('./subMenu.php');
+								}else{
+									include('./subMenu_check.php');
+								}
 							?>
 						</div>
 					</div>

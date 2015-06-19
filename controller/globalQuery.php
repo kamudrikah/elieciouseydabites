@@ -1,6 +1,6 @@
 <?php
 
-require_once("../controller/db_connect.php");
+require_once("./controller/db_connect.php");
 
 // Get last Product ID
 $sqlSelect = "SELECT product_id from product ORDER BY product_id DESC LIMIT 1";
@@ -14,4 +14,14 @@ $product = mysqli_query($conn, $listProduct);
 $row_product = mysqli_fetch_assoc($product);
 $total_product_row = mysqli_num_rows($product);
 
+// Cart Count Notification
+$countCartList = "SELECT COUNT(*) count FROM `order` WHERE user_id='".$_SESSION['user_id']."' AND order_status='6'";
+$countResultObj = $conn_obj->query($countCartList);
+$row_count = $countResultObj->fetch_assoc();
+$countResult = $row_count['count'];
+
+$sqlRandNo = "SELECT FLOOR(RAND() * 99999) AS random_num FROM `order` WHERE \"random_num\" NOT IN (SELECT order_id FROM `order`) LIMIT 1";
+$randNoResult = $conn_obj->query($sqlRandNo);
+$rowRand = $randNoResult->fetch_assoc();
+$orderNoRand = $rowRand['random_num'];
 ?>
