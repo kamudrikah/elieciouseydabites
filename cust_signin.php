@@ -1,3 +1,7 @@
+<?php
+include('./controller/javasript.php');
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -118,29 +122,28 @@
                    	    	<td colspan="3"><h3>Login</h3></td>
                        </tr>
                        <tr>
-                      		<td width="117">
-                                &nbsp; &nbsp;  &nbsp; &nbsp;
+                      		<td width="146">
 							  <label>Email</label>
                             </td>
-                            <td width="17"> : </td>
-                            <td width="507">
-                                	<input type="text" name="email" id="email" value=""/>
+                            <td width="9"> <strong>:</strong> </td>
+<td width="507">
+                                	<input type="text"  class="form-control" name="email" id="email" value=""/>
                          </td>
                       </tr> 
                       <tr>
                       		<td>
-                                &nbsp; &nbsp;  &nbsp; &nbsp;
 								<label>Password</label>
                             </td>
-                            <td width="17"> : </td>
-                            <td>
-                                	<input type="password" name="password" id="password" value=""/>
+                            <td width="9"> <strong>:</strong> </td>
+<td>
+                                	<input type="password" class="form-control" name="password" id="password" value=""/>
                             </td>
                       </tr>
                       <tr>
                       	<td colspan="3" align="right">
                       	
                       	<input type="submit" name="submit" >
+                        <input type="reset" name="submit" value="Reset" >
                       	</td>
                       </tr>
                       </form>
@@ -154,59 +157,73 @@
                            <td colspan="3"><h3>Register</h3></td>
                       </tr>
                       <tr>
-                      		<td>
-                                &nbsp; &nbsp;  &nbsp; &nbsp;
-								<label>*First Name</label>
+                      		<td width="146">
+							  <label>*First Name</label>
                             </td>
-                            <td width="17"> : </td>
-                            <td width="507">
-                                	<input type="text" name="Fname" id="Fname" required/>
+                        <td width="11"> <strong>:</strong> </td>
+                            <td width="506">
+                           	  <input type="text" class="form-control" name="Fname" id="Fname" required/>
                         </td>
                       </tr>
                       <tr>
                       		<td>
-                                &nbsp; &nbsp;  &nbsp; &nbsp;
-								<label>Last Name</label>
+							  <label>Last Name</label>
                             </td>
-                            <td width="17"> : </td>
-                            <td width="507">
-                                	<input type="text" name="Lname" id="Lname" />
+                            <td width="11"> <strong>:</strong> </td>
+                            <td width="506">
+                           	  <input type="text" class="form-control" name="Lname" id="Lname" />
                         </td>
                       </tr> 
                       <tr>
                       		<td>
-                                &nbsp; &nbsp;  &nbsp; &nbsp;
-								<label>*Password </label>
+							  <label>Address</label>
                             </td>
-                            <td width="17"> : </td>
-                            <td width="507">
-                                	<input type="password" id="password" name="password" required/>                      
+                            <td width="11"> <strong>:</strong> </td>
+                            <td width="506">
+                   	    <textarea name="address" id="address" class="form-control" cols="45" rows="5"></textarea>                        </td>
+                      </tr> 
+                       <tr>
+                          <td>
+                <label>*Username </label>
+                            </td>
+                            <td width="11"> <strong>:</strong> </td>
+                            <td width="506">
+                              <input type="text" id="username" class="form-control" name="username" required/>                      
+                             </td>
+                      </tr> 
+                      <tr>
+                      <tr>
+                      		<td>
+							  <label>*Password </label>
+                            </td>
+                            <td width="11"> <strong>:</strong> </td>
+                            <td width="506">
+                           	  <input type="password" id="password" class="form-control" name="password" required/>                      
                              </td>
                       </tr> 
                       <tr>
                       		<td>
-                                &nbsp; &nbsp;  &nbsp; &nbsp;
-								<label> *Email </label>
+							  <label> *Email </label>
                             </td>
-                            <td width="17"> : </td>
-                            <td width="507">
-                                	<input type="text" name="Cemail" id="Cemail" required />
+                            <td width="11"> <strong>:</strong> </td>
+                            <td width="506">
+                           	  <input type="text" name="Cemail" class="form-control" id="Cemail" onChange="checkEmail(this);" required />
                         </td>
                       </tr> 
                       <tr>
                       		<td>
-                                &nbsp; &nbsp;  &nbsp; &nbsp;
-								<label> Handphone</label>
+							  <label> Handphone</label>
                             </td>
-                            <td width="17"> : </td>
-                            <td width="507">
-                                	<input type="text" name="hp" id="hp" onChange="numericFilter(this);" required placeholder="01X - XXXXXXX"/>
+                            <td width="11"> <strong>:</strong> </td>
+                            <td width="506">
+                           	  <input type="text" name="hp" id="hp" class="form-control" onChange="numericFilter(this);" required placeholder="01X - XXXXXXX"/>
                         </td>
                       </tr>
                       <tr>
                       	<td colspan="3" align="right">
                        <!--  <button type="submit" class="btn btn-default check_out" onClick="return confirm('Are You Sure?');"> Sign Up</button> -->
                         <input type="submit" name="submit" >
+                        <input type="reset" name="submit" value="Reset" >
 
                      <!--    <a href="cust_login.php"><button type="submit" class="btn btn-default check_out" > Login</button> </a> -->
                       	 </td>
