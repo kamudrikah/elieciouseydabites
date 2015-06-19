@@ -1,5 +1,5 @@
 <?php
-session_start();
+include("./db_connect.php");
 
 if(isset($_POST['submit'])){
 
@@ -32,7 +32,6 @@ if(mysqli_affected_rows($conn) > 0)
   header("Location:/popup/popup_register_success.php");
 }
 
-mysqli_close();
 exit();
 
 }

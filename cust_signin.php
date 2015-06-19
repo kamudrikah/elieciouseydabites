@@ -83,11 +83,6 @@
 								<span class="icon-bar"></span>
 							</button>
 						</div>
-						<div class="mainmenu pull-left">
-							<?php
-              include('controller/session_option.php');
-            ?>
-						</div>
 					</div>
 					<div class="col-sm-3">
 						<div class="search_box pull-right">
