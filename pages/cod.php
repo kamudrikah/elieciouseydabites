@@ -1,6 +1,7 @@
 <?php
    include('../controller/session_admin.php');
    include('../controller/javasript.php');
+   include('../controller/globalQuery.php');
 ?>
 
 
@@ -40,18 +41,7 @@
     <link href="../css/plugins/dataTables.bootstrap.css" rel="stylesheet">
     <link href="../css/sb-admin-2.css" rel="stylesheet">
     <link href="../css/sb-admin-2-2.css" rel="stylesheet">
-    <link href="../font-awesome-4.1.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
-    <script src="../js/bootstrap.min.js"></script>
-    <script src="../js/plugins/metisMenu/metisMenu.min.js"></script>
-    <script src="../js/plugins/dataTables/jquery.dataTables.js"></script>
-    <script src="../js/plugins/dataTables/dataTables.bootstrap.js"></script>
-    <script src="../js/sb-admin-2.js"></script>
-    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
-        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-    <![endif]-->
+    <link href="font-awesome-4.1.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
 </head>
 
 <body onLoad="clock(),date()">
@@ -118,29 +108,21 @@
                             </ul>
                             <!-- /.nav-second-level -->
                         </li>
-                        
-                       
-                       <li>
-                            <a href="#"><i class="fa fa-shopping-cart fa-fw"></i> Products<span class="fa arrow"></span></a>
-                            <ul class="nav nav-second-level">
-                                 <li>
-                                      <a href="addProduct.php"><i class="fa fa-edit fa-fw"></i> Add New Product on Multiple Price</a>
-                                </li>
-                <li>
-                                      <a href="addProductSingle.php"><i class="fa fa-edit fa-fw"></i> Add New Product on Single Price</a>
-                                </li>
-                
-                                <li>
-                                     <a href="listProduct.php"><i class="fa fa-table fa-fw"></i> List Product</a>
-                                </li>
-
-                <li>
-                                     <a href="cod.php"><i class="fa fa-table fa-fw"></i> Add Cash On Delivery Places</a>
-                                </li>
-             
-                            </ul>
-                            <!-- /.nav-second-level -->
-                        </li> 
+                        <li>
+                                    <a href="#"><i class="fa fa-shopping-cart fa-fw"></i> Products<span class="fa arrow"></span></a>
+                                    <ul class="nav nav-second-level">
+                                      <li>
+                                            <a href="addProduct.php"><i class="fa fa-edit fa-fw"></i> Add New Product </a>
+                                        </li>
+                                      <li>
+                                            <a href="listProduct.php"><i class="fa fa-table fa-fw"></i> List Product</a>
+                                          </li>
+                                            <li>
+                                            <a href="cod.php"><i class="fa fa-table fa-fw"></i> Add Cash On Delivery Places</a>
+                                          </li>
+                                    </ul>
+                                    <!-- /.nav-second-level -->
+                              </li> 
                       
                     </ul>
                 </div>
@@ -166,18 +148,20 @@
                             <div class="row">
                                 <div class="col-lg-6">
                              <form action="../controller/add_cod.php" method="post" name="submit">
-                                        <table cellpadding="50" >
+                                        <table width="100%" align="center" cellpadding="50" >
                                             
-                                            <tr>
-                                                 <td>Place</td>
-                                                 <td> : </td>
-                                                 <td>&nbsp; &nbsp;<textarea name="cod" id="cod" rowid="desc" placeholder="COD Place"></textarea></td>
-                                            </tr>
-                                          
-                                             <tr>
-                                                 <td colspan="3" align="center"> &nbsp;  &nbsp;
-                                                   <button type="submit" name="submit" class="btn btn-info">Add</button></td>
-                                            </tr>  
+<tr>
+                                                 <td width="4" height="64"><strong>Place</strong></td>
+                      <td width="4"><strong> :</strong> </td>
+                      <td width="139"><input type="text" name="place" class="form-control" size="35">
+                      <input type="hidden" name="status" value="1"</td>
+               
+                                          </tr>
+                                          <tr>
+                                          <td width="4" >
+                      <button type="submit" name="submit" class="btn btn-info">Add</button></td>
+                                          </tr>
+                                            
                                         </table>
                                   </form>
                                 </div>
@@ -201,26 +185,31 @@
                                     <thead>
                                         <tr>
                                         <center>
-                                            <th align="center">No</th>
-                                            <th align="center">Cash On Delivery Place</th>
-                                        
-                                            <th align="center">Action</th>
+                                        <th width="4%" align="center">No</th>
+                                        <th width="69%" align="center">Cash On Delivery Place</th>
+                                        <th width="27%" align="center">Action</th>
                                         </center>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr class="odd gradeX">
-                                            <td>    </td>
-                                            <td>    </td>
+                                    <?php 
                                     
+                                    if ($total_cod_row!=null) { 
+                                    for ($i=0; $i< $total_cod_row; $i++) { 
+                                    $row = mysqli_fetch_assoc($cod); 
+                                    // {  ?>
+                                        <tr class="odd gradeX">
+                                            <td><?php echo $i+1 ?></td>
+                                            <td><?php echo $row['place'];?>
+                                            </td>
                                             <td>
                                                 <input type="button" name="Delete" value="Delete">
                                             </td>
-                                            
                                         </tr>
-                                        
+                                    <?php } 
+                                    } ?>
                                     </tbody>
-                                </table>
+                                </table>    
                             </div>
                         </div>
                         <!-- /.panel-body -->
@@ -240,22 +229,11 @@
 
     </div>
     <!-- /#wrapper -->
-
-    <!-- jQuery -->
-     <script src="../bower_components/jquery/dist/jquery.min.js"></script>
-
-    <!-- Bootstrap Core JavaScript -->
-    <script src="../bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
-
-    <!-- Metis Menu Plugin JavaScript -->
-    <script src="../bower_components/metisMenu/dist/metisMenu.min.js"></script>
-
-    <!-- DataTables JavaScript -->
-    <script src="js/plugins/dataTables/jquery.dataTables.js"></script>
-    <script src="js/plugins/dataTables/dataTables.bootstrap.js"></script>
-
-    <!-- Custom Theme JavaScript -->
-    <script src="js/sb-admin-2.js"></script>
+<script src="../js/bootstrap.min.js"></script>
+    <script src="../js/plugins/metisMenu/metisMenu.min.js"></script>
+    <script src="../js/plugins/dataTables/jquery.dataTables.js"></script>
+    <script src="../js/plugins/dataTables/dataTables.bootstrap.js"></script>
+    <script src="../js/sb-admin-2.js"></script>
 
     <!-- Page-Level Demo Scripts - Tables - Use for reference -->
     <script>
