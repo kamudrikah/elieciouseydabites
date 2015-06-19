@@ -161,7 +161,7 @@ var arrayProd = [];
 								<td class="cart_quantity">
 									<div class="cart_quantity_button">
 										<a><input type="button" id="increment<?=$row['price_id']?>" value="+" size="2" /></a>
-										<input class="cart_quantity_input" type="text" name="number[]" id="number<?=$row['price_id']?>" value="1" size="2" min="0" readonly="readonly">
+										<input class="cart_quantity_input" type="text" name="number[]" id="number<?=$row['price_id']?>" value="<?=$row['order_qty']?>" size="2" min="0" readonly="readonly">
 										<a><input type="button" id="decrease<?=$row['price_id']?>" value="-" size="2" /></a>
 									</div>
 									<script type="text/javascript">
@@ -181,6 +181,7 @@ var arrayProd = [];
 										});
 										$(".totalPayment").html("RM "+totalPayment);
 										$(".totalPayment").val("RM "+totalPayment);
+										updateQty(<?=$row['order_id']?>,no);
 									});
 									$("#decrease<?=$row['price_id']?>").click(function(){
 										var no = parseInt($("#number<?=$row['price_id']?>").val())-1;
@@ -203,6 +204,7 @@ var arrayProd = [];
 										});
 										$(".totalPayment").html("RM "+totalPayment);
 										$(".totalPayment").val("RM "+totalPayment);
+										updateQty(<?=$row['order_id']?>,no);
 									});
 									</script>
 								</td>
@@ -342,6 +344,16 @@ var arrayProd = [];
 	</div>
 </footer><!--/Footer-->	
 
+<script type="text/javascript">
+	function updateQty(order_id,qty){
+		$.post(
+			"./updateQty.php", // url
+			{order_id: order_id, qty: qty}, // data
+			function(data){console.log(data);}, //success
+			"json"
+		);
+	}
+</script>
 <script src="js/jquery.js"></script>
 <script src="js/bootstrap.min.js"></script>
 <script src="js/jquery.scrollUp.min.js"></script>

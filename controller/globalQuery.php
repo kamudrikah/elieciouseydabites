@@ -26,6 +26,7 @@ $randNoResult = $conn_obj->query($sqlRandNo);
 $rowRand = $randNoResult->fetch_assoc();
 $orderNoRand = $rowRand['random_num'];
 
+// Get all USER info
 function getUserInfo($user_id, $conn_obj){
 	$sql = "SELECT * FROM `user` WHERE user_id='$user_id'";
 	$user = Array();
@@ -34,6 +35,14 @@ function getUserInfo($user_id, $conn_obj){
 		while($row = $resultUser->fetch_assoc()){
 			return $row;
 		}
+	}
+}
+
+// Update quantity for cart in ORDER table
+function updateQty($order_id, $qty, $conn_obj){
+	$sql = "UPDATE `order` SET order_qty='$qty' WHERE order_id='$order_id'";
+	if($conn_obj->query($sql) === TRUE){
+		return TRUE;
 	}
 }
 ?>

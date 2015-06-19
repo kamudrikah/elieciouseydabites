@@ -62,6 +62,14 @@ function generate_email($conn_obj,$user_id, $orderNoRand,$deliveryLocation){
 		$emailContent .= "<script src='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js'></script>";
 		$emailContent .= "</html>";
 		echo $emailContent;
+
+		$to = $user['email'];
+		$subject = "Eliciouseybites Invoice";
+		$headers = "MIME-Version: 1.0" . "\r\n";
+		$headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
+		$headers .= 'From: webmaster@eliciouseybites.com' . "\r\n";
+
+		mail($to,$subject,$emailContent,$headers);
 	}
 }
 die();
