@@ -1,6 +1,7 @@
 <?php
 include('./controller/session.php');
 include('./controller/globalQuery.php');
+print_r($_SERVER);
 if(!isset($_SESSION['user_id'])){
   header("Location: ./cust_signin.php");
 }
