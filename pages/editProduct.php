@@ -1,7 +1,23 @@
         <?php
+
+           $id = $_GET['id'];
+
+           require_once("../controller/db_connect.php");
            include('../controller/session_admin.php');
            include('../controller/javasript.php');
            include('../controller/globalQuery.php');
+
+           // List All Detail Product For Price 1
+            $price1 = "SELECT * from product p, product_price pc, status s, category c 
+            where p.product_id = pc.product_id AND pc.price_id = $id AND p.product_category = c.cat_id AND pc.product_status = s.status_id ORDER BY pc.price_id ASC";
+            $detail1 = mysqli_query($conn, $price1);
+            $prod = mysqli_fetch_assoc($detail1);
+
+            // List All Detail Product For Price 2
+            $price2 = "SELECT * from product p, product_price pc, status s, category c 
+            where p.product_id = pc.product_id AND p.product_id = $id AND p.product_category = c.cat_id AND pc.product_status = s.status_id ORDER BY pc.price_id DESC";
+            $detail2 = mysqli_query($conn, $price2);
+            $prod2 = mysqli_fetch_assoc($detail2);
         ?>
 
 
@@ -18,32 +34,21 @@
 
             <title>Admin Panel | Elie`cious Eyda Bites</title>
 
-            <!-- Bootstrap Core CSS -->
             <link href="../bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
-
-            <!-- MetisMenu CSS -->
             <link href="../bower_components/metisMenu/dist/metisMenu.min.css" rel="stylesheet">
-
-            <!-- Timeline CSS -->
             <link href="../dist/css/timeline.css" rel="stylesheet">
-
-            <!-- Custom CSS -->
             <link href="../dist/css/sb-admin-2.css" rel="stylesheet">
-
-            <!-- Morris Charts CSS -->
             <link href="../bower_components/morrisjs/morris.css" rel="stylesheet">
-
-            <!-- Custom Fonts -->
             <link href="../bower_components/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+            <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
 
-            <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-            <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-            <!--[if lt IE 9]>
-                <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-                <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-            <![endif]-->
-            <script src="SpryAssets/SpryValidationTextField.js" type="text/javascript"></script>
-            <link href="SpryAssets/SpryValidationTextField.css" rel="stylesheet" type="text/css">
+<script language="JavaScript">
+                function myFunction() {
+            document.getElementById("form_name").reset();
+        }
+
+            </script>
             <style type="text/css">
     <!--
     .style1 {color: #FF0000}
@@ -163,11 +168,13 @@
                                      <form action="processInsertDouble.php" method="POST" name="form_name" enctype="multipart/form-data">
                                                <table width="112%" border="0" bordercolor="" bgcolor="">
 
-       	       <tr>                                   <input type="hidden" name="lastProduct" value="<?php echo $product_id+1 ?>">
+       	       <tr>                                     <input type="text" name="productId" value="<?=$prod['product_id'];?>">
+                                                        <input type="text" name="priceId1" value="<?=$prod['price_id'];?>">
+                                                        <input type="text" name="priceId2" value="<?=$prod2['price_id'];?>">
                                                    		 <td width="281" height="34">* Name </td>
 
                           <td width="8"> <strong>:</strong> </td>
-           		       <td width="847"><input type="text" name="productName" id="productName" required placeholder="NAME *"/></td>
+           		       <td width="847"><input type="text" name="productName" id="productName" value="<?=$prod['product_name'];?>" class="form-control" required placeholder="NAME *"/></td>
                                                  </tr>
                                                     <tr>                                          
                                                          <td colspan="3"></br> </td>
@@ -176,15 +183,37 @@
                                                    		 <td>* Description </td>
                                                          <td> <strong>:</strong> </td>
     <td>
-      <textarea name="productDesc" id="productDesc" cols="22" rows="5" required placeholder="Capitalize Each Word"></textarea>  &nbsp;                                                	 <font color="#0099FF"> optional </font></td>
+      <textarea name="productDesc" id="productDesc" class="form-control" cols="22" rows="5" required placeholder="Capitalize Each Word"> <?=$prod['product_description'];?></textarea>                                              	 
+      <font color="#0099FF"> optional </font></td>
                                                   </tr>
                                                      <tr>                                          
                                                          <td colspan="3"></br> </td>
                                                     </tr>
+                                                    <tr>     
+                                                        <td height="37">* Category </td>
+                                                        <td> <strong>:</strong> </td>
+                                                        <td>
+                                                        <?php
+                                                         echo "<select name=productCategory  class=form-control><option>Select Category</option>"; 
+                                                         
+
+                                                            foreach ($con->query($categoryList) as $row){
+                                                            echo "<option value=$row[cat_id]>$row[cat_name]</option>"; 
+
+                                                            }
+
+                                                             echo "</select>";
+                                                         ?>
+                                                        </td>
+
+
+                                                  </tr>
                                                     <tr>
                                                    		 <td>* Add Media </td>
                                                          <td> <strong>:</strong> </td>
-                                                   	  <td><input type="file" name="image" required></td>
+                                                   	  <td>
+                                                      <img src="image.php?id=<?php echo $prod["product_id"]; ?>" height="155" width="140" />
+                                                      <input type="file" name="image" required class="form-control" ></td>
                                                     </tr>
                                                      <tr>                                          
                                                          <td colspan="3"></br> </td>
@@ -193,21 +222,45 @@
                 	                                     <td height="36"><b>* Price 1 (RM)</b></td> 
             	                                         <td> <strong>:</strong> </td>
     <td><span id="sprytextfield2">
-                                                       <input type="text" onKeyUp="numericFilter(this);" required name="productPrice1" id="productPrice1" placeholder="RM30 / RM3.50"/>
+                                                       <input type="text" class="form-control" value="<?=$prod['product_price'];?>" onKeyUp="numericFilter(this);" required name="productPrice1" id="productPrice1" placeholder="RM30 / RM3.50"/>
                                                         </td>
                                                     </tr>
                                                     <tr>
                                                          <td height="38">* Barcode</td>
                                                          <td>  <strong>:</strong> </td>
                                                    <td><span id="sprytextfield3">
-                                                           <input type="text" name="producCode1" id="producCode1" required placeholder="0123456789"/>
+                                                           <input type="text" class="form-control" value="<?=$prod['product_code'];?>" name="producCode1" id="producCode1" required placeholder="0123456789"/>
                                                       </td> </tr>
                                                     <tr>
                                                   <tr>
                 	                                     <td height="37">* Weight</td> 
             	                                         <td> <strong>:</strong> </td>
-        	                                             <td><input type="text" required name="productWeight1" onKeyUp="numericFilter(this);" id="productWeight1" placeholder="1/2KG , 2KG, 1.4KG or 8 Inch"/> <font color="#0099FF"> optional </font></td>
+        	                                             <td><input type="text" class="form-control" value="<?=$prod['product_weight'];?>" required name="productWeight1" id="productWeight1" placeholder="1/2KG , 2KG, 1.4KG or 8 Inch"/> <font color="#0099FF"> optional </font></td>
                                                   </tr>
+                                                  <tr>
+                                                         <td>Stock</td>
+                                                         <td> <strong>:</strong> </td>
+                                                         <td>
+                                                         <!-- 
+                                                         status 8 = available
+                                                         status 9 =  nott available
+                                                          -->
+                                                         <?php 
+                                                         if ($prod['status_id']==8) {?>
+                                                             <input type="radio" class="form-class" checked name="productStock" value="8">Stock Available
+                                                                <br/>
+                                                             <input type="radio" class="form-class" name="productStock" value="9">Stock Not Available     
+                                                         <?php } else if ($prod['status_id']==9) {?>
+                                                             <input type="radio" class="form-class"  name="productStock" value="8">Stock Available
+                                                                <br/>
+                                                             <input type="radio" class="form-class" checked name="productStock" value="9">Stock Not Available
+                                                         <?php } else { ?>
+                                                             <input type="radio" class="form-class" name="productStock" value="8">Stock Available
+                                                                <br/>
+                                                             <input type="radio" class="form-class" name="productStock" value="9">Stock Not Available
+                                                         <?php } ?>
+                                                         </td>
+                                                    </tr>
                                                      <tr>                                          
                                                          <td colspan="3"></br> </td>
                                                     </tr>
@@ -218,54 +271,59 @@
                 	                                     <td height="32"><b>Price 2 (RM)</b></td> 
             	                                         <td> <strong>:</strong> </td>
                                                        <td><span id="sprytextfield4">
-                                                       <input type="text" name="productPrice2" onKeyUp="numericFilter(this);" id="productPrice2" placeholder="RM30 / RM3.50"/>
+                                                       <input type="text" name="productPrice2" class="form-control" value="<?=$prod2['product_price'];?>" onKeyUp="numericFilter(this);" id="productPrice2" placeholder="RM30 / RM3.50"/>
                                                        </td>
                                                   </tr>
                                                     <tr>
                                                          <td height="39">Barcode</td>
                                                          <td>  <strong>:</strong> </td>
                                                          <td>
-                                                           <input type="text" name="productCode2" onKeyUp="numericFilter(this);" id="productCode2" placeholder="0123456789"/>
+                                                           <input type="text" name="productCode2" class="form-control" value="<?=$prod2['product_code'];?>" id="productCode2" placeholder="0123456789"/>
                                                 </td> </tr>
                                                     <tr>
                                                   <tr>
                 	                                     <td height="35">Weight</td> 
             	                                         <td> <strong>:</strong> </td>
-        	                                             <td><input type="text" name="productWeight2" onKeyUp="numericFilter(this);" id="productWeight2" placeholder="1/2KG , 2KG, 1.4KG or 8 Inch"/> <font color="#0099FF"> optional </font></td>
+        	                                             <td><input type="text" name="productWeight2" class="form-control" value="<?=$prod2['product_weight'];?>" id="productWeight2" placeholder="1/2KG , 2KG, 1.4KG or 8 Inch"/> <font color="#0099FF"> optional </font></td>
                                                   </tr>
-                                                     <tr>                                          
-                                                         <td colspan="3"></br> </td>
-                                                    </tr>
-                                                    <tr>     
-                                                        <td height="37">* Category </td>
-                                                        <td> <strong>:</strong> </td>
-                                                        <td><select name="productCategory" id="productCategory" required>
-                                                          <option value='' selected>Select a Category </option>
-                                                          <option value='promotion'>Promotion</option>
-                                                          <option value='cake'>Cake</option>
-                                                          <option value='dessert'>Dessert</option>
-                                                          <option value='cookies'>Cookies</option>
-                                                          <option value='cupcake'>Cup Cake</option>
-                                                        </select>
-                                                        </td>
-                                                  </tr>
-                                                     <tr>                                          
-                                                         <td colspan="3"></br> </td>
-                                                    </tr>
+                                                     
                                                      <tr>
-                                                   		 <td>Stock</td>
+                                                         <td>Stock</td>
                                                          <td> <strong>:</strong> </td>
-                                                    	 <td><input type="checkbox" name="productStock" value="Yes">Stock Available
-                                                             <br/>
-                                                             <input type="checkbox" name="productStock" value="No">Stock Not Available                                                     </td>
+                                                         <td>
+                                                         <!-- 
+                                                         status 8 = available
+                                                         status 9 =  nott available
+                                                          -->
+                                                         <?php 
+                                                         if ($prod['status_id']==8) {?>
+                                                             <input type="radio" class="form-class" checked name="productStock2" value="8">Stock Available
+                                                                <br/>
+                                                             <input type="radio" class="form-class" name="productStock2" value="9">Stock Not Available     
+                                                         <?php } else if ($prod['status_id']==9) {?>
+                                                             <input type="radio" class="form-class"  name="productStock2" value="8">Stock Available
+                                                                <br/>
+                                                             <input type="radio" class="form-class" checked name="productStock2" value="9">Stock Not Available
+                                                         <?php } else { ?>
+                                                             <input type="radio" class="form-class" name="productStock2" value="8">Stock Available
+                                                                <br/>
+                                                             <input type="radio" class="form-class" name="productStock2" value="9">Stock Not Available
+                                                         <?php } ?>
+                                                         </td>
                                                     </tr>
+                                                    
                                                      <tr>                                          
                                                          <td colspan="3"></br> </td>
                                                     </tr>
                                                      <tr>
-                                                     	 <td colspan="3" align="center"> <button type="reset" class="btn btn-info" onClick="myFunctionRegister()">Reset
-                                                         </button> <button type="submit" class="btn btn-info" onClick="return confirm('All Data Complete?');">Add
-                                                         </button></td>
+                                                     	 <td colspan="3" align="center"> <button type="button" class="btn btn-info" onClick="myFunctionRegister()">Reset</button> 
+                                                         <?php if($id != null)  {?>
+                                                         <button type="submit" class="btn btn-info" onClick="return confirm('All Data Complete?');">Update
+                                                         </button>
+                                                         <?php } else { ?> 
+                                                         <button type="submit" class="btn btn-info" onClick="return confirm('All Data Complete?');">Add
+                                                         </button>
+                                                         <?php } ?></td>
                                                     </tr>  
                                                 </table>
                                           </form>

@@ -12,7 +12,10 @@ $image_upload =addslashes(file_get_contents($_FILES['image']['tmp_name']));
 
 
 //$id = $_FILES['picx']['name'];
-$lastProduct = $_POST['lastProduct'];
+$productId = $_POST['productId'];
+$priceId1 = $_POST['priceId1'];
+$priceId2 = $_POST['priceId2'];
+$productStock2 = $_POST['productStock2'];
 $productName = $_POST['productName'];
 $productDesc = $_POST['productDesc'];
 $productPrice1 = $_POST['productPrice1'];
@@ -23,34 +26,65 @@ $productCode2 = $_POST['productCode2'];
 $productWeight2 = $_POST['productWeight2'];
 $productCategory = $_POST['productCategory'];
 $productStock = $_POST['productStock'];
+$productStock2 = $_POST['productStock2'];
 
-$unique_id = uniqid();
-$unik = md5($unique_id);
-$unik1 = $unik;
-
-
-$sql = "INSERT INTO product(product_name,product_description,product_category,product_stock,product_picture) 
-VALUES ('$productName','$productDesc','$productCategory','$productStock','$image_upload')";
-
-$price1 = "INSERT INTO product_price(product_id,product_code,product_price,product_weight) 
-VALUES ('$lastProduct','$producCode1','$productPrice1','$productWeight1')";
-
-if ($productPrice2 !="" && $productCode2 != "")
-{
-	$price2 = "INSERT INTO product_price(product_id,product_code,product_price,product_weight) 
-VALUES ('$lastProduct','$productCode2','$productPrice2','$productWeight2')";
-}
+print_r($productCategory);
 
 
+if ($productId==null){
 
-require_once("../controller/db_connect.php");
-print mysqli_query($conn,$sql);
-print mysqli_query($conn,$price1);
-print mysqli_query($conn,$price2);
+	$sql = "INSERT INTO product(product_name,product_category,product_description,product_picture) 
+	VALUES ('$productName','$productCategory','$productDesc','$image_upload')";
 
-if(mysqli_affected_rows($conn) > 0)
-{
-    header("Location:listProduct.php");
+	$price1 = "INSERT INTO product_price(product_id,product_code,product_price,product_weight,product_status) 
+	VALUES ('$lastProduct','$producCode1','$productPrice1','$productWeight1','$productStock')";
+
+	if ($productPrice2 !="" && $productCode2 != "" && $productWeight2 != "")
+	{
+		$price2 = "INSERT INTO product_price(product_id,product_code,product_price,product_weight,product_status) 
+	VALUES ('$lastProduct','$productCode2','$productPrice2','$productWeight2','$productStock2')";
+	}
+
+
+
+	require_once("../controller/db_connect.php");
+	print mysqli_query($conn,$sql);
+	print mysqli_query($conn,$price1);
+	print mysqli_query($conn,$price2);
+
+	if(mysqli_affected_rows($conn) > 0)
+	{
+	    echo "<script type='text/javascript'>alert('Data Save');self.location='listProduct.php';</script>";
+	}
+
+}else {
+
+
+
+	$sql = "UPDATE product SET product_name ='$productName', product_description = '$productDesc',
+	product_category = '$productCategory', product_picture = '$image_upload' WHERE product_id =$productId";
+
+	$price1 = "UPDATE product_price SET product_id = '$productId', product_code = '$producCode1', product_price = '$productPrice1',
+	product_weight = '$productWeight1', product_status = '$productStock' WHERE price_id = $priceId1";
+
+	if ($productPrice2 !=null && $productCode2 != null && $productWeight2 != null)
+	{
+		$price2 = "UPDATE product_price SET product_id = '$productId', product_code = '$productCode2', product_price = '$productPrice2',
+	product_weight = '$productWeight2', product_status = '$productStock2' WHERE price_id = $priceId2";
+	}
+
+
+
+	require_once("../controller/db_connect.php");
+	print mysqli_query($conn,$sql);
+	print mysqli_query($conn,$price1);
+	print mysqli_query($conn,$price2);
+
+	if(mysqli_affected_rows($conn) > 0)
+	{
+	    echo "<script type='text/javascript'>alert('Data Update');self.location='listProduct.php';</script>";
+	}
+
 }
 
 mysqli_close($conn);

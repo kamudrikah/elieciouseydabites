@@ -1,7 +1,6 @@
 <?php
    include('../controller/session_admin.php');
    include('../controller/javasript.php');
-
 ?>
 
 
@@ -109,28 +108,21 @@
                             <!-- /.nav-second-level -->
                         </li>
                         
-                       
                        <li>
-                            <a href="#"><i class="fa fa-shopping-cart fa-fw"></i> Products<span class="fa arrow"></span></a>
-                            <ul class="nav nav-second-level">
-                                 <li>
-                          			  <a href="addProduct.php"><i class="fa fa-edit fa-fw"></i> Add New Product on Multiple Price</a>
-                        		</li>
-				<li>
-                          			  <a href="addProductSingle.php"><i class="fa fa-edit fa-fw"></i> Add New Product on Single Price</a>
-                        		</li>
-				
-                                <li>
-                           			 <a href="listProduct.php"><i class="fa fa-table fa-fw"></i> List Product</a>
-                      		    </li>
-
-				<li>
-                           			 <a href="cod.php"><i class="fa fa-table fa-fw"></i> Add Cash On Delivery Places</a>
-                      		    </li>
-				
-                            </ul>
-                            <!-- /.nav-second-level -->
-                        </li> 
+                                    <a href="#"><i class="fa fa-shopping-cart fa-fw"></i> Products<span class="fa arrow"></span></a>
+                                    <ul class="nav nav-second-level">
+                                      <li>
+                                            <a href="addProduct.php"><i class="fa fa-edit fa-fw"></i> Add New Product </a>
+                                        </li>
+                                      <li>
+                                            <a href="listProduct.php"><i class="fa fa-table fa-fw"></i> List Product</a>
+                                          </li>
+                                            <li>
+                                            <a href="cod.php"><i class="fa fa-table fa-fw"></i> Add Cash On Delivery Places</a>
+                                          </li>
+                                    </ul>
+                                    <!-- /.nav-second-level -->
+                              </li> 
                        
                     </ul>
                 </div>
@@ -160,14 +152,13 @@
                         <!-- /.panel-heading -->
                         <div class="panel-body">
                                 <?php
-                                $q="SELECT * FROM admin WHERE adm_id='{$user_check}' ";
-                                require_once("config.php");
-                                $result = mysqli_query($dbc,$q);
+                                $admin="SELECT * FROM user WHERE user_id='{$user_id}' ";
+                                $result = mysqli_query($conn,$admin);
                                 if(mysqli_num_rows($result) > 0)
                                 {
 
                                     $record = mysqli_fetch_array($result);
-                                    $user_username = $record['adm_name'];
+                                    $first_name = $record['first_name'];
 
                                 }
 
@@ -176,7 +167,7 @@
                                     
                                     <div class="timeline-panel">
                                         <div class="panel-heading">
-                                            <h4 class="timeline-title">Hye, <?php echo $user_username; ?></h4>
+                                            <h4 class="timeline-title">Hye, <?php echo $first_name; ?></h4>
                                             
                                         </div>
                                         <div class="panel-body">
@@ -186,37 +177,21 @@
                                                <table width="463">
                                                 <tr> 
                                                      <td width="199">Name  </td>
-                                                  <td width="252"><?php echo $record['adm_name']; ?><!-- <input type="text" placeholder="Name" /> --></td>
+                                                     <td><strong>:</strong></td>
+                                                  <td width="252"><?php echo $record['first_name']; ?>
+                                                  <?php echo $record['last_name']; ?><!-- <input type="text" placeholder="Name" /> --></td>
                                                 </tr>
-                                                <!--
-                                                <tr>
-                                                    <td>First Name </td>
-                                                    <td><input type="text" placeholder="First Name" /></td> </tr>
-                                                
-                                                <tr>    
-                                                     <td>Last Name </td>
-                                                     <td><input type="text" placeholder="Last Name" /></td> 
-                                                </tr>
-
-                                                
-                                                <tr>   
-                                                     <td>Password</td>
-                                                     <td><input type="text" placeholder="Password" /></td> 
-                                                </tr>
-                                                
-                                                <tr> 
-                                                    <td>Repeat Password</td>
-                                                   <td><input type="text" placeholder="Repeat Password" /> </td> 
-                                                </tr>
-                                                -->
+                                            
                                                 <tr>    
                                                       <td>Number HP</td>
-                                                      <td><?php echo $record['adm_hp']; ?><!-- <input type="text" placeholder="Number Hp" /> -->  </td> 
+                                                      <td><strong>:</strong></td>
+                                                      <td><?php echo $record['phone']; ?><!-- <input type="text" placeholder="Number Hp" /> -->  </td> 
                                                 </tr>
                                                 
                                                 <tr>    
                                                       <td>Email</td>
-                                                      <td><?php echo $record['adm_email']; ?> <!-- <input type="text" placeholder="Email" /> --> </td> 
+                                                      <td><strong>:</strong></td>
+                                                      <td><?php echo $record['email']; ?> <!-- <input type="text" placeholder="Email" /> --> </td> 
                                                 </tr>
                                                 
                                                

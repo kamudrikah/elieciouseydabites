@@ -10,29 +10,28 @@ $pass = $_POST['password'];
 
 if(empty($logName) || empty($pass))
 {
-  ?>
-    <script language="javascript">
-   alert('Please Insert Data');
-   window.location.href="../pages/login.php";
-</script>
 
-    <?php
+  echo "
+  <script>
+  alert('Please Insert Data');
+  window.location.href='../pages/login.php';
+  </script>";
+
   exit();
 }
 
-$q="SELECT adm_id FROM admin WHERE adm_username='$logName' AND adm_pwd='$pass' AND role_id=1";
+$q="SELECT user_id FROM user WHERE email='$logName' AND password='$pass' AND role = 'admin'";
 
-include('../controller/db_connect.php');
 $result = mysqli_query($conn,$q);
 if(mysqli_num_rows($result) <= 0)
 {
-   ?>
-    <script language="javascript">
-   alert('Invalid Username and Password');
-     // window.location.href="http://elieciouseydabites.com/pages/login.php";
-</script>
 
-    <?php
+  echo "
+  <script>
+  alert('Invalid Username and Password');
+  window.location.href='../pages/login.php';
+  </script>";
+
   mysqli_close($conn);
   exit();
 }
@@ -41,15 +40,14 @@ else
   
   $record = mysqli_fetch_array($result);
   
-  session_start();
-  $_SESSION['adm_id'] = $record['adm_id'];
-?>
-    <script language="javascript">
-   alert('Login Successful');
-   window.location.href="../pages/index.php";
-</script>
+  $_SESSION['user_id'] = $record['user_id'];
 
-    <?php
+  echo "
+  <script>
+  alert('Login Successful');
+  window.location.href='../pages/index.php';
+  </script>";
+
   mysqli_close($conn);
   exit();
   

@@ -47,7 +47,7 @@ function myFunction() {
 		}
 		
 	function myFunction() {
-			document.getElementById("insert").reset();
+			document.getElementById("form_name").reset();
 		}
 		
 	function numericFilter(txb) {
@@ -71,4 +71,17 @@ function myFunction() {
 	    });
 	    
 	});
+
+	function checkEmail() {
+
+    var email = document.getElementById('Cemail');
+    var filter = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+
+    if (!filter.test(email.value)) {
+    alert('Please provide a valid email address');
+    email.focus;
+    email.value = null;
+    return false;
+	 }
+	}
 	</script>	

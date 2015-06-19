@@ -116,28 +116,21 @@
                             <!-- /.nav-second-level -->
                         </li>
                         
-                       
                        <li>
-                            <a href="#"><i class="fa fa-shopping-cart fa-fw"></i> Products<span class="fa arrow"></span></a>
-                            <ul class="nav nav-second-level">
-                                 <li>
-                          			  <a href="addProduct.php"><i class="fa fa-edit fa-fw"></i> Add New Product on Multiple Price</a>
-                        		</li>
-				<li>
-                          			  <a href="addProductSingle.php"><i class="fa fa-edit fa-fw"></i> Add New Product on Single Price</a>
-                        		</li>
-				
-                                <li>
-                           			 <a href="listProduct.php"><i class="fa fa-table fa-fw"></i> List Product</a>
-                      		    </li>
-
-				<li>
-                           			 <a href="cod.php"><i class="fa fa-table fa-fw"></i> Add Cash On Delivery Places</a>
-                      		    </li>
-				
-                            </ul>
-                            <!-- /.nav-second-level -->
-                        </li> 
+                                    <a href="#"><i class="fa fa-shopping-cart fa-fw"></i> Products<span class="fa arrow"></span></a>
+                                    <ul class="nav nav-second-level">
+                                      <li>
+                                            <a href="addProduct.php"><i class="fa fa-edit fa-fw"></i> Add New Product </a>
+                                        </li>
+                                      <li>
+                                            <a href="listProduct.php"><i class="fa fa-table fa-fw"></i> List Product</a>
+                                          </li>
+                                            <li>
+                                            <a href="cod.php"><i class="fa fa-table fa-fw"></i> Add Cash On Delivery Places</a>
+                                          </li>
+                                    </ul>
+                                    <!-- /.nav-second-level -->
+                              </li> 
                     </ul>
                 </div>
                 <!-- /.sidebar-collapse -->
@@ -177,15 +170,15 @@
                                           </div></td>
                                         <tr>
                                         <center>
-                                              <th width="3%"><input type="checkbox" id="selecctall"> </th>
-                                              <th width="21%">Image</th>
-                                              <th width="21%">Name</th>
+                                              <th width="5%"><input type="checkbox" id="selecctall"> </th>
+                                              <th width="18%">Image</th>
+                                              <th width="18%">Name</th>
                                               <th width="12%">Barcode</th>
                                               <th width="12%">Stock</th>
-                                              <th width="14%">Weight</th>
-                                              <th width="14%">Price</th>
+                                              <th width="10%">Weight</th>
+                                              <th width="10%">Price</th>
                                               <th width="20%">Categories</th>
-                                              <th width="20%">Action</th>
+                                              <th width="10%">Action</th>
                                               </center>
                                    </tr>
                                     </thead>
@@ -195,14 +188,20 @@
                                         ?>  
                                         <tr>
                                             <td><input class="checkbox1" type="checkbox" name="check[]" > </td>
-                                            <td><img src="image.php?id=<?php echo $row_product["product_id"]; ?>" height="225" width="200" /></td>
+                                            <td><img src="image.php?id=<?php echo $row_product["price_id"]; ?>" height="155" width="140" /></td>
                                             <td><?php echo $row_product['product_name']; ?></td>
                                             <td><?php echo $row_product['product_code']; ?></td>
                                             <td><?php echo $row_product['product_stock']; ?></td>
                                             <td><?php echo $row_product['product_weight']; ?></td>
                                             <td><?php echo $row_product['product_price']; ?></td>
                                             <td><?php echo $row_product['product_category']; ?></td>
-                                            <td></td>
+                                            <td>
+                                            <center>
+                                            <input type="text" name="id" size="4" value=" <?=$row_product['price_id'];?>" >
+                                            <a href="editProduct.php?id=<?=$row_product['price_id']; ?>">
+                                            <button type="button" name="" class="btn btn-info">
+                                            Edit</button></a>
+                                            </center></td>
                                       </tr>
                                       <?php } while ($row_product = mysqli_fetch_assoc($product)); ?>
                                     
