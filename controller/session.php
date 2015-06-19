@@ -1,16 +1,4 @@
 <?php
-session_start();
-
-if(!isset($_COOKIE['rand_id']))
-{
-
-$_COOKIE['rand_id'] = $ip = $_SERVER['HTTP_CLIENT_IP'];
-// print $ip;
-
-}
-
-?>
-<?php
 include('controller/db_connect.php');
 session_start();
 

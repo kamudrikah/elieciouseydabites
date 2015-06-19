@@ -1,15 +1,4 @@
 <?php
-if(!isset($_COOKIE['rand_id']))
-{
-
-$_COOKIE['rand_id'] = $ip = $_SERVER['HTTP_CLIENT_IP'];
-print $ip;
-
-}
-
-?>
-
-<?php
 include('controller/db_connect.php');
 $user_check=$_SESSION['cust_id'];
 
