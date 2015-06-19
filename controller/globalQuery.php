@@ -45,7 +45,7 @@ $row_count = $countResultObj->fetch_assoc();
 $countResult = $row_count['count'];
 
 // Generate Random no from DB
-$sqlRandNo = "SELECT FLOOR(RAND() * 99999) AS random_num FROM `order` WHERE \"random_num\" NOT IN (SELECT order_id FROM `order`) LIMIT 1";
+$sqlRandNo = "SELECT FLOOR(RAND() * 99999) AS random_num FROM `order` WHERE \"random_num\" NOT IN (SELECT order_no FROM `order`) LIMIT 1";
 $randNoResult = $conn_obj->query($sqlRandNo);
 $rowRand = $randNoResult->fetch_assoc();
 $orderNoRand = $rowRand['random_num'];
@@ -75,6 +75,44 @@ function updateReciept($order_id, $img, $conn_obj){
 	$sql = "UPDATE `order` SET order_reciept='$img' WHERE order_no='$order_id'";
 	if($conn_obj->query($sql) === TRUE){
 		return TRUE;
+	}
+}
+
+// Get location
+function getLocation($id,$conn_obj){
+	$sql = "SELECT * FROM `cod` WHERE ID = '$id'";
+	if($result = $conn_obj->query($sql)){
+		while($row = $result->fetch_assoc()){
+			return $row;
+		}
+	}
+}
+
+// Get order info
+function getOrderInfo($order_no,$conn_obj){
+	$sql = "SELECT * FROM `order` JOIN product_price USING (price_id) JOIN product USING (product_id) WHERE order_no='$order_no'";
+	if($result = $conn_obj->query($sql)){
+		return $result;
+	}
+}
+
+// Get delivery location
+function getDeliveryLocation($order_no,$conn_obj){
+	$sql = "SELECT place FROM `order` JOIN cod ON `order`.cod_id=cod.ID WHERE order_no='$order_no' LIMIT 1";
+	if($result = $conn_obj->query($sql)){
+		while($row = $result->fetch_assoc()){
+			return $row;
+		}
+	}
+}
+
+// Get delivery date
+function getDeliveryDate($order_no,$conn_obj){
+	$sql = "SELECT delivery_date FROM `order` WHERE order_no='$order_no' LIMIT 1";
+	if($result = $conn_obj->query($sql)){
+		while($row = $result->fetch_assoc()){
+			return $row;
+		}
 	}
 }
 

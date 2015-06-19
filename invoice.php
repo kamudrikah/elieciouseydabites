@@ -1,5 +1,10 @@
 <?php
 include('./controller/session.php');
+include('./controller/globalQuery.php');
+
+date_default_timezone_set("Asia/Kuala_Lumpur");
+
+$order_no = $_GET['order_no'];
 ?>
 
 <!DOCTYPE html>
@@ -91,117 +96,82 @@ include('./controller/session.php');
 			</div>
 		</div><!--/header-bottom-->
 	</header><!--/header-->
-
-	<section id="cart_items">
-		<div class="container">
-			<div class="heading">
-				<h3> Invoice</h3>
-			</div>
-			<div class="breadcrumbs">
-			<?php
-			$user_id = $_SESSION['user_id'];
-			$sql="SELECT * FROM `order`
-				JOIN `customer` c USING (user_id)
-				JOIN `cod` ON order.product_deliveryAdd=cod.ID
-				WHERE c.user_id='$user_id' 
-				ORDER BY order_id desc
-				LIMIT 1";
-			$result=$conn->query($sql);
-			if ($result->num_rows > 0) {
-			    while($row = $result->fetch_assoc()) {
-			    	// print_r($row);
-			    	$product_id=json_decode($row['product_id']);
-			    	$price_id=json_decode($row['price_id']);
-			    	$quantity=json_decode($row['product_qty']);
-			?>
-				<ol class="breadcrumb">
-					<p>
-						<br> 
-						<span class="style1">
-							<h3>Your Order ID = <?=$row['order_id']?></h3> </br>
-						</span>
-					</p>
-					<p>
-						<b>Payment Method </br>
-
-						Maybank : xxxxxx xxxxxx </br>
-						elieciousart@yahoo.com </br>
-
-						Please upload the receipt payment after make the payment by click the <a href="receipt.php">Receipt Payment</a> menu bar.
-						<br>
-						Make sure before delivery date, so we will deliver to you on time.
-						<br> 
-						Thank you.
-						</b>
-					</p>
-				</ol>
-			</div>
-			<div class="table-responsive cart_info">
-				<table class="table table-condensed">
-					<thead>
-						<tr class="cart_menu">
-							<td class="description">Item</td>
-							<td class="price">Price</td>
-							<td class="quantity">Quantity</td>
-							<td class="total">Total</td>
-						</tr>
-					</thead>
-					<tbody>
-						<?php
-						$total=0;
-						for ($i=0; $i < sizeof($product_id); $i++) { 
-							$sqlProd="SELECT * FROM `product_price` pp JOIN `product` p USING (product_id) WHERE price_id=$price_id[$i];";
-							$resultProd=$conn->query($sqlProd);
-							if ($resultProd->num_rows > 0) {
-							    while($rowProd = $resultProd->fetch_assoc()) {
-							    	// print_r($rowProd);
-						?>
-						<tr>
-							<td class="cart_description">
-								<h4><?=$rowProd['product_name']?></h4>
-								<p><?=$rowProd['product_weight']?></p>
-							</td>							
-							<td class="cart_price">
-								<p><?=$rowProd['product_price']?></p>
-							</td>
-							<td class="cart_quantity">
-								<?=$quantity[$i]?>
-							</td>
-							<td class="cart_total">
-								<?php
-								$item_price=ltrim($rowProd['product_price'],'RM');
-								$totalItemPrice=$item_price*$quantity[$i];
-								$total=$total+$totalItemPrice;
-								?>
-								<p class="cart_total_price">RM <?=$totalItemPrice?></p>
-							</td>
-						</tr>
-						<?php
-							    }
-							}
-						}
-						?>
-						<tr>
-							<td> </td>
-							<td></td>
-							<td><h4> Cash On Delivery </h4></td>
-							<td class="cart_price"><p><?=$row['place']?></p></td>
-						</tr>
-						<tr>
-							<td> </td>
-							<td></td>
-							<td><h4> Total Pay</h4></td>
-							<td class="cart_total_price"><p>RM <?=$total?></p></td>
-						</tr>
-					</tbody>
-				</table>
-			<?php
-			    }
-			}
-			?>
+	<?php
+	$orderInfo = getOrderInfo($order_no,$conn_obj);
+	$user = getUserInfo($_SESSION['user_id'],$conn_obj);
+	$location = getDeliveryLocation($order_no,$conn_obj);
+	$deliveryDate = getDeliveryDate($order_no,$conn_obj);
+	$deliveryDate = strtotime($deliveryDate['delivery_date']);
+	$totalAll = Array();
+	?>
+	<div class="container">
+		<div class="row">
+			<div class="col-md-12">
+				<div class="panel panel-info">
+					<div class="panel-heading">
+						<h3 class="panel-title">Payment Method</h3>
+					</div>
+					<div class="panel-body">
+						<p>
+						<span class="glyphicon glyphicon-briefcase" aria-hidden="true"></span> &nbsp Maybank : xxxxxx xxxxxx<br>
+						<span class="glyphicon glyphicon-envelope" aria-hidden="true"></span> &nbsp elieciousart@yahoo.com<br>
+						A copy of the Invoice has been sent to your email. Please upload the receipt payment after make the payment by click the <a href="./receipt.php">Receipt Payment</a> menu bar. 
+						Make sure before delivery date, so we will deliver to you on time. 
+						Thank you.</p>
+					</div>
+				</div>
 			</div>
 		</div>
-	</section> <!--/#cart_items-->
+		<div class="row">
+			<div class="col-md-6">
+				<h2>Invoice</h2>
+				<dl class="dl-horizontal">
+					<dt>From</dt><dd>Elieciouseydabites.com</dd>
+					<dt>To</dt><dd><?=$user['first_name']." ".$user['last_name']." (".$user['email'].")"?></dd>
+					<dt>Order ID</dt><dd><?=$order_no?></dd>
+					<dt>Issued</dt><dd><?=date("d M Y",time())?></dd>
+					<dt>Delivery Date</dt><dd><?=date("d M Y",$deliveryDate)?></dd>
+					<dt>Delivery Location</dt><dd><?=$location['place']?></dd>
+				</dl>
+			</div>
+			<div class="col-md-6">
+			</div>
+			<div class="col-md-12">
+				<table class="table table-striped table-hover table-bordered">
+					<tr>
+						<th>#</th>
+						<th>Items</th>
+						<th class="text-center">Quantity</th>
+						<th>Unit Price (RM)</th>
+						<th>Amount (RM)</th>
+					</tr>
+					<?php
+					$i=1;
+					while($row = $orderInfo->fetch_assoc()){
+						$qty = $row['order_qty'];
+						$price = $row['product_price'];
+						$total = $price*$qty;
+						array_push($totalAll, $total);
+					?>
+					<tr>
+						<td><?=$i?></td>
+						<td><?= $row['product_name']." (".$row['product_weight'].")"?></td>
+						<td class="text-center"><?= $row['order_qty'] ?></td>
+						<td>RM <?= number_format($row['product_price'],2) ?></td>
+						<td>RM <?= number_format($total,2) ?></td>
+					</tr>
+					<?php
+						$i++;
+					}
+					?>
+					<tr>
+						<td colspan="4"><strong class="pull-right">TOTAL</strong></td>
+						<td><strong>RM <?=number_format(array_sum($totalAll),2)?></strong></td>
+					</tr>
+				</table>
+			</div>
+		</div>
+	</div>
 
 	<footer id="footer"><!--Footer-->
 		<div class="footer-top">

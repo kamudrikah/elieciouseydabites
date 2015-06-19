@@ -156,7 +156,7 @@ var arrayProd = [];
 									<p><?php if($row['product_weight']=="Not Available"){echo "";}else{echo $row['product_weight'];}?></p>
 								</td>
 								<td class="cart_price">
-									<p><?=$row['product_price']?></p>
+									<p>RM <?=$row['product_price']?></p>
 								</td>
 								<td class="cart_quantity">
 									<div class="cart_quantity_button">
@@ -170,8 +170,8 @@ var arrayProd = [];
 									var totalPayment = 0;
 									$("#increment<?=$row['price_id']?>").click(function(){
 										var no = parseInt($("#number<?=$row['price_id']?>").val())+1;
-										var itemPrice = "<?=$row['product_price']?>";
-										itemPrice = itemPrice.substring(2);
+										var itemPrice = <?=$row['product_price']?>;
+										// itemPrice = itemPrice.substring(2);
 										$("#number<?=$row['price_id']?>").val(no);
 										tItemPrice[<?=$row['price_id']?>]=itemPrice*no;
 										$("#price<?=$row['price_id']?>").html("RM"+tItemPrice[<?=$row['price_id']?>]);
@@ -186,7 +186,7 @@ var arrayProd = [];
 									$("#decrease<?=$row['price_id']?>").click(function(){
 										var no = parseInt($("#number<?=$row['price_id']?>").val())-1;
 										var itemPrice = "<?=$row['product_price']?>";
-										itemPrice = itemPrice.substring(2);
+										// itemPrice = itemPrice.substring(2);
 										tItemPrice[<?=$row['price_id']?>]=itemPrice*no;
 										if(no<0){
 											$("#number<?=$row['price_id']?>").val(0);

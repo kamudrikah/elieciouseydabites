@@ -10,7 +10,7 @@ $order_date		= date("Y-m-d H:i:s", time());
 $order_status	= 6; // "temp"
 
 foreach ($prices as $key => $price_id) {
-	$sql = "INSERT INTO `order` (`user_id`,`price_id`,`order_date`,`order_status`) VALUES ('$user_id','$price_id','$order_date','$order_status')";
+	$sql = "INSERT INTO `order` (`user_id`,`price_id`,`order_date`,`order_status`,`order_qty`) VALUES ('$user_id','$price_id','$order_date','$order_status','1')";
 	if($conn_obj->query($sql) === TRUE){
 		header("Location: ./$location");
 	}
