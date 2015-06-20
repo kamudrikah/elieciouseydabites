@@ -1,6 +1,7 @@
 <?php
    include('../controller/session_admin.php');
    include('../controller/javasript.php');
+   include('../controller/globalQuery.php');
 ?>
 
 

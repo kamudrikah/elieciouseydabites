@@ -191,7 +191,7 @@
                                             <td><img src="image.php?id=<?php echo $row_product["price_id"]; ?>" height="155" width="140" /></td>
                                             <td><?php echo $row_product['product_name']; ?></td>
                                             <td><?php echo $row_product['product_code']; ?></td>
-                                            <td><?php echo $row_product['product_stock']; ?></td>
+                                            <td><?php echo $row_product['status_name']; ?></td>
                                             <td><?php echo $row_product['product_weight']; ?></td>
                                             <td><?php echo $row_product['product_price']; ?></td>
                                             <td><?php echo $row_product['product_category']; ?></td>
