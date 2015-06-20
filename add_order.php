@@ -32,6 +32,8 @@ function generate_email($conn_obj,$user_id, $orderNoRand,$deliveryLocation){
 	$totalAll=array();
 	$user = getUserInfo($_SESSION['user_id'],$conn_obj);
 	$location = getLocation($deliveryLocation,$conn_obj);
+	$deliveryDate = getDeliveryDate($order_no,$conn_obj);
+	$deliveryDate = strtotime($deliveryDate['delivery_date']);
 	$sqlGetOrderList = "SELECT * FROM `order` JOIN user USING (user_id) JOIN product_price USING (price_id) JOIN product USING (product_id) JOIN cod ON order.cod_id=cod.ID WHERE order_no='$orderNoRand' AND order_status='3';";
 	$resultList = $conn_obj->query($sqlGetOrderList);
 	if($resultList->num_rows>0){
@@ -41,9 +43,10 @@ function generate_email($conn_obj,$user_id, $orderNoRand,$deliveryLocation){
 		$emailContent .= "<div class='row'>";
 		$emailContent .= "<div class='col-md-6'>";
 			$emailContent .= "<dl class='dl-horizontal'>";
-			$emailContent .= "<dt>To</dt><dd>".$user['first_name']." ".$user['last_name']."</dd>";
+			$emailContent .= "<dt>To</dt><dd>".$user['first_name']." ".$user['last_name']." (".$user['email'].")</dd>";
 			$emailContent .= "<dt>Order ID</dt><dd>".$orderNoRand."</dd>";
 			$emailContent .= "<dt>Issued</dt><dd>".date("d M Y",time())."</dd>";
+			$emailContent .= "<dt>Delivery Date</dt><dd>".date("d M Y",$deliveryDate)."</dd>";
 			$emailContent .= "<dt>Delivery Location</dt><dd>".$location['place']."</dd>";
 			$emailContent .= "</dl>";
 		$emailContent .= "</div>";
