@@ -1,35 +1,30 @@
 <?php
 session_start();
+include('../controller/db_connect.php');
 
 
 if(isset($_POST['submit'])){
 
-$cod = $_POST['cod'];
+$cod = $_POST['place'];
+$status = $_POST['status'];
 
 $sql = "INSERT INTO cod".    
-         " (place)". 
+         " (place,status)". 
 	 " VALUES". 
-         " ('{$cod}')";
-
-require_once('db_connect.php');
-
-
+         " ('{$cod}','{$status}')";
 
 mysqli_query($conn,$sql);
 
 if(mysqli_affected_rows($conn) > 0) 
 {
-  ?>
+  	echo "
+  	<script>
+   	alert('Data Save!');
+  	window.location.href='../pages/cod.php';
+	</script>";
 
-  	<script language="javascript">
-   alert('Data Save!');
-  window.location.href="http://elieciouseydabites.com/pages/cod.php";
-	</script>
-
-  <?php
 }
 
-mysqli_close();
 exit();
 
 }

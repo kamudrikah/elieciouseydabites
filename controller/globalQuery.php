@@ -2,6 +2,7 @@
 
 require_once("../controller/db_connect.php");
 
+
 /*---------------- PRODUCT PART --------------------*/
 
 // Get last Product ID
@@ -11,15 +12,12 @@ $lastID=mysqli_fetch_array($result,MYSQLI_ASSOC);
 $product_id=$lastID['product_id'];
 
 // Get List Of Product
-$listProduct = "SELECT * FROM product p, product_price pc where p.product_id=pc.product_id";
+$listProduct = "SELECT * from product p, product_price pc, status s, category c 
+            where p.product_id = pc.product_id  AND p.product_category = c.cat_id AND pc.product_status = s.status_id ORDER BY pc.price_id ASC";
 $product = mysqli_query($conn, $listProduct);
 $row_product = mysqli_fetch_assoc($product);
 $total_product_row = mysqli_num_rows($product);
 
-// List All Detail Product
-$detailProduct = "SELECT * from product join product_price using (product_id) where price_id=$id";
-$detail = mysqli_query($conn, $detailProduct);
-$prod = mysqli_fetch_assoc($detail);
 
 /*---------------- COD PART --------------------*/
 
@@ -28,6 +26,8 @@ $listCod = "SELECT * from cod where status='1'";
 $cod = mysqli_query($conn, $listCod);
 $total_cod_row = mysqli_num_rows($cod);
 
+/*---------------- CATEGORY PART --------------------*/
 
+$categoryList="SELECT * FROM category "; 
 
 ?>

@@ -185,7 +185,7 @@
                                     <thead>
                                         <tr>
                                         <center>
-                                        <th width="4%" align="center">No</th>
+                                        <th width="6%" align="center">No</th>
                                         <th width="69%" align="center">Cash On Delivery Place</th>
                                         <th width="27%" align="center">Action</th>
                                         </center>
@@ -203,7 +203,13 @@
                                             <td><?php echo $row['place'];?>
                                             </td>
                                             <td>
-                                                <input type="button" name="Delete" value="Delete">
+                                            <center>
+                                                <form name="deleteCod" action="delete_cod.php" method="POST">
+                                                    <input type="hidden" name="cod_id" value="<?=$row['ID'];?>">
+                                                    <button type="submit" class="btn btn-success"
+                                                    onClick="return confirm('Are you sure?');">Delete</button> 
+                                                </form>
+                                           </center>
                                             </td>
                                         </tr>
                                     <?php } 
