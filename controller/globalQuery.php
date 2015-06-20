@@ -25,7 +25,19 @@ $product = mysqli_query($conn, $listProduct);
 $row_product = mysqli_fetch_assoc($product);
 $total_product_row = mysqli_num_rows($product);
 
+/*---------------- COD PART --------------------*/
 
+$listReceipt = "SELECT first_name, last_name, phone, order_no, order_id, user_id FROM `order` join user using (user_id) group by order_no";
+$receipt = mysqli_query($conn, $listReceipt);
+$row_receipt = mysqli_fetch_assoc($receipt);
+
+/*---------------- ORDER PART --------------------*/
+
+$listOrder = "SELECT * FROM `order` o, `product_price` pc, `status` s, `user` u, `product` p,`cod` c
+WHERE o.price_id=pc.price_id AND o.user_id=u.user_id AND o.order_status=s.status_id
+AND o.cod_id=c.ID";
+$order = mysqli_query($conn, $listOrder);
+$row_order = mysqli_fetch_assoc($order);
 
 /*---------------- COD PART --------------------*/
 

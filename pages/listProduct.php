@@ -120,7 +120,7 @@
                                     <a href="#"><i class="fa fa-shopping-cart fa-fw"></i> Products<span class="fa arrow"></span></a>
                                     <ul class="nav nav-second-level">
                                       <li>
-                                            <a href="addProduct.php"><i class="fa fa-edit fa-fw"></i> Add New Product </a>
+                                            <a href="editProduct.php"><i class="fa fa-edit fa-fw"></i> Add New Product </a>
                                         </li>
                                       <li>
                                             <a href="listProduct.php"><i class="fa fa-table fa-fw"></i> List Product</a>
@@ -188,16 +188,16 @@
                                         ?>  
                                         <tr>
                                             <td><input class="checkbox1" type="checkbox" name="check[]" > </td>
-                                            <td><img src="image.php?id=<?php echo $row_product["price_id"]; ?>" height="155" width="140" /></td>
+                                            <td><img src="image.php?id=<?php echo $row_product["product_id"]; ?>" height="155" width="140" /></td>
                                             <td><?php echo $row_product['product_name']; ?></td>
                                             <td><?php echo $row_product['product_code']; ?></td>
                                             <td><?php echo $row_product['status_name']; ?></td>
                                             <td><?php echo $row_product['product_weight']; ?></td>
                                             <td><?php echo $row_product['product_price']; ?></td>
-                                            <td><?php echo $row_product['product_category']; ?></td>
+                                            <td><?php echo $row_product['cat_name']; ?></td>
                                             <td>
                                             <center>
-                                            <input type="text" name="id" size="4" value=" <?=$row_product['price_id'];?>" >
+                                            <input type="hidden" name="id" size="4" value=" <?=$row_product['price_id'];?>" >
                                             <a href="editProduct.php?id=<?=$row_product['price_id']; ?>">
                                             <button type="button" name="" class="btn btn-info">
                                             Edit</button></a>

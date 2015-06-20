@@ -28,16 +28,24 @@ $productCategory = $_POST['productCategory'];
 $productStock = $_POST['productStock'];
 $productStock2 = $_POST['productStock2'];
 
-print_r($productCategory);
-
-
 if ($productId==null){
 
-	$sql = "INSERT INTO product(product_name,product_category,product_description,product_picture) 
+	if ($image_upload == null) {
+
+	$sql = "INSERT INTO product(product_name,product_category,product_description) 
+	VALUES ('$productName','$productCategory','$productDesc')";
+
+	}else {
+
+		$sql = "INSERT INTO product(product_name,product_category,product_description,product_picture) 
 	VALUES ('$productName','$productCategory','$productDesc','$image_upload')";
 
+	}
+
+	$newId = mysqli_insert_id($conn);
+
 	$price1 = "INSERT INTO product_price(product_id,product_code,product_price,product_weight,product_status) 
-	VALUES ('$lastProduct','$producCode1','$productPrice1','$productWeight1','$productStock')";
+	VALUES ('$newId','$producCode1','$productPrice1','$productWeight1','$productStock')";
 
 	if ($productPrice2 !="" && $productCode2 != "" && $productWeight2 != "")
 	{
@@ -48,9 +56,9 @@ if ($productId==null){
 
 
 	require_once("../controller/db_connect.php");
-	print mysqli_query($conn,$sql);
-	print mysqli_query($conn,$price1);
-	print mysqli_query($conn,$price2);
+	mysqli_query($conn,$sql);
+	mysqli_query($conn,$price1);
+	mysqli_query($conn,$price2);
 
 	if(mysqli_affected_rows($conn) > 0)
 	{
@@ -59,7 +67,17 @@ if ($productId==null){
 
 }else {
 
+	if ($image_upload == null) {
 
+	$sql = "UPDATE product SET product_name ='$productName', product_description = '$productDesc',
+	product_category = '$productCategory' WHERE product_id =$productId";
+
+	}else {
+
+		$sql = "UPDATE product SET product_name ='$productName', product_description = '$productDesc',
+	product_category = '$productCategory', product_picture = '$image_upload' WHERE product_id =$productId";
+
+	}
 
 	$sql = "UPDATE product SET product_name ='$productName', product_description = '$productDesc',
 	product_category = '$productCategory', product_picture = '$image_upload' WHERE product_id =$productId";
@@ -67,18 +85,16 @@ if ($productId==null){
 	$price1 = "UPDATE product_price SET product_id = '$productId', product_code = '$producCode1', product_price = '$productPrice1',
 	product_weight = '$productWeight1', product_status = '$productStock' WHERE price_id = $priceId1";
 
+	require_once("../controller/db_connect.php");
+	mysqli_query($conn,$sql);
+	mysqli_query($conn,$price1);
+
 	if ($productPrice2 !=null && $productCode2 != null && $productWeight2 != null)
 	{
 		$price2 = "UPDATE product_price SET product_id = '$productId', product_code = '$productCode2', product_price = '$productPrice2',
 	product_weight = '$productWeight2', product_status = '$productStock2' WHERE price_id = $priceId2";
+	mysqli_query($conn,$price2);
 	}
-
-
-
-	require_once("../controller/db_connect.php");
-	print mysqli_query($conn,$sql);
-	print mysqli_query($conn,$price1);
-	print mysqli_query($conn,$price2);
 
 	if(mysqli_affected_rows($conn) > 0)
 	{

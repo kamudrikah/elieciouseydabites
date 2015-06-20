@@ -1,6 +1,7 @@
 <?php
    include('../controller/session_admin.php');
    include('../controller/javasript.php');
+   include('../controller/globalQuery.php');
 ?>
 
 
@@ -171,7 +172,7 @@
                                           </div></td>
                                         <tr>
                                         <center>
-                                              <th width="7%"><input type="checkbox"> </th>
+                                              <th width="5%"><input type="checkbox"> </th>
                                               <th width="36%">Name</th>
                                               <th width="19%">Order ID</th>
                                               <th width="17%">Number Phone</th>
@@ -180,13 +181,20 @@
                                         </tr>
                                     </thead>
                                     <tbody>
+                                    <?php
+                                    do { ?>
                                         <tr>
                                             <td><input type="checkbox"> </td>
-                                            <td>Attir Hannany </td>
-                                            <td>123</td>
-                                          <td>017 - 6668900</td>
-                                            <td>&nbsp;</td>
+                                            <td><?=$row_receipt['first_name']; ?> </td>
+                                            <td><?=$row_receipt['order_no']; ?></td>
+                                          <td><?=$row_receipt['phone']; ?></td>
+                                            <td>
+                                            <center>
+                                            <img src="image.php?id=<?php echo $row_receipt["order_id"]; ?>" height="155" width="140" />
+                                            </center></td>
                                       </tr>
+
+                                      <?php } while ($row_receipt = mysqli_fetch_array($receipt));?>
                                     </tbody>   
                                 </table>
                             </div>

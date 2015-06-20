@@ -176,7 +176,7 @@
                                               <th width="10%"><div align="center"><strong>Status</strong></div></th>
                                               <th width="20%"><div align="center"><strong>Order</strong></div></th>
                                               <th width="15%"><div align="center"><strong>Purchased</strong></div></th>
-                                              <th width="188"><div align="center"><strong>Cash On Delivery</strong></div></th>
+                                              <th width="188"><div align="center"><strong>Delivery Location</strong></div></th>
                                               <th width="15%"><div align="center"><strong>Delivery Date</strong></div></th>
                                               <th width="15%"><div align="center"><strong>Total</strong></div></th>
                                               <th width="8%"><div align="center"><strong>Actions</strong></div></th>
@@ -196,18 +196,22 @@
                                             <td>RM55</td>
                                             <td><a href="editOrder.php" >Change Status</a></td>
                                         </tr>
-                                         <tr>
-                                            <td><div align="center">
-                                              <input type="checkbox"> 
-                                            </td>
-                                            <td>Completed</td>
-                                            <td>#216 by Erna Ezzaty </td>
-                                           <td><a href="editOrder.php"> 2 items </a></td> 
-                                            <td>Giant Tambun</td>
-                                            <td>30/5/2015</td>
-                                            <td>RM100</td>
-                                            <td><a href="editOrder.php" >Change Status</a></td>
-                                        </tr>
+                                    <?php 
+
+                                    ?>
+                                    <tr>
+                                        <td><div align="center">
+                                          <input type="checkbox"> 
+                                        </td>
+                                        <td>Processing</td>
+                                        <td>#214 by Attir Hannany </td>
+                                        <td><a href="editOrder.php"> 2 items </a></td> 
+                                        <td>McDonald Medan Gopeng</td>
+                                        <td>12/5/2015</td>
+                                        <td>RM55</td>
+                                        <td><a href="editOrder.php" >Change Status</a></td>
+                                    </tr>
+                                    <?php } while (); ?>
                                     </tbody>
                                 </table>
                             </div>

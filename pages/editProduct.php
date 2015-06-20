@@ -1,13 +1,15 @@
         <?php
 
-           $id = $_GET['id'];
-
            require_once("../controller/db_connect.php");
            include('../controller/session_admin.php');
            include('../controller/javasript.php');
            include('../controller/globalQuery.php');
 
-           // List All Detail Product For Price 1
+        if (isset($_GET['id'])) {
+
+              $id = $_GET['id'];
+
+              // List All Detail Product For Price 1
             $price1 = "SELECT * from product p, product_price pc, status s, category c 
             where p.product_id = pc.product_id AND pc.price_id = $id AND p.product_category = c.cat_id AND pc.product_status = s.status_id ORDER BY pc.price_id ASC";
             $detail1 = mysqli_query($conn, $price1);
@@ -18,6 +20,27 @@
             where p.product_id = pc.product_id AND p.product_id = $id AND p.product_category = c.cat_id AND pc.product_status = s.status_id ORDER BY pc.price_id DESC";
             $detail2 = mysqli_query($conn, $price2);
             $prod2 = mysqli_fetch_assoc($detail2);
+           
+
+            }else {
+
+                $id = 0;
+
+              // List All Detail Product For Price 1
+            $price1 = "SELECT * from product p, product_price pc, status s, category c 
+            where p.product_id = pc.product_id AND pc.price_id = $id AND p.product_category = c.cat_id AND pc.product_status = s.status_id ORDER BY pc.price_id ASC";
+            $detail1 = mysqli_query($conn, $price1);
+            $prod = mysqli_fetch_assoc($detail1);
+
+            // List All Detail Product For Price 2
+            $price2 = "SELECT * from product p, product_price pc, status s, category c 
+            where p.product_id = pc.product_id AND p.product_id = $id AND p.product_category = c.cat_id AND pc.product_status = s.status_id ORDER BY pc.price_id DESC";
+            $detail2 = mysqli_query($conn, $price2);
+            $prod2 = mysqli_fetch_assoc($detail2);
+                
+            }
+
+           
         ?>
 
 
@@ -168,9 +191,9 @@
                                      <form action="processInsertDouble.php" method="POST" name="form_name" enctype="multipart/form-data">
                                                <table width="112%" border="0" bordercolor="" bgcolor="">
 
-       	       <tr>                                     <input type="text" name="productId" value="<?=$prod['product_id'];?>">
-                                                        <input type="text" name="priceId1" value="<?=$prod['price_id'];?>">
-                                                        <input type="text" name="priceId2" value="<?=$prod2['price_id'];?>">
+       	       <tr>                                     <input type="text" name="productId" value="<?=$prod['product_id']=!NULL?$prod['product_id']:'' ?>">
+                                                        <input type="hidden" name="priceId1" value="<?=$prod['price_id'];?>">
+                                                        <input type="hidden" name="priceId2" value="<?=$prod2['price_id'];?>">
                                                    		 <td width="281" height="34">* Name </td>
 
                           <td width="8"> <strong>:</strong> </td>
@@ -198,7 +221,11 @@
                                                          
 
                                                             foreach ($con->query($categoryList) as $row){
-                                                            echo "<option value=$row[cat_id]>$row[cat_name]</option>"; 
+                                                                if($prod['cat_id']==$row['cat_id']){
+                                                                    echo "<option value='$row[cat_id]' selected>$row[cat_name]</option>"; 
+                                                                }else{
+                                                                    echo "<option value=$row[cat_id]>$row[cat_name]</option>"; 
+                                                                }
 
                                                             }
 
@@ -213,7 +240,7 @@
                                                          <td> <strong>:</strong> </td>
                                                    	  <td>
                                                       <img src="image.php?id=<?php echo $prod["product_id"]; ?>" height="155" width="140" />
-                                                      <input type="file" name="image" required class="form-control" ></td>
+                                                      <input type="file" name="image" class="form-control" ></td>
                                                     </tr>
                                                      <tr>                                          
                                                          <td colspan="3"></br> </td>
