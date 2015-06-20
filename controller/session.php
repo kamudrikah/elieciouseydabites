@@ -1,26 +1,17 @@
 <?php
-include('controller/db_connect.php');
 session_start();
+include('./controller/db_connect.php');
 
-$user_check=$_SESSION['user_id'];
 
-$sql="select user_id from user where user_id='$user_check'";
-$ses_sql=mysqli_query($conn,$sql);
+if(isset($_SESSION['user_id'])){
+	$sql="SELECT user_id FROM user WHERE user_id='$user_check'";
 
-$row=mysqli_fetch_array($ses_sql,MYSQLI_ASSOC);
+	$result=$conn->query($sql);
+	if($result->num_rows == 1){
+		while($row = $result->fetch_assoc()) {
+			$_SESSION['user_id']=$row['user_id'];
+		}
+	}
 
-$login_session=$row['user_id'];
-
-if(!isset($login_session))
-{
- ?>
-    <script language="javascript">
-   alert('Please Login');
-   //window.navigate('<a href="../utama(pelajar).php">Untitled Document</a>');
-   window.location.href="./cust_signin.php";
-</script>
-
-    <?php
 }
-
 ?>

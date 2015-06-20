@@ -1,6 +1,6 @@
 <?php
 
-require_once("../controller/db_connect.php");
+require_once("./controller/db_connect.php");
 
 
 /*---------------- PRODUCT PART --------------------*/
@@ -19,6 +19,7 @@ $row_product = mysqli_fetch_assoc($product);
 $total_product_row = mysqli_num_rows($product);
 
 
+
 /*---------------- COD PART --------------------*/
 
 // List All COD Place
@@ -29,5 +30,45 @@ $total_cod_row = mysqli_num_rows($cod);
 /*---------------- CATEGORY PART --------------------*/
 
 $categoryList="SELECT * FROM category "; 
+
+// Cart Count Notification
+$countCartList = "SELECT COUNT(*) count FROM `order` WHERE user_id='".$_SESSION['user_id']."' AND order_status='6'";
+$countResultObj = $conn_obj->query($countCartList);
+$row_count = $countResultObj->fetch_assoc();
+$countResult = $row_count['count'];
+
+// Generate Random no from DB
+$sqlRandNo = "SELECT FLOOR(RAND() * 99999) AS random_num FROM `order` WHERE \"random_num\" NOT IN (SELECT order_id FROM `order`) LIMIT 1";
+$randNoResult = $conn_obj->query($sqlRandNo);
+$rowRand = $randNoResult->fetch_assoc();
+$orderNoRand = $rowRand['random_num'];
+
+// Get all USER info
+function getUserInfo($user_id, $conn_obj){
+	$sql = "SELECT * FROM `user` WHERE user_id='$user_id'";
+	$user = Array();
+	$resultUser = $conn_obj->query($sql);
+	if($resultUser->num_rows == 1){
+		while($row = $resultUser->fetch_assoc()){
+			return $row;
+		}
+	}
+}
+
+// Update quantity for cart in ORDER table
+function updateQty($order_id, $qty, $conn_obj){
+	$sql = "UPDATE `order` SET order_qty='$qty' WHERE order_id='$order_id'";
+	if($conn_obj->query($sql) === TRUE){
+		return TRUE;
+	}
+}
+
+// Update Reciept Image
+function updateReciept($order_id, $img, $conn_obj){
+	$sql = "UPDATE `order` SET order_reciept='$img' WHERE order_no='$order_id'";
+	if($conn_obj->query($sql) === TRUE){
+		return TRUE;
+	}
+}
 
 ?>

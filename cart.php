@@ -1,7 +1,10 @@
 <?php
-include('controller/session.php');
-$cust_id = $_SESSION['cust_id'];
-include("./mysqli_con.php");
+include('./controller/session.php');
+include('./controller/globalQuery.php');
+if(!isset($_SESSION['user_id'])){
+  header("Location: ./cust_signin.php");
+}
+$user_id = $_SESSION['user_id'];
 ?>
 
 <!DOCTYPE html>
@@ -82,7 +85,7 @@ var arrayProd = [];
 					<div class="col-sm-8">
 						<div class="shop-menu pull-right">
 							<ul class="nav navbar-nav">
-								<li><a href="cart.php?res=getcart"><i class="fa fa-shopping-cart"></i> Cart</a></li>
+								<li><a href="cart.php?res=getcart"><i class="fa fa-shopping-cart"></i> Cart <span> <?php if(isset($countResult)){echo ": ".$countResult." items";} ?></span></a></li>
 							</ul>
 						</div>
 					</div>
@@ -136,20 +139,21 @@ var arrayProd = [];
 						</thead>
 						<tbody>
 						<?php
-						$sql = "SELECT * FROM `temp_product` tp JOIN `product_price` pp USING (price_id) WHERE tp.cust_id='$cust_id'";
+						$sql = "SELECT * FROM `order` o JOIN `product_price` pp USING (price_id) JOIN `product` USING (product_id) WHERE o.user_id='$user_id' AND o.order_status='6'";
 						$result = $conn->query($sql);
 						if($result->num_rows>0){
 							while($row = $result->fetch_assoc()) {
 						?>
 							<tr>
 								<td class="cart_product">
+									<input type="hidden" name="orderId[]?>" value="<?=$row['order_id']?>">
 									<input type="hidden" name="priceId[]?>" value="<?=$row['price_id']?>">
 									<input type="hidden" name="productId[]?>" value="<?=$row['product_id']?>">
-									<a href=""><img src="image.php?id=<?php echo $row["temp_code"]; ?>" height="180" width="180" /></a>
+									<a href=""><img src="image.php?id=<?php echo $row['product_id']; ?>" height="180" width="180" /></a>
 								</td>
 								<td class="cart_description">
-									<h4><?=$row['item_name']?></h4>
-									<p><?=$row['product_weight']?></p>
+									<h4><?=$row['product_name']?></h4>
+									<p><?php if($row['product_weight']=="Not Available"){echo "";}else{echo $row['product_weight'];}?></p>
 								</td>
 								<td class="cart_price">
 									<p><?=$row['product_price']?></p>
@@ -157,7 +161,7 @@ var arrayProd = [];
 								<td class="cart_quantity">
 									<div class="cart_quantity_button">
 										<a><input type="button" id="increment<?=$row['price_id']?>" value="+" size="2" /></a>
-										<input class="cart_quantity_input" type="text" name="number[]" id="number<?=$row['price_id']?>" value="0" size="2" min="0" readonly="readonly">
+										<input class="cart_quantity_input" type="text" name="number[]" id="number<?=$row['price_id']?>" value="<?=$row['order_qty']?>" size="2" min="0" readonly="readonly">
 										<a><input type="button" id="decrease<?=$row['price_id']?>" value="-" size="2" /></a>
 									</div>
 									<script type="text/javascript">
@@ -177,6 +181,7 @@ var arrayProd = [];
 										});
 										$(".totalPayment").html("RM "+totalPayment);
 										$(".totalPayment").val("RM "+totalPayment);
+										updateQty(<?=$row['order_id']?>,no);
 									});
 									$("#decrease<?=$row['price_id']?>").click(function(){
 										var no = parseInt($("#number<?=$row['price_id']?>").val())-1;
@@ -199,6 +204,7 @@ var arrayProd = [];
 										});
 										$(".totalPayment").html("RM "+totalPayment);
 										$(".totalPayment").val("RM "+totalPayment);
+										updateQty(<?=$row['order_id']?>,no);
 									});
 									</script>
 								</td>
@@ -206,7 +212,7 @@ var arrayProd = [];
 									<p class="cart_total_price" id="price<?=$row['price_id']?>"><?=$row['product_price']?></p>
 								</td>
 								<td class="cart_delete">
-									<a class="cart_quantity_delete" href=""><i class="fa fa-times"></i></a>
+									<a class="cart_quantity_delete" href="./del_cart.php?id=<?php echo $row['order_id']; ?>"><i class="fa fa-times"></i></a>
 								</td>
 							</tr>
 						<?php
@@ -292,7 +298,7 @@ var arrayProd = [];
 							);
 							$.post("./add_order.php",
 								{
-									cust_id: "<?=$cust_id?>",
+									user_id: "<?=$user_id?>",
 									product_id: arrayProd,
 									date:$("#templatemo_search_box").val(),
 									totalPayment: "RM "+totalPayment,
@@ -338,6 +344,16 @@ var arrayProd = [];
 	</div>
 </footer><!--/Footer-->	
 
+<script type="text/javascript">
+	function updateQty(order_id,qty){
+		$.post(
+			"./updateQty.php", // url
+			{order_id: order_id, qty: qty}, // data
+			function(data){console.log(data);}, //success
+			"json"
+		);
+	}
+</script>
 <script src="js/jquery.js"></script>
 <script src="js/bootstrap.min.js"></script>
 <script src="js/jquery.scrollUp.min.js"></script>

@@ -1,4 +1,4 @@
-
+<?php include('./controller/session.php'); ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -61,7 +61,7 @@
 					<div class="col-sm-8">
 						<div class="shop-menu pull-right">
 							<ul class="nav navbar-nav">
-								<li><a href="cart.php?res=getcart"><i class="fa fa-shopping-cart"></i> Cart</a></li>
+								<li><a href="cart.php?res=getcart"><i class="fa fa-shopping-cart"></i> Cart <span> <?php if(isset($countResult)){echo ": ".$countResult." items";} ?></span></a></li>
 							</ul>
 						</div>
 					</div>
@@ -83,7 +83,11 @@
 						</div>
 						<div class="mainmenu pull-left">
 							<?php
-								include('controller/session_option.php');
+								if(isset($_SESSION['user_id'])){
+									include('./subMenu.php');
+								}else{
+									include('./subMenu_check.php');
+								}
 							?>
 						</div>
 					</div>
@@ -100,11 +104,18 @@
 	<section id="do_action">
 		<div class="container">
 			<div class="heading">
+				<?php
+				if(isset($_GET['uploaded'])){
+				?>
+				<p class="bg-success">Receipt has been uploaded seccessfully!</p>
+				<?php
+				}
+				?>
 				<h3>Upload Receipt Payment</h3>
 			</div>
 			<div class="row">
 				<div class="col-sm-6">
-				 <form action="#" method="post" enctype="multipart/form-data">
+				 <form action="./add_reciept.php" method="post" enctype="multipart/form-data">
                                         <table >
                                         	<tr>
                                            		 <td width="107">First Name :</td>
@@ -142,7 +153,7 @@
                                             </tr>
                                             <tr>
                                                  <td colspan="3" align="center">
-                                                 <a class="btn btn-default check_out">Save</a>
+                                                 <button type="submit" class="btn btn-default check_out">Save</button>
                                                  </td>
                                             </tr>  
                                         </table>

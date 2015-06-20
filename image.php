@@ -1,11 +1,11 @@
 <?php
 //include database connection
-include 'db_connect.php';
+include './controller/db_connect.php';
 
 //select the image
 //$image_id = $_GET['id'];
 
-$query = "SELECT * FROM product WHERE unique_id= ?";
+$query = "SELECT * FROM product WHERE product_id= ?";
 $stmt = $con->prepare( $query );
 //bind the id of the image you want to select
 $stmt->bindParam(1, $_GET['id']);

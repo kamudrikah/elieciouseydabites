@@ -1,6 +1,6 @@
 <?php
-session_start();
-include "./controller/db_connect.php";
+include "./controller/session.php";
+include('./controller/globalQuery.php');
 ?>
 <html lang="en">
 <head>
@@ -8,7 +8,7 @@ include "./controller/db_connect.php";
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
     <meta name="author" content="">
-    <title>About Us | Elie`cious Eyda Bites</title>
+    <title>Home | Elie`cious Eyda Bites</title>
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <link href="css/font-awesome.min.css" rel="stylesheet">
     <link href="css/prettyPhoto.css" rel="stylesheet">
@@ -58,7 +58,7 @@ include "./controller/db_connect.php";
 					<div class="col-sm-8">
 						<div class="shop-menu pull-right"> 
 							<ul class="nav navbar-nav">
-								<li><a href="cart.php"><i class="fa fa-shopping-cart"></i> Cart</a></li>
+								<li><a href="cart.php?res=getcart"><i class="fa fa-shopping-cart"></i> Cart <span> <?php if(isset($countResult)){echo ": ".$countResult." items";} ?></span></a></li>
 							</ul>
 						</div>
 					</div>
@@ -80,7 +80,11 @@ include "./controller/db_connect.php";
 						</div>
 						<div class="mainmenu pull-left">
 							<?php
-							include('./controller/session_option.php');
+							if(isset($_SESSION['user_id'])){
+								include('./subMenu.php');
+							}else{
+								include('./subMenu_check.php');
+							}
 						?>
 						</div>
 					</div>
@@ -189,7 +193,7 @@ include "./controller/db_connect.php";
 									
 								</div>
 								<div class="col-sm-6">
-								<img src="image.php?id=<?php echo $row["unique_id"]; ?>" class="girl img-responsive" alt="" height="1000" width="300" />
+								<img src="image.php?id=<?php echo $row["product_id"]; ?>" class="girl img-responsive" alt="" height="1000" width="300" />
 								
 
 								</div>
@@ -251,7 +255,7 @@ include "./controller/db_connect.php";
 									
 								</div>
 								<div class="col-sm-6">
-								<img src="image.php?id=<?php echo $row["unique_id"]; ?>" class="girl img-responsive" alt="" height="1000" width="300" />
+								<img src="image.php?id=<?php echo $row["product_id"]; ?>" class="girl img-responsive" alt="" height="1000" width="300" />
 								
 
 								</div>

@@ -1,6 +1,5 @@
 <?php
 include('./controller/session.php');
-include('./mysqli_con.php');
 ?>
 
 <!DOCTYPE html>
@@ -100,11 +99,11 @@ include('./mysqli_con.php');
 			</div>
 			<div class="breadcrumbs">
 			<?php
-			$cust_id = $_SESSION['cust_id'];
+			$user_id = $_SESSION['user_id'];
 			$sql="SELECT * FROM `order`
-				JOIN `customer` c USING (cust_id)
+				JOIN `customer` c USING (user_id)
 				JOIN `cod` ON order.product_deliveryAdd=cod.ID
-				WHERE c.cust_id='$cust_id' 
+				WHERE c.user_id='$user_id' 
 				ORDER BY order_id desc
 				LIMIT 1";
 			$result=$conn->query($sql);

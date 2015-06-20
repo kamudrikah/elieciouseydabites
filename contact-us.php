@@ -1,4 +1,4 @@
-
+<?php include('./controller/session.php'); ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -60,7 +60,7 @@
 					<div class="col-sm-8">
 						<div class="shop-menu pull-right">
 							<ul class="nav navbar-nav">
-								<li><a href="cart.php?res=getcart"><i class="fa fa-shopping-cart"></i> Cart</a></li>
+								<li><a href="cart.php?res=getcart"><i class="fa fa-shopping-cart"></i> Cart <span> <?php if(isset($countResult)){echo ": ".$countResult." items";} ?></span></a></li>
 							</ul>
 						</div>
 					</div>
@@ -82,7 +82,11 @@
 						</div>
 						<div class="mainmenu pull-left">
 							<?php
-							include('controller/session_option.php');
+							if(isset($_SESSION['user_id'])){
+								include('./subMenu.php');
+							}else{
+								include('./subMenu_check.php');
+							}
 						?>
 
 						</div>
