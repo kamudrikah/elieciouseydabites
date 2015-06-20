@@ -121,7 +121,7 @@
                                            		 <td width="107">First Name :</td>
                                                 	 <td width="20"> : </td>
                                           		 <td width="197">&nbsp; &nbsp;
-                                   		      <input type="text" name="fName" id="fName" /></td>
+                                   		      <input type="text" name="fName" id="fName" required/></td>
                                             </tr>
 					    <tr>                                          
                                                  <td colspan="3"></br> </td>
@@ -130,7 +130,7 @@
                                            		 <td width="107">Last Name :</td>
                                                 	 <td width="20"> : </td>
                                           		 <td width="197">&nbsp; &nbsp;
-                                   		      <input type="text" name="LName" id="LName" /></td>
+                                   		      <input type="text" name="LName" id="LName" required/></td>
                                             </tr>
                                             <tr>                                          
                                                  <td colspan="3"></br> </td>
@@ -138,7 +138,7 @@
                                        		<tr>
         	                                     <td>Order ID</td> 
     	                                         <td> : </td>
-	                                             <td>&nbsp; &nbsp; <input type="text" name="idOrder" id="idOrder" /> </td>
+	                                             <td>&nbsp; &nbsp; <input type="text" name="idOrder" id="idOrder" required/> </td>
                                             </tr>
                                              <tr>                                          
                                                  <td colspan="3"></br> </td>
@@ -146,7 +146,7 @@
                                             <tr>
                                            		 <td>Receipt Payment</td>
                                                  <td> : </td>
-                                            	 <td>&nbsp; &nbsp;&nbsp; &nbsp; <input type="file" name="image"></td>
+                                            	 <td>&nbsp; &nbsp;&nbsp; &nbsp; <input type="file" name="image" required></td>
                                             </tr>
                                              <tr>                                          
                                                  <td colspan="3"></br> </td>

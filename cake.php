@@ -247,10 +247,10 @@ while ($row = mysqli_fetch_assoc($rs_result)) {
                         <?php 
                                     if($row1["product_weight"] != "Not Available")
                                     {
-                                      echo $row1["product_weight"] ." " .$row1["product_price"];  } 
+                                      echo $row1["product_weight"] ." RM " .$row1["product_price"];  } 
                                     else {
 
-                                    echo $row1["product_price"];
+                                    echo "RM ".$row1["product_price"];
 
                                      }  ?>
 

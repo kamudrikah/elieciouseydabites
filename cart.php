@@ -36,7 +36,7 @@ $user_id = $_SESSION['user_id'];
 <meta charset="utf-8">
 <title>jQuery UI Datepicker - Default functionality</title>
 <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
-<script src="//code.jquery.com/jquery-1.10.2.js"></script>
+<script src="./js/jquery-1.11.0.min.js"></script>
 <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
 <link rel="stylesheet" href="/resources/demos/style.css">
 <script>
@@ -44,6 +44,7 @@ $(function() {
 	$( "#datepicker" ).datepicker();
 });
 var arrayProd = [];
+var totalAll=[];
 </script>
 <!--/date-->
 
@@ -139,6 +140,7 @@ var arrayProd = [];
 						</thead>
 						<tbody>
 						<?php
+						$totalAll = array();
 						$sql = "SELECT * FROM `order` o JOIN `product_price` pp USING (price_id) JOIN `product` USING (product_id) WHERE o.user_id='$user_id' AND o.order_status='6'";
 						$result = $conn->query($sql);
 						if($result->num_rows>0){
@@ -165,51 +167,34 @@ var arrayProd = [];
 										<a><input type="button" id="decrease<?=$row['price_id']?>" value="-" size="2" /></a>
 									</div>
 									<script type="text/javascript">
-									arrayProd.push("<?=$row['product_id']?>");
-									var tItemPrice = [];
-									var totalPayment = 0;
+									totalAll[<?=$row['price_id']?>]=<?=$row['product_price']*$row['order_qty']?>;
+									var qty<?=$row['price_id']?> = <?=$row['order_qty']?>;
+									var price<?=$row['price_id']?> = <?=$row['product_price']?>;
 									$("#increment<?=$row['price_id']?>").click(function(){
-										var no = parseInt($("#number<?=$row['price_id']?>").val())+1;
-										var itemPrice = <?=$row['product_price']?>;
-										// itemPrice = itemPrice.substring(2);
-										$("#number<?=$row['price_id']?>").val(no);
-										tItemPrice[<?=$row['price_id']?>]=itemPrice*no;
-										$("#price<?=$row['price_id']?>").html("RM"+tItemPrice[<?=$row['price_id']?>]);
-										totalPayment = 0;
-										tItemPrice.forEach(function(value){
-											totalPayment = totalPayment+value;
-										});
-										$(".totalPayment").html("RM "+totalPayment);
-										$(".totalPayment").val("RM "+totalPayment);
-										updateQty(<?=$row['order_id']?>,no);
+										qty<?=$row['price_id']?> = qty<?=$row['price_id']?>+1;
+										var total = price<?=$row['price_id']?>*qty<?=$row['price_id']?>;
+										totalAll[<?=$row['price_id']?>]=total;
+										$("#number<?=$row['price_id']?>").val(qty<?=$row['price_id']?>);
+										$("#price<?=$row['price_id']?>").html("RM "+total);
+										updateQty(<?=$row['order_id']?>,qty<?=$row['price_id']?>);
+										$(".totalPayment").html("RM "+calculateTotal(totalAll));
+										$(".totalPayment").val("RM "+calculateTotal(totalAll));
 									});
 									$("#decrease<?=$row['price_id']?>").click(function(){
-										var no = parseInt($("#number<?=$row['price_id']?>").val())-1;
-										var itemPrice = "<?=$row['product_price']?>";
-										// itemPrice = itemPrice.substring(2);
-										tItemPrice[<?=$row['price_id']?>]=itemPrice*no;
-										if(no<0){
-											$("#number<?=$row['price_id']?>").val(0);
-										}else{
-											$("#number<?=$row['price_id']?>").val(no);
-										}
-										if(tItemPrice[<?=$row['price_id']?>]<=0){
-											$("#price<?=$row['price_id']?>").html("RM0")
-										}else{
-											$("#price<?=$row['price_id']?>").html("RM"+tItemPrice[<?=$row['price_id']?>]);
-										}
-										totalPayment = 0;
-										tItemPrice.forEach(function(value){
-											totalPayment = totalPayment+value;
-										});
-										$(".totalPayment").html("RM "+totalPayment);
-										$(".totalPayment").val("RM "+totalPayment);
-										updateQty(<?=$row['order_id']?>,no);
+										qty<?=$row['price_id']?> = qty<?=$row['price_id']?>-1;
+										if(qty<?=$row['price_id']?><1){qty<?=$row['price_id']?>=1;}
+										var total = price<?=$row['price_id']?>*qty<?=$row['price_id']?>;
+										totalAll[<?=$row['price_id']?>]=total;
+										$("#number<?=$row['price_id']?>").val(qty<?=$row['price_id']?>);
+										$("#price<?=$row['price_id']?>").html("RM "+total);
+										updateQty(<?=$row['order_id']?>,qty<?=$row['price_id']?>);
+										$(".totalPayment").html("RM "+calculateTotal(totalAll));
+										$(".totalPayment").val("RM "+calculateTotal(totalAll));
 									});
 									</script>
 								</td>
 								<td class="cart_total">
-									<p class="cart_total_price" id="price<?=$row['price_id']?>"><?=$row['product_price']?></p>
+									<p class="cart_total_price" id="price<?=$row['price_id']?>">RM <?=$totalAll[$row['price_id']]=$row['product_price']*$row['order_qty']?></p>
 								</td>
 								<td class="cart_delete">
 									<a class="cart_quantity_delete" href="./del_cart.php?id=<?php echo $row['order_id']; ?>"><i class="fa fa-times"></i></a>
@@ -241,8 +226,9 @@ var arrayProd = [];
 						<table>
 							<tr>
 								<td>
-									<select name="cod" id="cod" class="form-control" >
+									<select name="cod" id="cod" class="form-control" required>
 										<label>Cash On Delivery (COD)- Only in Perak</label>
+										<option></option>
 										<?php
 										require_once('controller/db_connect.php');
 
@@ -265,7 +251,7 @@ var arrayProd = [];
 								<td>
 									Delivery Date (at least 3 days & above):
 									</br>
-									<input type="text" name="deliveryDate" class="form-control" id="input_timetable_date"></input>
+									<input type="text" name="deliveryDate" class="form-control" id="input_timetable_date" required>
 									<span class="add-on"></span>
 									<script type="text/javascript">
 										$("#input_timetable_date").datepicker({dateFormat: "yy-mm-dd", minDate: 3, maxDate: "+1M +10D" });
@@ -282,7 +268,7 @@ var arrayProd = [];
 							<h3>Total Payment</h3>
 						</div>
 						<ul>
-							<li>Total <span class="totalPayment"> RM</span></li>
+							<li>Total <span class="totalPayment"> RM <?=array_sum($totalAll)?></span></li>
 						</ul>
 						</br>	
 						<table align="right">
@@ -345,14 +331,22 @@ var arrayProd = [];
 </footer><!--/Footer-->	
 
 <script type="text/javascript">
-	function updateQty(order_id,qty){
-		$.post(
-			"./updateQty.php", // url
-			{order_id: order_id, qty: qty}, // data
-			function(data){console.log(data);}, //success
-			"json"
-		);
-	}
+function calculateTotal(totalAll){
+	realTotal=0;
+	totalAll.forEach(function(data){
+		realTotal = realTotal+data;
+	});
+	return realTotal;
+}
+
+function updateQty(order_id,qty){
+	$.post(
+		"./updateQty.php", // url
+		{order_id: order_id, qty: qty}, // data
+		function(data){}, //success
+		"json"
+	);
+}
 </script>
 <script src="js/jquery.js"></script>
 <script src="js/bootstrap.min.js"></script>

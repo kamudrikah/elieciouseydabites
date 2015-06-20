@@ -23,7 +23,7 @@ if(mysqli_affected_rows($conn) > 0)
 {
   echo "<script>
            alert('Data Saved!');
-           window.location.href='../index.php';
+           window.location.href='../cust_signin.php';
         </script>";
 }
 

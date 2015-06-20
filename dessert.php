@@ -202,7 +202,7 @@ while ($row = mysqli_fetch_assoc($rs_result)) {
                     <img src="image.php?id=<?php echo $row["product_id"]; ?>" height="220" width="30" />
                     
                     <h2><?php echo $row["product_name"];   ?></h2> <br/>
-                    <p><?=$row['product_weight'];?></p>
+                    <p><?=$row['product_weight'];?> RM <?=$row['product_price'];?></p>
                     <input type="submit" class="btn btn-default add-to-cart" />
                     </FORM>
                     

@@ -103,11 +103,11 @@ include('./controller/globalQuery.php');
 			<div class="row">
 				<div class="col-sm-12">
 					<div id="slider-carousel" class="carousel slide" data-ride="carousel">
-					<?php
+						<?php
 						$query1= "SELECT * FROM product";
 						$rs_result1 = mysqli_query($conn, $query1); 		
 						$z=0;
-					?>
+						?>
 					
 						<ol class="carousel-indicators">
 						<?php while ($row = mysqli_fetch_assoc($rs_result1))  {  ?>
@@ -125,7 +125,7 @@ include('./controller/globalQuery.php');
 					<div class="carousel-inner">
                         
 						<?php   
-						$query2= "SELECT * FROM product";
+						$query2= "SELECT * FROM product JOIN category ON product.product_category=category.cat_id";
 						//run the query
 						$rs_result = mysqli_query($conn, $query2);		
 						$i=0;
@@ -149,7 +149,7 @@ include('./controller/globalQuery.php');
 									<h1><span>E</span>lie`cious Eyda Bites</h1>
 									<p><?php echo $row["product_name"]; ?></p>
 
-                                    <?php if($row["product_category"] == 'Cake' ) 
+                                    <?php if($row["cat_name"] == 'Cake' ) 
 									
 									{ ?>
                                     
@@ -158,7 +158,7 @@ include('./controller/globalQuery.php');
 									} 
 									
 									
-									if($row["product_category"] == 'Dessert' ) 
+									if($row["cat_name"] == 'Dessert' ) 
 									
 									{ ?> 
                                     <button type="button" class="btn btn-default get"><a href="dessert.php">Get it now</a></button>
@@ -166,7 +166,7 @@ include('./controller/globalQuery.php');
 									} 
 									
 									
-									if($row["product_category"] == 'Cookies' ) 
+									if($row["cat_name"] == 'Cookies' ) 
 									
 									{ ?> 
                                     <button type="button" class="btn btn-default get"><a href="cookies.php">Get it now</a></button>
@@ -174,7 +174,7 @@ include('./controller/globalQuery.php');
 									} 
 									
 									
-									if($row["product_category"] == 'Cup Cake' ) 
+									if($row["cat_name"] == 'Cup Cake' ) 
 									
 									{ ?> 
                                     <button type="button" class="btn btn-default get"><a href="cup_cake.php">Get it now</a></button>
@@ -182,7 +182,7 @@ include('./controller/globalQuery.php');
 									} 
 
 
-									if($row["product_category"] == 'Promotion' ) 
+									if($row["cat_name"] == 'Promotion' ) 
 									
 									{ ?> 
                                     <button type="button" class="btn btn-default get"><a href="promotion.php">Get it now</a></button>
@@ -212,7 +212,7 @@ include('./controller/globalQuery.php');
 									<h1><span>E</span>lie`cious Eyda Bites</h1>
 									<p><?php echo $row["product_name"]; ?></p>
 
-                                    <?php if($row["product_category"] == 'Cake' ) 
+                                    <?php if($row["cat_name"] == 'Cake' ) 
 									
 									{ ?>
                                     
@@ -221,7 +221,7 @@ include('./controller/globalQuery.php');
 									} 
 									
 									
-									if($row["product_category"] == 'Dessert' ) 
+									if($row["cat_name"] == 'Dessert' ) 
 									
 									{ ?> 
                                     <button type="button" class="btn btn-default get"><a href="dessert.php">Get it now</a></button>
@@ -229,7 +229,7 @@ include('./controller/globalQuery.php');
 									} 
 									
 									
-									if($row["product_category"] == 'Cookies' ) 
+									if($row["cat_name"] == 'Cookies' ) 
 									
 									{ ?> 
                                     <button type="button" class="btn btn-default get"><a href="cookies.php">Get it now</a></button>
@@ -237,14 +237,14 @@ include('./controller/globalQuery.php');
 									} 
 									
 									
-									if($row["product_category"] == 'Cup Cake' ) 
+									if($row["cat_name"] == 'Cup Cake' ) 
 									
 									{ ?> 
                                     <button type="button" class="btn btn-default get"><a href="cup_cake.php">Get it now</a></button>
 									<?php 
 									} 
 
-									if($row["product_category"] == 'Promotion' ) 
+									if($row["cat_name"] == 'Promotion' ) 
 									
 									{ ?> 
                                     <button type="button" class="btn btn-default get"><a href="promotion.php">Get it now</a></button>
@@ -303,10 +303,10 @@ include('./controller/globalQuery.php');
 					</div>
 				</div>
 				
-				<div class="col-sm-9 padding-right">
+				<div class="col-sm-12 padding-right">
 					<div class="features_items"><!--features_items-->
 						<h2 class="title text-center"> </h2>
-						<div class="col-sm-4">
+						<div class="col-sm-12">
 								
 										Kepakaran kami adalah menjual pelbagai jenis kek dan dessert sesuai <BR/>
                                         dengan citarasa anda penggemar kek …kami menjanjikan kepuasan pada  </BR>

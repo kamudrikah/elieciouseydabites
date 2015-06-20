@@ -1,8 +1,8 @@
 
 
 <?php
-include('../controller/db_connect.php');
 session_start();
+include('../controller/db_connect.php');
 
 
 $logName = $_POST['username'];
