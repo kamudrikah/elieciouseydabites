@@ -200,7 +200,17 @@
                                             <a href="editProduct.php?id=<?=$row_product['product_id']; ?>">
                                             <button type="button" name="" class="btn btn-info">
                                             Edit</button></a>
+                                            <?php
+                                            if($row_product['product_status']==8){
+                                            ?>
                                             <a class="btn btn-warning" href="./unavailableProduct.php?id=<?=$row_product['price_id']?>">Unavailable</a>
+                                            <?php
+                                            }elseif($row_product['product_status']==9){
+                                            ?>
+                                            <a class="btn btn-success" href="./availableProduct.php?id=<?=$row_product['price_id']?>">Available</a>
+                                            <?php
+                                            }
+                                            ?>
                                             <a class="btn btn-danger" href="./deleteProduct.php?id=<?=$row_product['price_id']?>">Delete</a>
                                             </center></td>
                                       </tr>
