@@ -1,6 +1,34 @@
 <?php
-   include('../controller/session_admin.php');
-   include('../controller/javasript.php');
+include('../controller/session_admin.php');
+include('../controller/javasript.php');
+date_default_timezone_set("Asia/Kuala_Lumpur");
+if(isset($_POST)){
+  $month = $_POST['month'];
+  $year = date("Y");
+  $days = date('t', mktime(0, 0, 0, $month, 1, $year));
+  $category = ['Promotion','Cake','Dessert','Cookies','Cup Cake'];
+  $allData = array();
+  for($i=1; $i<=$days; $i++){
+    $dayData = [$i];
+    foreach ($category as $key => $value) {
+      $sql = "SELECT COUNT(price_id) sold FROM `order`
+                JOIN `product_price` USING (price_id)
+                JOIN `product` USING (product_id)
+                JOIN `category` ON product.product_category=category.cat_id
+                WHERE order_status='1'
+                AND cat_name='$value'
+                AND MONTH(order_date)='$month'
+                AND DAY(order_date)='$i'";
+                // echo "$sql<br>";
+
+      $result = $conn_obj->query($sql);
+      while($row = $result->fetch_assoc()) {
+        array_push($dayData, $row['sold']);
+      }
+    }
+    array_push($allData, $dayData);
+  }
+}
 ?>
 
 
@@ -145,68 +173,32 @@
                             <div class="dataTable_wrapper">
                             
                             	<table>
-                                 <form action="" method="">
+                                 <form action="./reportSales.php" method="POST">
                                   <tr>
-                                    	<td>
-                                        	<select name="cat">
-                                            	  <option value='' selected>Select a Category </option>
-  												  <option value='promotion'>Promotion</option>
-   												  <option value='cake'>Cake</option>
-                                                  <option value='dessert'>Dessert</option>
-                                                  <option value='cookies'>Cookies</option>
-                                                  <option value='cupcake'>Cup Cake</option>
-                                            </select>
-                                        </td>
                                         <td>&nbsp;</td>
-                                        <td>
-                                        	<button type="button" class="btn btn-info">Apply</button>
-                                        </td>
                                         <td>&nbsp; &nbsp;</td>
                                         <td>
-                                        	<select name="act">
+                                        	<select name="month">
                                             	  <option value='' selected>Month </option>
-  												  <option value='jan'>January</option>
-                                                  <option value='feb'>February</option>
-                                                  <option value='mac'>March</option>
-                                                  <option value='apr'>April</option>
-                                                  <option value='may'>May</option>
-                                                  <option value='jun'>June</option>
-                                                  <option value='jul'>July</option>
-                                                  <option value='aug'>August</option>
-                                                  <option value='sep'>September</option>
-                                                  <option value='oct'>October</option>
-                                                  <option value='nov'>November</option>
-                                                  <option value='dis'>Disember</option>
+                                                <option value='1'>January</option>
+                                                <option value='2'>February</option>
+                                                <option value='3'>March</option>
+                                                <option value='4'>April</option>
+                                                <option value='5'>May</option>
+                                                <option value='6'>June</option>
+                                                <option value='7'>July</option>
+                                                <option value='8'>August</option>
+                                                <option value='9'>September</option>
+                                                <option value='10'>October</option>
+                                                <option value='11'>November</option>
+                                                <option value='12'>Disember</option>
                                             </select>
                                         </td>
                                         <td>&nbsp;</td>
                                         <td>
-                                        	<button type="button" class="btn btn-info">Filter</button>
+                                        	<button type="submit" class="btn btn-info">Filter</button>
                                         </td>
                                          <td> &nbsp;&nbsp;</td>
-                                        <td>Custom : </td>
-                                        <td>  <input  name="from" data-format="yyyy-MM-dd" type="date" name="dateFrom" class="form-control" required="required" class="form-control" id="templatemo_search_box"></input>
-                                             <span class="add-on"></span>
-                                              <script type="text/javascript">
-                                                $(function() {
-                                                  $('#input_timetable_date').datetimepicker({
-                                                    pickTime: false
-                                                  });
-                                                });
-                                              </script> </td>
-                                              <td> Until </td>
-                                              <td>  <input  name="after" data-format="yyyy-MM-dd" type="date" name="dateAfter" class="form-control" required="required" class="form-control" id="templatemo_search_box"></input>
-                                                <span class="add-on"></span>
-                                                  <script type="text/javascript">
-                                                    $(function() {
-                                                      $('#input_timetable_date').datetimepicker({
-                                                        pickTime: false
-                                                      });
-                                                    });
-                                                  </script> </td>
-                                                  <td>
-                                        	<button type="button" class="btn btn-info">Go</button>
-                                        </td>
                                     </tr>
                                 </form>
                                 </table>
@@ -221,14 +213,14 @@
             
             <!-- /.row -->
             <div class="row">
-                <div class="col-lg-6">
+                <div class="col-lg-12">
                     <div class="panel panel-default">
                         <div class="panel-heading">
                             Line Chart
                         </div>
                         <!-- /.panel-heading -->
                         <div class="panel-body">
-                            <div id="morris-area-chart"></div>
+                          <div id="linechart_material"></div>
                         </div>
                         <!-- /.panel-body -->
                     </div>
@@ -244,7 +236,43 @@
 
     </div>
     <!-- /#wrapper -->
+    <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+    <script type="text/javascript">
+    google.load('visualization', '1.1', {packages: ['line']});
+    google.setOnLoadCallback(drawChart);
 
+    function drawChart() {
+
+      var data = new google.visualization.DataTable();
+      data.addColumn('number', 'Day');
+      data.addColumn('number', 'Promotion');
+      data.addColumn('number', 'Cake');
+      data.addColumn('number', 'Dessert');
+      data.addColumn('number', 'Cookies');
+      data.addColumn('number', 'Cup Cake');
+
+      data.addRows([
+        <?php
+        foreach ($allData as $key => $value) {
+          echo "[".$value[0].",".$value[1].",".$value[2].",".$value[3].",".$value[4].",".$value[5]."],";
+        }
+        ?>
+      ]);
+
+      var options = {
+        chart: {
+          title: 'Sales in specific periods',
+          subtitle: 'in number of product sold.'
+        },
+        width: 900,
+        height: 500
+      };
+
+      var chart = new google.charts.Line(document.getElementById('linechart_material'));
+
+      chart.draw(data, options);
+    }
+  </script>
     <!-- jQuery -->
     <script src="../bower_components/jquery/dist/jquery.min.js"></script>
 
