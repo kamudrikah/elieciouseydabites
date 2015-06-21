@@ -39,7 +39,7 @@ if(!isset($_SESSION['user_id'])){
 		<div class="header_top"><!--header_top-->
 			<div class="container">
 				<div class="row">
-					<div class="col-sm-6">
+					<div class="col-sm-12">
 						<div class="contactinfo">
 							<ul class="nav nav-pills">
 								<li><a href=""><i class="fa fa-phone"></i> +6012-4389731 / +6014-9039376</a></li>
@@ -47,9 +47,6 @@ if(!isset($_SESSION['user_id'])){
                                 <li><a href=""><i class="fa fa-facebook"></i> FB & Instagram : ElieciOusBites</a></li>
 						  </ul>
 						</div>
-					</div>
-					<div class="col-sm-6">
-						
 					</div>
 				</div>
 			</div>
