@@ -17,6 +17,6 @@ if(isset($prices)){
 		}
 	}
 }else{
-	header("Location: ./cake.php");
+	header("Location: ./cake.php?error=1");
 }
 ?>

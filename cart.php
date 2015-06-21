@@ -219,7 +219,7 @@ var totalAll=[];
 		<section id="do_action">
 			<div class="container">
 				<div class="heading">
-					<h3> Delivery Method </h3>
+					<h3> Local Delivery </h3>
 				</div>
 				<div class="row">
 					<div class="col-sm-6">

@@ -5,33 +5,26 @@ if(!isset($_SESSION['user_id'])){
   header("Location: ./cust_signin.php");
 }
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
-
-
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="">
-    <meta name="author" content="">
-    <title>Shop | Elie`cious Eyda Bites</title>
-    <link href="css/bootstrap.min.css" rel="stylesheet">
-    <link href="css/font-awesome.min.css" rel="stylesheet">
-    <link href="css/prettyPhoto.css" rel="stylesheet">
-    <link href="css/price-range.css" rel="stylesheet">
-    <link href="css/animate.css" rel="stylesheet">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="">
+  <meta name="author" content="">
+  <title>Shop | Elie`cious Eyda Bites</title>
+  <link href="css/bootstrap.min.css" rel="stylesheet">
+  <link href="css/font-awesome.min.css" rel="stylesheet">
+  <link href="css/prettyPhoto.css" rel="stylesheet">
+  <link href="css/price-range.css" rel="stylesheet">
+  <link href="css/animate.css" rel="stylesheet">
   <link href="css/main.css" rel="stylesheet">
   <link href="css/responsive.css" rel="stylesheet">
-    <!--[if lt IE 9]>
-    <script src="js/html5shiv.js"></script>
-    <script src="js/respond.min.js"></script>
-    <![endif]-->       
-    <link rel="shortcut icon" href="images/ico/favicon.ico">
-    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="images/ico/apple-touch-icon-144-precomposed.png">
-    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="images/ico/apple-touch-icon-114-precomposed.png">
-    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="images/ico/apple-touch-icon-72-precomposed.png">
-    <link rel="apple-touch-icon-precomposed" href="images/ico/apple-touch-icon-57-precomposed.png">
+  <link rel="shortcut icon" href="images/ico/favicon.ico">
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="images/ico/apple-touch-icon-144-precomposed.png">
+  <link rel="apple-touch-icon-precomposed" sizes="114x114" href="images/ico/apple-touch-icon-114-precomposed.png">
+  <link rel="apple-touch-icon-precomposed" sizes="72x72" href="images/ico/apple-touch-icon-72-precomposed.png">
+  <link rel="apple-touch-icon-precomposed" href="images/ico/apple-touch-icon-57-precomposed.png">
 </head><!--/head-->
 
 <body>
@@ -39,17 +32,14 @@ if(!isset($_SESSION['user_id'])){
     <div class="header_top"><!--header_top-->
       <div class="container">
         <div class="row">
-          <div class="col-sm-6">
+          <div class="col-sm-12">
             <div class="contactinfo">
               <ul class="nav nav-pills">
                 <li><a href=""><i class="fa fa-phone"></i> +6012-4389731 / +6014-9039376</a></li>
                 <li><a href=""><i class="fa fa-envelope"></i> elieciousart@yahoo.com</a></li>
-                                <li><a href=""><i class="fa fa-facebook"></i> FB & Instagram : ElieciOusBites</a></li>
+                <li><a href=""><i class="fa fa-facebook"></i> FB & Instagram : ElieciOusBites</a></li>
               </ul>
             </div>
-          </div>
-          <div class="col-sm-6">
-            
           </div>
         </div>
       </div>
@@ -108,16 +98,20 @@ if(!isset($_SESSION['user_id'])){
       </div>
     </div><!--/header-bottom-->
   </header><!--/header-->
-  
-  <section id="advertisement">
-    <div class="container">
-      <img src="images/shop/advertisement.jpg" alt="" />
-    </div>
-  </section>
-  
   <section>
     <div class="container">
       <div class="row">
+        <?php
+        if($_GET['error']){
+        ?>
+        <div class="col-sm-12">
+          <div class="alert alert-danger" role="alert">
+            <p>Please choose an option from the available cake options.</p>
+          </div>
+        </div>
+        <?php
+        }
+        ?>
         <div class="col-sm-3">
           <div class="left-sidebar">
             <h2>Category</h2>
@@ -164,139 +158,91 @@ if(!isset($_SESSION['user_id'])){
           <div class="features_items"><!--features_items-->
             <h2 class="title text-center">Cake</h2>
             <?php
-            
-$num_rec_per_page=6;
+            $num_rec_per_page=6;
 
-if (isset($_GET["page"])) { $page  = $_GET["page"]; } else { $page=1; }; 
-$start_from = ($page-1) * $num_rec_per_page; 
+            if (isset($_GET["page"])) { $page  = $_GET["page"]; } else { $page=1; }; 
+            $start_from = ($page-1) * $num_rec_per_page; 
 
-$query1= "SELECT * FROM product WHERE product_category = '2' LIMIT $start_from , $num_rec_per_page";
-$rs_result = mysqli_query($conn, $query1); //run the query
+            $query1= "SELECT * FROM product WHERE product_category = '2' LIMIT $start_from , $num_rec_per_page";
+            $rs_result = mysqli_query($conn, $query1); //run the query
 
-
-
-    // output data of each row
-  $z = 0;
-while ($row = mysqli_fetch_assoc($rs_result)) { 
-
-
-  ?>          <form action="add_cart.php" method="post">
-            <div class="col-sm-4">
-              <div class="product-image-wrapper">
-                              <div class="single-products">
-                  <div class="productinfo text-center">
-
-                    <?php $product_id = $row["product_id"];   ?>
-                    
-                    <input type="hidden" name="product_id" value="<?php echo $product_id; ?>">
-                    <input type="hidden" name="location" value="cake.php">
-                    
-                    
-                    <img src="image.php?id=<?php echo $row["product_id"]; ?>" height="220" width="30" />
-                    
-                    <h2><?php echo $row["product_name"];   ?></h2> <br/>
-                    <p>
-                                         <!-- <h5> <?php //echo $row["product_description"];   ?></h5> --> 
-                                        
-                                          
-                      <?php
-                      $query2= "SELECT * FROM product_price WHERE product_id = '$product_id' ";
-                      $rs_result1 = mysqli_query($conn, $query2);  
-                      $i = 0;
-                      $y = 0;
-                      while ($row1 = mysqli_fetch_assoc($rs_result1)) { 
-                      
-                      
-                      ?>
-                        <input type="checkbox" name="price_id[]" value="<?php echo $row1["price_id"]; ?>" >
-                        <?php 
-                                    if($row1["product_weight"] != "Not Available")
-                                    {
-                                      echo $row1["product_weight"] ." RM " .$row1["product_price"];  } 
-                                    else {
-
-                                    echo "RM ".$row1["product_price"];
-
-                                     }  ?>
-
-                                     <BR>
-                                            
-
-                      
-                      <?php $i =$i +1; } ?>
-                      
-                                                                                        
-                                        </p>
-                    <input type="submit" class="btn btn-default add-to-cart" />
-                    </FORM>
-                    
+            $z = 0;
+            while ($row = mysqli_fetch_assoc($rs_result)) { 
+            ?>
+            <form action="add_cart.php" method="post">
+              <div class="col-sm-4">
+                <div class="product-image-wrapper">
+                  <div class="single-products">
+                    <div class="productinfo text-center">
+                      <?php $product_id = $row["product_id"];   ?>
+                      <input type="hidden" name="product_id" value="<?php echo $product_id; ?>">
+                      <input type="hidden" name="location" value="cake.php">
+                      <img src="image.php?id=<?php echo $row["product_id"]; ?>" height="220" width="30" />
+                      <h2><?php echo $row["product_name"]; ?></h2><br/>
+                      <p>
+                        <?php
+                        $query2= "SELECT * FROM product_price WHERE product_id = '$product_id' ";
+                        $rs_result1 = mysqli_query($conn, $query2);  
+                        $i = 0;
+                        $y = 0;
+                        while ($row1 = mysqli_fetch_assoc($rs_result1)) { 
+                        ?>
+                          <input type="checkbox" name="price_id[]" value="<?=$row1["price_id"];?>">
+                          <?php 
+                          if($row1["product_weight"] != "Not Available"){
+                            echo $row1["product_weight"] ." RM " .$row1["product_price"];
+                          }else{
+                            echo "RM ".$row1["product_price"];
+                          }
+                          ?>
+                          <br>
+                        <?php
+                          $i =$i +1;
+                        }
+                        ?>
+                      </p>
+                      <input type="submit" class="btn btn-default add-to-cart" value="Add to cart" />
+                    </div>
                   </div>
                 </div>
-                                                
               </div>
-            </div>
-            
-  
-  
-  
-  <?php
-  
-    $z = $z +1;
-    }
-?>
-
-  
-  
-  </BR>
-  
-  <?php
-  
-$query3= "SELECT * FROM product WHERE product_category = '2' "; 
-$result = mysqli_query($conn, $query3); 
-$total_records = mysqli_num_rows($result);  //count number of records
-$total_pages = ceil($total_records / $num_rec_per_page); 
-
- 
-
-      
-?>                              
-<br/>
-  </BR>         
-            
-<ul class="pagination">
-  <li><?php echo "<a href='cake.php?page=1'>".'|<'."</a> "; // Goto 1st page    ?></li>
-              
-    <?php  for ($i=1; $i<=$total_pages; $i++) 
-    { 
-      //echo " i=" .$i ." page=" .$page;
-      if($page == $i) 
-      { ?>
-      
-      <li class="active"> <?php echo "<a href='cake.php?page=".$i."'>".$i."</a> "; ?> </li>
-      
-      <?php
-      } 
-      if($page != $i) 
-      { ?>
-      <li> <?php  echo "<a href='cake.php?page=".$i."'>".$i."</a> "; ?> </li>
-
-      <?php
-      }  
-    } 
-?>
-
-<li> <?php echo "<a href='cake.php?page=$total_pages'>".'>|'."</a> "; // Goto last page  ?>  </li>
-
-
-
-            </ul>
-          </div><!--features_items-->
+            </form>
+            <?php
+              $z = $z +1;
+            }
+            ?>
+          </div>
         </div>
+       <div class="col-md-3 col-md-offset-3">
+        <?php
+        $query3= "SELECT * FROM product WHERE product_category = '2' "; 
+        $result = mysqli_query($conn, $query3); 
+        $total_records = mysqli_num_rows($result);  //count number of records
+        $total_pages = ceil($total_records / $num_rec_per_page); 
+        ?>                              
+        <ul class="pagination">
+          <li><?php echo "<a href='cake.php?page=1'>".'|<'."</a> "; // Goto 1st page    ?></li>
+          <?php  
+          for ($i=1; $i<=$total_pages; $i++){
+            //echo " i=" .$i ." page=" .$page;
+            if($page == $i) {
+          ?>
+          <li class="active"> <?php echo "<a href='cake.php?page=".$i."'>".$i."</a> "; ?> </li>
+          <?php
+            }
+            if($page != $i) {
+          ?>
+          <li> <?php  echo "<a href='cake.php?page=".$i."'>".$i."</a> "; ?> </li>
+          <?php
+            }  
+          } 
+          ?>
+          <li> <?php echo "<a href='cake.php?page=$total_pages'>".'>|'."</a> "; // Goto last page  ?>  </li>
+        </ul>
+       </div>
       </div>
     </div>
   </section>
-  
-      
   <footer id="footer"><!--Footer-->
     <div class="footer-top">
       <div class="container">
@@ -314,7 +260,6 @@ $total_pages = ceil($total_records / $num_rec_per_page);
         </div>
       </div>
     </div>    
-    
     <div class="footer-bottom">
       <div class="container">
         <div class="row">
@@ -322,15 +267,13 @@ $total_pages = ceil($total_records / $num_rec_per_page);
       </div>
       </div>
     </div>
-    
   </footer><!--/Footer-->
 
-  
-    <script src="js/jquery.js"></script>
+  <script src="js/jquery.js"></script>
   <script src="js/price-range.js"></script>
-    <script src="js/jquery.scrollUp.min.js"></script>
+  <script src="js/jquery.scrollUp.min.js"></script>
   <script src="js/bootstrap.min.js"></script>
-    <script src="js/jquery.prettyPhoto.js"></script>
-    <script src="js/main.js"></script>
+  <script src="js/jquery.prettyPhoto.js"></script>
+  <script src="js/main.js"></script>
 </body>
 </html>
