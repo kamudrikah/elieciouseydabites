@@ -122,79 +122,44 @@ if(!isset($_SESSION['user_id'])){
           <div class="left-sidebar">
             <h2>Category</h2>
             <div class="panel-group category-products" id="accordian"><!--category-productsr-->
-                          <div class="panel panel-default">
+              <div class="panel panel-default">
                 <div class="panel-heading">
                   <h4 class="panel-title">
                     <a href="promotion.php">Promotion</a>
                   </h4>
                 </div>
-                            </div>
+              </div>
               <div class="panel panel-default">
                 <div class="panel-heading">
                   <h4 class="panel-title">
                     <a href="cake.php">Cake</a>
                   </h4>
                 </div>
-                            </div>
+              </div>
               <div class="panel panel-default">
                 <div class="panel-heading">
                   <h4 class="panel-title">
                     <a href="dessert.php">Dessert</a>
                   </h4>
                 </div>
-                
               </div>
-              
               <div class="panel panel-default">
                 <div class="panel-heading">
                   <h4 class="panel-title">
                     <a href="cookies.php">Cookies</a>
                   </h4>
                 </div>
-                
               </div>
               <div class="panel panel-default">
                 <div class="panel-heading">
                   <h4 class="panel-title">
-                                      <a href="cup_cake.php">Cup Cake</a>
-                                    </h4>
-                </div>
-              </div>
-              
-            </div><!--/category-productsr-->
-            <?php
-              if(!empty($_GET['res']))
-            {  ?>
-            <div class="panel-group category-products" id="accordian">
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                  <h4 class="panel-title">
-
-<?php
-   switch($_GET['res'])
-   {
-   case "empty":
-   print "<h5 style='color:red'>*Please check at least 1 type of price..</h5>";
-   break;
-   }
-
-?>
-                    
+                    <a href="cup_cake.php">Cup Cake</a>
                   </h4>
                 </div>
-                            </div>
-            </div>
-            <?php  } ?>
-            
-            
-            
-            <div class="shipping text-center"><!--shipping-->
-              
-            </div><!--/shipping-->
-            
+              </div>
+            </div><!--/category-productsr-->
           </div>
         </div>
-        
         <div class="col-sm-9 padding-right">
           <div class="features_items"><!--features_items-->
             <h2 class="title text-center">Cake</h2>
@@ -286,7 +251,7 @@ while ($row = mysqli_fetch_assoc($rs_result)) {
   
   <?php
   
-$query3= "SELECT * FROM product WHERE product_category = 'Cake' "; 
+$query3= "SELECT * FROM product WHERE product_category = '2' "; 
 $result = mysqli_query($conn, $query3); 
 $total_records = mysqli_num_rows($result);  //count number of records
 $total_pages = ceil($total_records / $num_rec_per_page); 
