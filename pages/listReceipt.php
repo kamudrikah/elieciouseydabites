@@ -68,9 +68,9 @@
             </div>
             <!-- /.navbar-header -->
 
+            <?php $newOrder = newOrderNumber($conn_obj); ?>
             <ul class="nav navbar-top-links navbar-right">
-             
-
+                <li><a href="./listOrder.php">New Order <span class="badge"><?=$newOrder['new_order']?></span></a></li>
                 <li class="dropdown">
                     <a class="dropdown-toggle" data-toggle="dropdown" href="#">
                         <i class="fa fa-user fa-fw"></i>  <i class="fa fa-caret-down"></i>
@@ -190,7 +190,17 @@
                                           <td><?=$row_receipt['phone']; ?></td>
                                             <td>
                                             <center>
+                                            <?php
+                                            if($row_receipt["order_reciept"]!=NULL){
+                                            ?>
                                             <img src="image_receipt.php?id=<?php echo $row_receipt["order_id"]; ?>" height="155" width="140" />
+                                            <?php
+                                            }else{
+                                            ?>
+                                            None
+                                            <?php
+                                            }
+                                            ?>
                                             </center></td>
                                       </tr>
 

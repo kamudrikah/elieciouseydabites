@@ -13,10 +13,12 @@
         $prod = mysqli_fetch_assoc($detail1);
 
         // List All Detail Product For Price 2
-        $price2 = "SELECT * from product p, product_price pc, status s, category c 
-        where p.product_id = pc.product_id AND p.product_id = $id AND p.product_category = c.cat_id AND pc.product_status = s.status_id ORDER BY pc.price_id DESC";
-        $detail2 = mysqli_query($conn, $price2);
-        $prod2 = mysqli_fetch_assoc($detail2);
+        if(mysqli_num_rows($detail1)>1){
+          $price2 = "SELECT * from product p, product_price pc, status s, category c 
+          where p.product_id = pc.product_id AND p.product_id = $id AND p.product_category = c.cat_id AND pc.product_status = s.status_id ORDER BY pc.price_id DESC";
+          $detail2 = mysqli_query($conn, $price2);
+          $prod2 = mysqli_fetch_assoc($detail2);
+        }
 
     }
 
@@ -174,7 +176,7 @@
                         <div class="col-lg-12">
                             <div class="panel panel-default">
                                 <div class="panel-heading">
-                                    Add New Product</div>
+                                    Edit Product</div>
                                 <div class="panel-body">
                                     <div class="row">
                                         <div class="col-lg-6">
@@ -251,9 +253,9 @@
                                                       </td> </tr>
                                                     <tr>
                                                   <tr>
-                	                                     <td height="37">* Weight</td> 
+                	                                     <td height="37"> Weight</td> 
             	                                         <td> <strong>:</strong> </td>
-        	                                             <td><input type="text" class="form-control" value="<?=$prod['product_weight'];?>" required name="productWeight1" id="productWeight1" placeholder="1/2KG , 2KG, 1.4KG or 8 Inch"/> <font color="#0099FF"> optional </font></td>
+        	                                             <td><input type="text" class="form-control" value="<?=$prod['product_weight'];?>" name="productWeight1" id="productWeight1" placeholder="1/2KG , 2KG, 1.4KG or 8 Inch"/> <font color="#0099FF"> optional </font></td>
                                                   </tr>
                                                   <tr>
                                                          <td>Stock</td>

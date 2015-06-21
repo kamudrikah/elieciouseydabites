@@ -62,9 +62,9 @@
                     </div>
                     <!-- /.navbar-header -->
 
+                    <?php $newOrder = newOrderNumber($conn_obj); ?>
                     <ul class="nav navbar-top-links navbar-right">
-                     
-
+                        <li><a href="./listOrder.php">New Order <span class="badge"><?=$newOrder['new_order']?></span></a></li>
                         <li class="dropdown">
                             <a class="dropdown-toggle" data-toggle="dropdown" href="#">
                                 <i class="fa fa-user fa-fw"></i>  <i class="fa fa-caret-down"></i>
@@ -141,6 +141,20 @@
                       </div>
                         <!-- /.col-lg-12 -->
                     </div>
+                    <?php
+                    if($_GET['code_exist']==1){
+                    ?>
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="alert alert-danger" role="alert">
+                            Barcode already existed in the system. Please key in a difference barcode.
+                            </div>
+                      </div>
+                        <!-- /.col-lg-12 -->
+                    </div>
+                    <?php
+                    }
+                    ?>
                     <!-- /.row -->
                     <div class="row">
                         <div class="col-lg-12">

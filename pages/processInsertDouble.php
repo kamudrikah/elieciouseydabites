@@ -31,31 +31,38 @@ $productCategory = $_POST['productCategory'];
 $productStock = $_POST['productStock'];
 $productStock2 = $_POST['productStock2'];
 
+$sqlValidateProdCode = "SELECT * FROM `product_price` WHERE product_code = '$producCode1' or product_code = '$productCode2'";
+$resultValidateProdCode = mysqli_query($conn,$sqlValidateProdCode);
+
 if ($productId==null){
+	if(mysqli_num_rows($resultValidateProdCode)>0){
+		header("Location: ./addProduct.php?code_exist=1");
+	}else{
 
 		$sql = "INSERT INTO product(product_name,product_category,product_description,product_picture) 
-	VALUES ('$productName','$productCategory','$productDesc','$image_upload')";
+			VALUES ('$productName','$productCategory','$productDesc','$image_upload')";
 
 
-	$price1 = "INSERT INTO product_price(product_id,product_code,product_price,product_weight,product_status) 
-	VALUES ('$lastId','$producCode1','$productPrice1','$productWeight1','$productStock')";
+		$price1 = "INSERT INTO product_price(product_id,product_code,product_price,product_weight,product_status) 
+			VALUES ('$lastId','$producCode1','$productPrice1','$productWeight1','$productStock')";
 
-	if ($productPrice2 !="" && $productCode2 != "" && $productWeight2 != "")
-	{
-		$price2 = "INSERT INTO product_price(product_id,product_code,product_price,product_weight,product_status) 
-	VALUES ('$lastId','$productCode2','$productPrice2','$productWeight2','$productStock2')";
-	}
+		if ($productPrice2 !="" && $productCode2 != "" && $productWeight2 != "")
+		{
+			$price2 = "INSERT INTO product_price(product_id,product_code,product_price,product_weight,product_status) 
+		VALUES ('$lastId','$productCode2','$productPrice2','$productWeight2','$productStock2')";
+		}
 
 
 
-	require_once("../controller/db_connect.php");
-	mysqli_query($conn,$sql);
-	mysqli_query($conn,$price1);
-	mysqli_query($conn,$price2);
+		require_once("../controller/db_connect.php");
+		mysqli_query($conn,$sql);
+		mysqli_query($conn,$price1);
+		mysqli_query($conn,$price2);
 
-	if(mysqli_affected_rows($conn) > 0)
-	{
-	    echo "<script type='text/javascript'>alert('Data Save');self.location='listProduct.php';</script>";
+		if(mysqli_affected_rows($conn) > 0)
+		{
+		    echo "<script type='text/javascript'>alert('Data Save');self.location='listProduct.php';</script>";
+		}
 	}
 
 }else {

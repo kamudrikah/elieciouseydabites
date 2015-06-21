@@ -68,9 +68,9 @@
             </div>
             <!-- /.navbar-header -->
 
+            <?php $newOrder = newOrderNumber($conn_obj); ?>
             <ul class="nav navbar-top-links navbar-right">
-             
-
+                <li><a href="./listOrder.php">New Order <span class="badge"><?=$newOrder['new_order']?></span></a></li>
                 <li class="dropdown">
                     <a class="dropdown-toggle" data-toggle="dropdown" href="#">
                         <i class="fa fa-user fa-fw"></i>  <i class="fa fa-caret-down"></i>
@@ -160,16 +160,9 @@
                                 <table class="table table-striped table-bordered table-hover" id="dataTables-example">
                                     <thead>
                                     <td colspan="9">                                          
-                                          <div align="left">
-                                              <select name="act">
-                                                <option value='' selected>Bulk Actions </option>
-                                                <option value='delete'>Delete</option>
-                                            </select>                                        
-                                            <button type="button" class="btn btn-info">Apply</button>
-                                          </div></td>
+                                    </td>
                                         <tr>
                                         <center>
-                                              <th width="5%"><input type="checkbox" id="selecctall"> </th>
                                               <th width="18%">Image</th>
                                               <th width="18%">Name</th>
                                               <th width="12%">Barcode</th>
@@ -186,7 +179,6 @@
                                     do {
                                         ?>  
                                         <tr>
-                                            <td><input class="checkbox1" type="checkbox" name="check[]" > </td>
                                             <td><img src="image.php?id=<?php echo $row_product["product_id"]; ?>" height="155" width="140" /></td>
                                             <td><?php echo $row_product['product_name']; ?></td>
                                             <td><?php echo $row_product['product_code']; ?></td>

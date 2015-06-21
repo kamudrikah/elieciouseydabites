@@ -27,7 +27,7 @@ $total_product_row = mysqli_num_rows($product);
 
 /*---------------- COD PART --------------------*/
 
-$listReceipt = "SELECT first_name, last_name, phone, order_no, order_id, user_id FROM `order` join user using (user_id) group by order_no";
+$listReceipt = "SELECT first_name, last_name, phone, order_no, order_id, user_id, order_reciept FROM `order` join user using (user_id) group by order_no";
 $receipt = mysqli_query($conn, $listReceipt);
 $row_receipt = mysqli_fetch_assoc($receipt);
 
@@ -51,7 +51,7 @@ $categoryList="SELECT * FROM category ";
 
 /*---------------- STATUS ORDER PART --------------------*/
 
-$statusOrder="SELECT * FROM status where status_type = 'o' AND status_name != ' Temp' AND status_name != 'Temp_delete' "; 
+$statusOrder="SELECT * FROM status where status_type = 'o' AND status_name != 'Temp' AND status_name != 'Temp_delete' AND status_name != 'Incomplete'"; 
 $orderStatus = mysqli_query($conn, $statusOrder);
 $row_status_order = mysqli_fetch_assoc($orderStatus);
 
@@ -140,5 +140,13 @@ function getDeliveryDate($order_no,$conn_obj){
 		}
 	}
 }
-
+// New order number (last 2 days)
+function newOrderNumber($conn_obj){
+	$sql = "SELECT COUNT(order_id) new_order FROM `order` WHERE order_date >= DATE_ADD(CURDATE(), INTERVAL -2 DAY);";
+	if($result = $conn_obj->query($sql)){
+		while($row = $result->fetch_assoc()){
+			return $row;
+		}
+	}
+}
 ?>

@@ -1,6 +1,4 @@
 <?php
-
-    require_once("../controller/db_connect.php");
    include('../controller/session_admin.php');
    include('../controller/javasript.php');
    include('../controller/globalQuery.php');
@@ -14,8 +12,8 @@
 
     $totalPrice = "SELECT SUM(TOTAL) AS TOTAL FROM
                     (
-                    SELECT PRODUCT_PRICE * ORDER_QTY AS TOTAL FROM `ORDER`
-                    JOIN PRODUCT_PRICE USING (PRICE_ID)
+                    SELECT PRODUCT_PRICE * ORDER_QTY AS TOTAL FROM `order`
+                    JOIN product_price USING (PRICE_ID)
                     WHERE ORDER_NO = $id
                     ) AS SUBTOTAL";
     $totalPri = mysqli_query($conn, $totalPrice);
@@ -23,7 +21,7 @@
 
     $delProduct = "SELECT O.ORDER_NO, O.ORDER_QTY, P.PRODUCT_NAME,PC.PRODUCT_WEIGHT,
                     PC.PRODUCT_PRICE, C.CAT_NAME,PC.PRODUCT_PRICE * O.ORDER_QTY AS TOTAL
-                    FROM `ORDER` O, `PRODUCT` P, `PRODUCT_PRICE` PC ,`CATEGORY` C
+                    FROM `order` O, `product` P, `product_price` PC ,`category` C
                     WHERE O.PRICE_ID = PC.PRICE_ID AND PC.PRODUCT_ID = P.PRODUCT_ID
                     AND C.CAT_ID = P.PRODUCT_CATEGORY AND ORDER_NO = $id";
     $detailpro = mysqli_query($conn, $delProduct);
@@ -96,9 +94,9 @@
             </div>
             <!-- /.navbar-header -->
 
+            <?php $newOrder = newOrderNumber($conn_obj); ?>
             <ul class="nav navbar-top-links navbar-right">
-             
-
+                <li><a href="./listOrder.php">New Order <span class="badge"><?=$newOrder['new_order']?></span></a></li>
                 <li class="dropdown">
                     <a class="dropdown-toggle" data-toggle="dropdown" href="#">
                         <i class="fa fa-user fa-fw"></i>  <i class="fa fa-caret-down"></i>

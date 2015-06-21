@@ -66,10 +66,9 @@
                 <a class="navbar-brand" href="index.html">Elie`cious Eyda Bites</a>
             </div>
             <!-- /.navbar-header -->
-
+            <?php $newOrder = newOrderNumber($conn_obj); ?>
             <ul class="nav navbar-top-links navbar-right">
-             
-
+                <li><a href="./listOrder.php">New Order <span class="badge"><?=$newOrder['new_order']?></span></a></li>
                 <li class="dropdown">
                     <a class="dropdown-toggle" data-toggle="dropdown" href="#">
                         <i class="fa fa-user fa-fw"></i>  <i class="fa fa-caret-down"></i>
@@ -160,19 +159,8 @@
                             <div class="table-responsive">
                                 <table class="table table-striped table-bordered table-hover" id="dataTables-example">
                                     <thead>
-                                    <td colspan="9">                                          
-                                          <div align="left">
-                                              <select name="act">
-                                                <option value='' selected>Bulk Actions </option>
-                                                <option value='delete'>Delete</option>
-                                            </select>                                        
-                                            <button type="button" class="btn btn-info">Apply</button>
-                                          </div></td>
                                         <tr>
                                         <center>
-                                            <th width="2%"><div align="center">
-                                              <input type="checkbox"> 
-                                              </th>
                                               <th width="10%"><div align="center"><strong>Status</strong></div></th>
                                               <th width="20%"><div align="center"><strong>Order</strong></div></th>
                                               <th width="20%"><div align="center"><strong>Delivery Location</strong></div></th>
@@ -190,9 +178,6 @@
                                     $row_order = mysqli_fetch_assoc($order); 
                                     // {  ?>
                                     <tr>
-                                        <td><div align="center">
-                                          <input type="checkbox"> 
-                                        </td>
                                         <td><?php echo $row_order['status_name']; ?></td>
                                         <td>#<?php echo $row_order['order_no']; ?>
                                         <?php echo $row_order['first_name']; ?>
