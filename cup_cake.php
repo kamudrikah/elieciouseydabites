@@ -174,7 +174,7 @@ $num_rec_per_page=6;
 if (isset($_GET["page"])) { $page  = $_GET["page"]; } else { $page=1; }; 
 $start_from = ($page-1) * $num_rec_per_page; 
 
-$query1= "SELECT * FROM product p JOIN product_price USING (product_id) WHERE product_category = '5' LIMIT $start_from , $num_rec_per_page";
+$query1= "SELECT * FROM product p JOIN product_price USING (product_id) WHERE product_category = '5' AND product_status='8' LIMIT $start_from , $num_rec_per_page";
 
 $rs_result = mysqli_query($conn, $query1); 
 
@@ -204,7 +204,7 @@ while ($row = mysqli_fetch_assoc($rs_result)) {
                                         
                                           
                       <?php
-                      $query2= "SELECT * FROM product_price WHERE product_id = '$product_id' ";
+                      $query2= "SELECT * FROM product_price WHERE product_id = '$product_id' AND product_status='8' ";
                       $rs_result1 = mysqli_query($conn, $query2);  
                       $i = 0;
                       $y = 0;

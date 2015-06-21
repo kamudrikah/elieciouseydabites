@@ -176,7 +176,7 @@ if (isset($_GET["page"])) { $page  = $_GET["page"]; } else { $page=1; };
 $start_from = ($page-1) * $num_rec_per_page; 
 
 
-$query1= "SELECT * FROM product p JOIN product_price USING (product_id) WHERE product_category = '3' LIMIT $start_from , $num_rec_per_page";
+$query1= "SELECT * FROM product p JOIN product_price USING (product_id) WHERE product_category = '3' AND product_status='8' LIMIT $start_from , $num_rec_per_page";
 $rs_result = mysqli_query($conn, $query1);  
 
 

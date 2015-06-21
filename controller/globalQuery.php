@@ -20,7 +20,7 @@ $product_id=$lastID['product_id'];
 
 // Get List Of Product
 $listProduct = "SELECT * from product p, product_price pc, status s, category c 
-            where p.product_id = pc.product_id  AND p.product_category = c.cat_id AND pc.product_status = s.status_id ORDER BY pc.price_id ASC";
+            where p.product_id = pc.product_id  AND p.product_category = c.cat_id AND pc.product_status = s.status_id AND pc.product_status!=10 ORDER BY pc.price_id ASC";
 $product = mysqli_query($conn, $listProduct);
 $row_product = mysqli_fetch_assoc($product);
 $total_product_row = mysqli_num_rows($product);

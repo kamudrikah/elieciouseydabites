@@ -181,7 +181,7 @@ if(!isset($_SESSION['user_id'])){
                       <h2><?php echo $row["product_name"]; ?></h2><br/>
                       <p>
                         <?php
-                        $query2= "SELECT * FROM product_price WHERE product_id = '$product_id' ";
+                        $query2= "SELECT * FROM product_price WHERE product_id = '$product_id' AND product_status='8'";
                         $rs_result1 = mysqli_query($conn, $query2);  
                         $i = 0;
                         $y = 0;

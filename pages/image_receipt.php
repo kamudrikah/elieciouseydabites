@@ -5,7 +5,7 @@ include('../controller/db_connect.php');
 //select the image
 //$image_id = $_GET['id'];
 
-$query = "SELECT * FROM order WHERE order_id = ?";
+$query = "SELECT * FROM `order` WHERE order_id = ?";
 $stmt = $con->prepare( $query );
 //bind the id of the image you want to select
 $stmt->bindParam(1, $_GET['id']);
@@ -19,7 +19,7 @@ if( $num ){
     //specify header with content type,
     //you can do header(“Content-type: image/jpg”); for jpg,
     //header(“Content-type: image/gif”); for gif, etc.
-    header("Content-type: image/png");
+    header("Content-type: image/jpg");
     
     //display the image data
     print $row['order_reciept'];

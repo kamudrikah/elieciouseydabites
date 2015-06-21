@@ -200,6 +200,8 @@
                                             <a href="editProduct.php?id=<?=$row_product['product_id']; ?>">
                                             <button type="button" name="" class="btn btn-info">
                                             Edit</button></a>
+                                            <a class="btn btn-warning" href="./unavailableProduct.php?id=<?=$row_product['price_id']?>">Unavailable</a>
+                                            <a class="btn btn-danger" href="./deleteProduct.php?id=<?=$row_product['price_id']?>">Delete</a>
                                             </center></td>
                                       </tr>
                                       <?php } while ($row_product = mysqli_fetch_assoc($product)); ?>
