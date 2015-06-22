@@ -19,10 +19,7 @@ $username = $_POST['username'];
 	require_once("../controller/db_connect.php");
 	mysqli_query($conn,$sql);
 
-	if(mysqli_affected_rows($conn) > 0)
-	{
 	    echo "<script type='text/javascript'>alert('Data Update');self.location='index.php';</script>";
-	}
 
 
 mysqli_close($conn);
