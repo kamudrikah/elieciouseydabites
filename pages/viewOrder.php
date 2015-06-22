@@ -144,7 +144,7 @@
                             </ul>
                             <!-- /.nav-second-level -->
                         </li>
-                       <li>
+                         <li>
                                     <a href="#"><i class="fa fa-shopping-cart fa-fw"></i> Products<span class="fa arrow"></span></a>
                                     <ul class="nav nav-second-level">
                                       <li>
@@ -192,36 +192,9 @@
                                     <tbody>
                                     <tr>
                                         <center>
-                                              <td width="23%" colspan="1"><div align="right"><strong>Delivery Date :</strong></div></td>
-                                          <td width="13%"><div align="center"><?php echo $person_order['order_date']; ?></div></td>
-                                          <td width="34%" colspan="1"><div align="right"><strong>Order Status :</strong></div></td>
-                                              <td width="18%">
-                                              <input type="hidden" name="orderNo" value="<?php echo $person_order['order_no']; ?>">
-                                              <div align="center">
-                                              <?php
-                                                echo "<select name=statusOrder  class=form-control><option>Select Status</option>"; 
-                                                 
-                                                 foreach ($con->query($statusOrder) as $row){
-                                                    if($person_order['order_status']==$row['status_id'])
-                                                    {
-                                                        echo "<option value='$row[status_id]' selected>$row[status_name]</option>"; 
-                                                    }else {
-                                                        echo "<option value=$row[status_id]>$row[status_name]</option>"; 
-                                                        
-                                                    }
-                                            }
-                                                echo "</select>";
-                                                 ?>
-                                            </div></td>
-                                      <td>
-                                                <center>
-                                                
-                                                    <input type="hidden" name="cod_id" value="<?=$row['ID'];?>">
-                                                    <button type="submit" class="btn btn-success"
-                                                    onClick="return confirm('Are you sure?');">Update</button> 
-                                                
-                                           </center>
-                                            </td>
+                                              <td width="23%" colspan="2"><div align="right"><strong>Delivery Date :</strong></div></td>
+                                          <td width="13%" colspan="3"><div align="left" ><?php echo $person_order['order_date']; ?></div></td>
+                                          
                                               
                                         </center>
                                         </tr>
@@ -305,6 +278,17 @@
                                       <?php } 
                                     } ?>
                                    </tbody> 
+                                </table>
+
+                                <table>
+                                    <tr>
+                                        <td colspan="9">
+                                        <center><a href="listOrder.php">
+                                            <button type="Button" class="btn btn-success">Back</button> 
+                                            </a>
+                                           </center>
+                                        </td>
+                                    </tr>
                                 </table>
                             </div>
                         </div>

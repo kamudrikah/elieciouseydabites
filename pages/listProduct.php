@@ -115,18 +115,17 @@
                             </ul>
                             <!-- /.nav-second-level -->
                         </li>
-                        
-                       <li>
+                      <li>
                                     <a href="#"><i class="fa fa-shopping-cart fa-fw"></i> Products<span class="fa arrow"></span></a>
                                     <ul class="nav nav-second-level">
                                       <li>
-                                            <a href="editProduct.php"><i class="fa fa-edit fa-fw"></i> Add New Product </a>
+                                            <a href="addProduct.php"><i class="fa fa-edit fa-fw"></i> Add New Product </a>
                                         </li>
                                       <li>
                                             <a href="listProduct.php"><i class="fa fa-table fa-fw"></i> List Product</a>
                                           </li>
                                             <li>
-                                            <a href="cod.php"><i class="fa fa-table fa-fw"></i> Add Cash On Delivery Places</a>
+                                            <a href="cod.php"><i class="fa fa-table fa-fw"></i> Add Local Delivery Place</a>
                                           </li>
                                     </ul>
                                     <!-- /.nav-second-level -->
@@ -197,8 +196,8 @@
                                             <td><?php echo $row_product['cat_name']; ?></td>
                                             <td>
                                             <center>
-                                            <input type="hidden" name="id" size="4" value=" <?=$row_product['price_id'];?>" >
-                                            <a href="editProduct.php?id=<?=$row_product['price_id']; ?>">
+                                            <input type="hidden" name="id" size="4" value=" <?=$row_product['product_id'];?>" >
+                                            <a href="editProduct.php?id=<?=$row_product['product_id']; ?>">
                                             <button type="button" name="" class="btn btn-info">
                                             Edit</button></a>
                                             </center></td>

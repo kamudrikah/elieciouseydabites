@@ -118,7 +118,7 @@
                                             <a href="listProduct.php"><i class="fa fa-table fa-fw"></i> List Product</a>
                                           </li>
                                             <li>
-                                            <a href="cod.php"><i class="fa fa-table fa-fw"></i> Add Cash On Delivery Places</a>
+                                            <a href="cod.php"><i class="fa fa-table fa-fw"></i> Add Local Delivery Place</a>
                                           </li>
                                     </ul>
                                     <!-- /.nav-second-level -->
@@ -134,7 +134,7 @@
         <div id="page-wrapper">
             <div class="row">
                 <div class="col-lg-12">
-                    <h1 class="page-header">Cash On Delivery</h1>
+                    <h1 class="page-header">Local Delivery Place</h1>
               </div>
                 <!-- /.col-lg-12 -->
             </div>
@@ -186,7 +186,7 @@
                                         <tr>
                                         <center>
                                         <th width="6%" align="center">No</th>
-                                        <th width="69%" align="center">Cash On Delivery Place</th>
+                                        <th width="69%" align="center">Local Delivery Place</th>
                                         <th width="27%" align="center">Action</th>
                                         </center>
                                         </tr>

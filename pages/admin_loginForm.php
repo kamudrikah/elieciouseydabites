@@ -20,7 +20,7 @@ if(empty($logName) || empty($pass))
   exit();
 }
 
-$q="SELECT user_id FROM user WHERE email='$logName' AND password='$pass' AND role = 'admin'";
+$q="SELECT user_id FROM user WHERE username='$logName' AND password='$pass' AND role = 'admin'";
 
 $result = mysqli_query($conn,$q);
 if(mysqli_num_rows($result) <= 0)

@@ -125,11 +125,11 @@
                                             <a href="listProduct.php"><i class="fa fa-table fa-fw"></i> List Product</a>
                                           </li>
                                             <li>
-                                            <a href="cod.php"><i class="fa fa-table fa-fw"></i> Add Cash On Delivery Places</a>
+                                            <a href="cod.php"><i class="fa fa-table fa-fw"></i> Add Local Delivery Place</a>
                                           </li>
                                     </ul>
                                     <!-- /.nav-second-level -->
-                              </li>                                            
+                              </li>                                          
                     </ul>
                 </div>
                 <!-- /.sidebar-collapse -->
@@ -175,43 +175,40 @@
                                               </th>
                                               <th width="10%"><div align="center"><strong>Status</strong></div></th>
                                               <th width="20%"><div align="center"><strong>Order</strong></div></th>
-                                              <th width="15%"><div align="center"><strong>Purchased</strong></div></th>
-                                              <th width="188"><div align="center"><strong>Delivery Location</strong></div></th>
+                                              <th width="20%"><div align="center"><strong>Delivery Location</strong></div></th>
                                               <th width="15%"><div align="center"><strong>Delivery Date</strong></div></th>
-                                              <th width="15%"><div align="center"><strong>Total</strong></div></th>
+                                              <th width="8%"><div align="center"><strong>View</strong></div></th>
                                               <th width="8%"><div align="center"><strong>Actions</strong></div></th>
                                         </center>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr>
-                                            <td><div align="center">
-                                              <input type="checkbox"> 
-                                            </td>
-                                            <td>Processing</td>
-                                            <td>#214 by Attir Hannany </td>
-                                            <td><a href="editOrder.php"> 2 items </a></td> 
-                                            <td>McDonald Medan Gopeng</td>
-                                            <td>12/5/2015</td>
-                                            <td>RM55</td>
-                                            <td><a href="editOrder.php" >Change Status</a></td>
-                                        </tr>
-                                    <?php 
-
-                                    ?>
+                                     <?php 
+                                    
+                                    if ($total_order_row!=null) { 
+                                    for ($i=0; $i< $total_order_row; $i++) { 
+                                    $row_order = mysqli_fetch_assoc($order); 
+                                    // {  ?>
                                     <tr>
                                         <td><div align="center">
                                           <input type="checkbox"> 
                                         </td>
-                                        <td>Processing</td>
-                                        <td>#214 by Attir Hannany </td>
-                                        <td><a href="editOrder.php"> 2 items </a></td> 
-                                        <td>McDonald Medan Gopeng</td>
-                                        <td>12/5/2015</td>
-                                        <td>RM55</td>
-                                        <td><a href="editOrder.php" >Change Status</a></td>
+                                        <td><?php echo $row_order['status_name']; ?></td>
+                                        <td>#<?php echo $row_order['order_no']; ?>
+                                        <?php echo $row_order['first_name']; ?>
+                                        <?php echo $row_order['last_name']; ?> </td>
+<!--                                         <td><a href="editOrder.php"> 2 items </a></td>  -->
+                                        <td><?=$row_order['place']; ?> </td>
+                                        <td><?php echo $row_order['order_date']; ?> </td>
+                                        <td align="center"><a href="viewOrder.php?id=<?php echo $row_order['order_no'] ?>" >
+                                        <img src="../images/view.png" width="35" height="35" />
+                                        </a></td>
+                                        <td align="center"><a href="editOrder.php?id=<?php echo $row_order['order_no'] ?>" >
+                                        <img src="../images/edit.png" width="35" height="35" />
+                                        </a></td>
                                     </tr>
-                                    <?php } while (); ?>
+                                    <?php } 
+                                    } ?>
                                     </tbody>
                                 </table>
                             </div>

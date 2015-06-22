@@ -125,7 +125,7 @@
                                             <a href="listProduct.php"><i class="fa fa-table fa-fw"></i> List Product</a>
                                           </li>
                                             <li>
-                                            <a href="cod.php"><i class="fa fa-table fa-fw"></i> Add Cash On Delivery Places</a>
+                                            <a href="cod.php"><i class="fa fa-table fa-fw"></i> Add Local Delivery Place</a>
                                           </li>
                                     </ul>
                                     <!-- /.nav-second-level -->
@@ -190,7 +190,7 @@
                                           <td><?=$row_receipt['phone']; ?></td>
                                             <td>
                                             <center>
-                                            <img src="image.php?id=<?php echo $row_receipt["order_id"]; ?>" height="155" width="140" />
+                                            <img src="image_receipt.php?id=<?php echo $row_receipt["order_id"]; ?>" height="155" width="140" />
                                             </center></td>
                                       </tr>
 

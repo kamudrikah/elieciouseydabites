@@ -118,7 +118,7 @@
                                             <a href="listProduct.php"><i class="fa fa-table fa-fw"></i> List Product</a>
                                           </li>
                                             <li>
-                                            <a href="cod.php"><i class="fa fa-table fa-fw"></i> Add Cash On Delivery Places</a>
+                                            <a href="cod.php"><i class="fa fa-table fa-fw"></i> Add Local Delivery Place</a>
                                           </li>
                                     </ul>
                                     <!-- /.nav-second-level -->

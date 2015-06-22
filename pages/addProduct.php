@@ -1,4 +1,6 @@
         <?php
+
+           require_once("../controller/db_connect.php");
            include('../controller/session_admin.php');
            include('../controller/javasript.php');
            include('../controller/globalQuery.php');
@@ -18,38 +20,27 @@
 
             <title>Admin Panel | Elie`cious Eyda Bites</title>
 
-            <!-- Bootstrap Core CSS -->
             <link href="../bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
-
-            <!-- MetisMenu CSS -->
             <link href="../bower_components/metisMenu/dist/metisMenu.min.css" rel="stylesheet">
-
-            <!-- Timeline CSS -->
             <link href="../dist/css/timeline.css" rel="stylesheet">
-
-            <!-- Custom CSS -->
             <link href="../dist/css/sb-admin-2.css" rel="stylesheet">
-
-            <!-- Morris Charts CSS -->
             <link href="../bower_components/morrisjs/morris.css" rel="stylesheet">
-
-            <!-- Custom Fonts -->
             <link href="../bower_components/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+            <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+            <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
 
-            <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-            <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-            <!--[if lt IE 9]>
-                <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-                <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-            <![endif]-->
-            <script src="SpryAssets/SpryValidationTextField.js" type="text/javascript"></script>
-            <link href="SpryAssets/SpryValidationTextField.css" rel="stylesheet" type="text/css">
+            <script language="JavaScript">
+                            function myFunctionRegister() {
+                        document.form("form_name").reset();
+                    }
+
+            </script>
             <style type="text/css">
     <!--
     .style1 {color: #FF0000}
     .style2 {
-    	color: #0000FF;
-    	font-weight: bold;
+        color: #0000FF;
+        font-weight: bold;
     }
     -->
             </style>
@@ -104,12 +95,12 @@
                                 <li>
                                     <a href="#"><i class="fa fa-inbox fa-fw"></i> File Manager<span class="fa arrow"></span></a>  
                                     <ul class="nav nav-second-level">
-                                    	<li>
-                                   			 <a href="listOrder.php"><i class="fa fa-table fa-fw"></i> Orders</a>
-                              		    </li>
+                                        <li>
+                                             <a href="listOrder.php"><i class="fa fa-table fa-fw"></i> Orders</a>
+                                        </li>
         <li>
-            				 	  <a href="listReceipt.php"><i class="fa fa-table fa-fw"></i> List Receipt Payment</a>
-            			       </li>
+                                  <a href="listReceipt.php"><i class="fa fa-table fa-fw"></i> List Receipt Payment</a>
+                               </li>
                                         <li>
                                             <a href="flot.html"><i class="fa fa-bar-chart-o fa-fw"></i> Product Report</a>
                                         </li>
@@ -125,14 +116,14 @@
                                     <a href="#"><i class="fa fa-shopping-cart fa-fw"></i> Products<span class="fa arrow"></span></a>
                                     <ul class="nav nav-second-level">
                                       <li>
-                                    		<a href="addProduct.php"><i class="fa fa-edit fa-fw"></i> Add New Product </a>
-                                  		</li>
+                                            <a href="addProduct.php"><i class="fa fa-edit fa-fw"></i> Add New Product </a>
+                                        </li>
                                       <li>
-                                     		<a href="listProduct.php"><i class="fa fa-table fa-fw"></i> List Product</a>
-                                		  </li>
-          				                    <li>
-                                     		<a href="cod.php"><i class="fa fa-table fa-fw"></i> Add Cash On Delivery Places</a>
-                             		      </li>
+                                            <a href="listProduct.php"><i class="fa fa-table fa-fw"></i> List Product</a>
+                                          </li>
+                                            <li>
+                                            <a href="cod.php"><i class="fa fa-table fa-fw"></i> Add Local Delivery Place</a>
+                                          </li>
                                     </ul>
                                     <!-- /.nav-second-level -->
                               </li> 
@@ -163,75 +154,24 @@
                                      <form action="processInsertDouble.php" method="POST" name="form_name" enctype="multipart/form-data">
                                                <table width="112%" border="0" bordercolor="" bgcolor="">
 
-       	       <tr>                                   <input type="hidden" name="lastProduct" value="<?php echo $product_id+1 ?>">
-                                                   		 <td width="281" height="34">* Name </td>
+               <tr>                                     <input type="hidden" name="productId" value="">
+                                                        <input type="hidden" name="priceId1" value=" ">
+                                                        <input type="hidden" name="priceId2" value=" ">
+                                                        <input type="hidden" name="lastId" value="<?=$product_id+1; ?>">
+                                                         <td width="281" height="34">* Name </td>
 
                           <td width="8"> <strong>:</strong> </td>
-           		       <td width="847"><input type="text" name="productName" id="productName" required placeholder="NAME *"/></td>
+                       <td width="847"><input type="text" name="productName" id="productName" value="" class="form-control" required placeholder="NAME *"/></td>
                                                  </tr>
                                                     <tr>                                          
                                                          <td colspan="3"></br> </td>
                                                     </tr>
-                                               		<tr>
-                                                   		 <td>* Description </td>
+                                                    <tr>
+                                                         <td>* Description </td>
                                                          <td> <strong>:</strong> </td>
     <td>
-      <textarea name="productDesc" id="productDesc" cols="22" rows="5" required placeholder="Capitalize Each Word"></textarea>  &nbsp;                                                	 <font color="#0099FF"> optional </font></td>
-                                                  </tr>
-                                                     <tr>                                          
-                                                         <td colspan="3"></br> </td>
-                                                    </tr>
-                                                    <tr>
-                                                   		 <td>* Add Media </td>
-                                                         <td> <strong>:</strong> </td>
-                                                   	  <td><input type="file" name="image" required></td>
-                                                    </tr>
-                                                     <tr>                                          
-                                                         <td colspan="3"></br> </td>
-                                                    </tr>
-                                                    <tr>
-                	                                     <td height="36"><b>* Price 1 (RM)</b></td> 
-            	                                         <td> <strong>:</strong> </td>
-    <td><span id="sprytextfield2">
-                                                       <input type="text" onKeyUp="numericFilter(this);" required name="productPrice1" id="productPrice1" placeholder="RM30 / RM3.50"/>
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                         <td height="38">* Barcode</td>
-                                                         <td>  <strong>:</strong> </td>
-                                                   <td><span id="sprytextfield3">
-                                                           <input type="text" name="producCode1" id="producCode1" required placeholder="0123456789"/>
-                                                      </td> </tr>
-                                                    <tr>
-                                                  <tr>
-                	                                     <td height="37">* Weight</td> 
-            	                                         <td> <strong>:</strong> </td>
-        	                                             <td><input type="text" required name="productWeight1" onKeyUp="numericFilter(this);" id="productWeight1" placeholder="1/2KG , 2KG, 1.4KG or 8 Inch"/> <font color="#0099FF"> optional </font></td>
-                                                  </tr>
-                                                     <tr>                                          
-                                                         <td colspan="3"></br> </td>
-                                                    </tr>
-                                                    <tr> 
-                                                         <td height="29" colspan="3"><span class="style1">*</span><span class="style2">If the item has two prices only!</span></td>
-                                                   </tr>
-                                                     <tr>
-                	                                     <td height="32"><b>Price 2 (RM)</b></td> 
-            	                                         <td> <strong>:</strong> </td>
-                                                       <td><span id="sprytextfield4">
-                                                       <input type="text" name="productPrice2" onKeyUp="numericFilter(this);" id="productPrice2" placeholder="RM30 / RM3.50"/>
-                                                       </td>
-                                                  </tr>
-                                                    <tr>
-                                                         <td height="39">Barcode</td>
-                                                         <td>  <strong>:</strong> </td>
-                                                         <td>
-                                                           <input type="text" name="productCode2" onKeyUp="numericFilter(this);" id="productCode2" placeholder="0123456789"/>
-                                                </td> </tr>
-                                                    <tr>
-                                                  <tr>
-                	                                     <td height="35">Weight</td> 
-            	                                         <td> <strong>:</strong> </td>
-        	                                             <td><input type="text" name="productWeight2" onKeyUp="numericFilter(this);" id="productWeight2" placeholder="1/2KG , 2KG, 1.4KG or 8 Inch"/> <font color="#0099FF"> optional </font></td>
+      <textarea name="productDesc" id="productDesc" class="form-control" cols="22" rows="5" required placeholder="Capitalize Each Word"></textarea>                                                   
+      <font color="#0099FF"> optional </font></td>
                                                   </tr>
                                                      <tr>                                          
                                                          <td colspan="3"></br> </td>
@@ -239,33 +179,104 @@
                                                     <tr>     
                                                         <td height="37">* Category </td>
                                                         <td> <strong>:</strong> </td>
-                                                        <td><select name="productCategory" id="productCategory" required>
-                                                          <option value='' selected>Select a Category </option>
-                                                          <option value='promotion'>Promotion</option>
-                                                          <option value='cake'>Cake</option>
-                                                          <option value='dessert'>Dessert</option>
-                                                          <option value='cookies'>Cookies</option>
-                                                          <option value='cupcake'>Cup Cake</option>
-                                                        </select>
+                                                        <td>
+                                                        <?php
+                                                         echo "<select name=productCategory  class=form-control><option>Select Category</option>"; 
+                                                         
+
+                                                            foreach ($con->query($categoryList) as $row){
+                                                               
+                                                                    echo "<option value=$row[cat_id]>$row[cat_name]</option>"; 
+                                                            }
+
+                                                             echo "</select>";
+                                                         ?>
                                                         </td>
+
+
                                                   </tr>
-                                                     <tr>                                          
-                                                         <td colspan="3"></br> </td>
-                                                    </tr>
-                                                     <tr>
-                                                   		 <td>Stock</td>
+                                                    <tr>
+                                                         <td>* Add Media </td>
                                                          <td> <strong>:</strong> </td>
-                                                    	 <td><input type="checkbox" name="productStock" value="Yes">Stock Available
-                                                             <br/>
-                                                             <input type="checkbox" name="productStock" value="No">Stock Not Available                                                     </td>
+                                                      <td>
+                                                      <input type="file" name="image" class="form-control" ></td>
                                                     </tr>
                                                      <tr>                                          
                                                          <td colspan="3"></br> </td>
                                                     </tr>
+                                                    <tr>
+                                                         <td height="36"><b>* Price 1 (RM)</b></td> 
+                                                         <td> <strong>:</strong> </td>
+    <td><span id="sprytextfield2">
+                                                       <input type="text" class="form-control" value="" onKeyUp="numericFilter(this);" required name="productPrice1" id="productPrice1" placeholder="RM30 / RM3.50"/>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                         <td height="38">* Barcode</td>
+                                                         <td>  <strong>:</strong> </td>
+                                                   <td><span id="sprytextfield3">
+                                                           <input type="text" class="form-control" value="" name="producCode1" id="producCode1" required placeholder="0123456789"/>
+                                                      </td> </tr>
+                                                    <tr>
+                                                  <tr>
+                                                         <td height="37">* Weight</td> 
+                                                         <td> <strong>:</strong> </td>
+                                                         <td><input type="text" class="form-control" value="" required name="productWeight1" id="productWeight1" placeholder="1/2KG , 2KG, 1.4KG or 8 Inch"/> <font color="#0099FF"> optional </font></td>
+                                                  </tr>
+                                                  <tr>
+                                                         <td>Stock</td>
+                                                         <td> <strong>:</strong> </td>
+                                                         <td>
+                                                             <input type="radio" class="form-class" name="productStock" value="8">Stock Available
+                                                                <br/>
+                                                             <input type="radio" class="form-class" name="productStock" value="9">Stock Not Available
+                                                         </td>
+                                                    </tr>
+                                                     <tr>                                          
+                                                         <td colspan="3"></br> </td>
+                                                    </tr>
+                                                    <tr> 
+                                                         <td height="29" colspan="3"><span class="style1">*</span><span class="style2">If the item has two prices only!</span></td>
+                                                   </tr>
                                                      <tr>
-                                                     	 <td colspan="3" align="center"> <button type="reset" class="btn btn-info" onClick="myFunctionRegister()">Reset
-                                                         </button> <button type="submit" class="btn btn-info" onClick="return confirm('All Data Complete?');">Add
-                                                         </button></td>
+                                                         <td height="32"><b>Price 2 (RM)</b></td> 
+                                                         <td> <strong>:</strong> </td>
+                                                       <td><span id="sprytextfield4">
+                                                       <input type="text" name="productPrice2" class="form-control" value="" onKeyUp="numericFilter(this);" id="productPrice2" placeholder="RM30 / RM3.50"/>
+                                                       </td>
+                                                  </tr>
+                                                    <tr>
+                                                         <td height="39">Barcode</td>
+                                                         <td>  <strong>:</strong> </td>
+                                                         <td>
+                                                           <input type="text" name="productCode2" class="form-control" value="" id="productCode2" placeholder="0123456789"/>
+                                                </td> </tr>
+                                                    <tr>
+                                                  <tr>
+                                                         <td height="35">Weight</td> 
+                                                         <td> <strong>:</strong> </td>
+                                                         <td><input type="text" name="productWeight2" class="form-control" value="" id="productWeight2" placeholder="1/2KG , 2KG, 1.4KG or 8 Inch"/> <font color="#0099FF"> optional </font></td>
+                                                  </tr>
+                                                     
+                                                     <tr>
+                                                         <td>Stock</td>
+                                                         <td> <strong>:</strong> </td>
+                                                         <td>
+                                                             <input type="radio" class="form-class" name="productStock2" value="8">Stock Available
+                                                                <br/>
+                                                             <input type="radio" class="form-class" name="productStock2" value="9">Stock Not Available
+                                                         </td>
+                                                    </tr>
+                                                    
+                                                     <tr>                                          
+                                                         <td colspan="3"></br> </td>
+                                                    </tr>
+                                                     <tr>
+                                                         <td colspan="3" align="center"> 
+                                                         
+                                                         <button type="submit" class="btn btn-info" onClick="return confirm('All Data Complete?');">Save
+                                                         </button>
+                                                         <button type="reset" class="btn btn-info" onClick="myFunctionRegister()">Reset</button> </td>
                                                     </tr>  
                                                 </table>
                                           </form>

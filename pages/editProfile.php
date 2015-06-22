@@ -1,6 +1,7 @@
 <?php
    include('../controller/session_admin.php');
    include('../controller/javasript.php');
+   include('../controller/globalQuery.php');
 ?>
 
 
@@ -41,6 +42,23 @@
         <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
+    <script type="text/javascript">
+
+    function numericFilter(txb) {
+      txb.value = txb.value.replace(/[^\0-9]/ig, "");
+    }
+
+    function resetForm ()
+    {
+      username.value = "";
+      Lname.value = "";
+      Fname.value = "";
+      hp.value = "";
+      pwd.value = "";
+      Cemail.value = "";
+    }
+    </script>
+
 </head>
 
 <body onLoad="clock(),date()">
@@ -107,18 +125,18 @@
                             </ul>
                             <!-- /.nav-second-level -->
                         </li>
-                        <li>
+                          <li>
                                     <a href="#"><i class="fa fa-shopping-cart fa-fw"></i> Products<span class="fa arrow"></span></a>
                                     <ul class="nav nav-second-level">
                                       <li>
-                                        <a href="addProduct.php"><i class="fa fa-edit fa-fw"></i> Add New Product </a>
-                                      </li>
+                                            <a href="addProduct.php"><i class="fa fa-edit fa-fw"></i> Add New Product </a>
+                                        </li>
                                       <li>
-                                        <a href="listProduct.php"><i class="fa fa-table fa-fw"></i> List Product</a>
-                                      </li>
-                                      <li>
-                                        <a href="cod.php"><i class="fa fa-table fa-fw"></i> Add Cash On Delivery Places</a>
-                                      </li>
+                                            <a href="listProduct.php"><i class="fa fa-table fa-fw"></i> List Product</a>
+                                          </li>
+                                            <li>
+                                            <a href="cod.php"><i class="fa fa-table fa-fw"></i> Add Local Delivery Place</a>
+                                          </li>
                                     </ul>
                                     <!-- /.nav-second-level -->
                               </li> 
@@ -150,15 +168,14 @@
                         </div>
                         <!-- /.panel-heading -->
                         <div class="panel-body">
-                                <?php
-                                $q="SELECT * FROM admin WHERE adm_id='{$user_check}' ";
-                                require_once("config.php");
-                                $result = mysqli_query($dbc,$q);
+                               <?php
+                                $admin="SELECT * FROM user WHERE user_id='{$user_id}' ";
+                                $result = mysqli_query($conn,$admin);
                                 if(mysqli_num_rows($result) > 0)
                                 {
 
                                     $record = mysqli_fetch_array($result);
-                                    $user_username = $record['adm_name'];
+                                    $first_name = $record['first_name'];
 
                                 }
 
@@ -167,44 +184,49 @@
                                     
                                     <div class="timeline-panel">
                                         <div class="panel-heading">
-                                            <h4 class="timeline-title">Hye, <?php echo $user_username; ?></h4>
+                                            <h4 class="timeline-title">Hye, <?php echo $first_name; ?></h4>
                                             
                                         </div>
                                         <div class="panel-body">
                                               <div class="list-group">
 
-                              				   <form action="processAdminEditProfile.php" method="post">
-                                               <table width="463">
+                              				   <form action="processAdminEditProfile.php" method="post" name="adminEdit" >
+                                               <table class="table table-striped table-bordered table-hover" width="100%" >
                                                 <tr> 
-                                                     <td width="199">Name  </td>
+                                                     <td width="199">* First Name  </td>
                                                      <td width="252">
-                                                     <input name="name" type="text" id="name" size="35" border="1" value="<?php echo $record['adm_name']; ?>"/>
+                                                     <input type="hidden" name="user_id" value="<?=$record['user_id']; ?>">
+                                                     <input name="Fname" type="text" class="form-control" required id="Fname" size="35" border="1" value="<?php echo $record['first_name']; ?>"/>
+                                                     </td>
+                                                </tr>
+                                                <tr> 
+                                                     <td width="199">* Last Name  </td>
+                                                     <td width="252">
+                                                     <input name="Lname" type="text" class="form-control" required id="Lname" size="35" border="1" value="<?php echo $record['last_name']; ?>"/>
+                                                     </td>
+                                                </tr>
+                                                <tr> 
+                                                     <td width="199">* Username  </td>
+                                                     <td width="252">
+                                                     <input name="username" type="text" class="form-control" required id="username" size="35" border="1" value="<?php echo $record['username']; ?>"/>
                                                      </td>
                                                 </tr>
                                                 <tr>    
-                                                      <td>Password</td>
+                                                      <td>* Password</td>
                                                       <td>
-                                                      <input type="text" name="pwd" id="pwd" size="35" border="1" value="<?php echo $record['adm_pwd']; ?>"/> 
+                                                      <input type="password" name="pwd" id="pwd" required class="form-control"  size="35" border="1" value="<?php echo $record['password']; ?>"/> 
                                                       </td>
                                                 </tr>
                                                 <tr>    
-                                                      <td>Repeat Password</td>
+                                                      <td>* Number HP</td>
                                                       <td>
-                                                      <input type="text" name="pwd2"  id="pwd2" size="35" border="1" value="<?php echo $record['adm_pwd']; ?>"/> 
-                                                      </td>
-                                                </tr>
-                                                
-                                              
-                                                <tr>    
-                                                      <td>Number HP</td>
-                                                      <td>
-                                                      <input type="text" id="name" name="hp"  size="35" border="1" value="<?php echo $record['adm_hp']; ?>"/> 
+                                                      <input type="text" id="hp" name="hp" required onChange="numericFilter(this);" class="form-control"  size="35" border="1" value="<?php echo $record['phone']; ?>"/> 
                                                       </td> 
                                                 </tr>
                                                 <tr>    
-                                                      <td>Email</td>
+                                                      <td>* Email</td>
                                                       <td>
-                                                      <input type="text" name="email"  id="email" size="35" border="1" value="<?php echo $record['adm_email']; ?>"/> 
+                                                      <input type="text" name="Cemail" required class="form-control" onChange="checkEmail(this);"  id="Cemail" size="35" border="1" value="<?php echo $record['email']; ?>"/> 
                                                       </td>
                                                 </tr>
                                                 
@@ -212,8 +234,9 @@
                                                 </table>
                                             </br>    
                                                    <center>
-                                                    <input type="submit" id="btnSubmit" value="Update"/>
-                                                      <label> <input type="reset" id="reset" value="Reset" /></label>
+                                                    <button type="submit" class="btn btn-success"
+                                                    onClick="return confirm('Are you sure?');">Update</button>
+                                                      <label> <button type="button" onclick="resetForm()" class="btn btn-info">Reset</button></label>
                                                    </center>
                                              </form>
                                

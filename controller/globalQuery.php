@@ -34,10 +34,9 @@ $row_receipt = mysqli_fetch_assoc($receipt);
 /*---------------- ORDER PART --------------------*/
 
 $listOrder = "SELECT * FROM `order` o, `product_price` pc, `status` s, `user` u, `product` p,`cod` c
-WHERE o.price_id=pc.price_id AND o.user_id=u.user_id AND o.order_status=s.status_id
-AND o.cod_id=c.ID";
+WHERE o.price_id=pc.price_id AND o.user_id=u.user_id AND o.order_status=s.status_id AND o.cod_id=c.ID GROUP BY o.order_no";
 $order = mysqli_query($conn, $listOrder);
-$row_order = mysqli_fetch_assoc($order);
+$total_order_row = mysqli_num_rows($order);
 
 /*---------------- COD PART --------------------*/
 
@@ -49,6 +48,12 @@ $total_cod_row = mysqli_num_rows($cod);
 /*---------------- CATEGORY PART --------------------*/
 
 $categoryList="SELECT * FROM category "; 
+
+/*---------------- STATUS ORDER PART --------------------*/
+
+$statusOrder="SELECT * FROM status where status_type = 'o' AND status_name != ' Temp' AND status_name != 'Temp_delete' "; 
+$orderStatus = mysqli_query($conn, $statusOrder);
+$row_status_order = mysqli_fetch_assoc($orderStatus);
 
 // Cart Count Notification
 $countCartList = "SELECT COUNT(*) count FROM `order` WHERE user_id='".$_SESSION['user_id']."' AND order_status='6'";
@@ -86,6 +91,14 @@ function updateQty($order_id, $qty, $conn_obj){
 function updateReciept($order_id, $img, $conn_obj){
 	$sql = "UPDATE `order` SET order_reciept='$img' WHERE order_no='$order_id'";
 	if($conn_obj->query($sql) === TRUE){
+		return TRUE;
+	}
+}
+
+// Update order status
+function updateOrderStatus($orderNo, $statusOrder, $conn){
+	$sql = "UPDATE `order` SET order_status='$statusOrder' WHERE order_no='$orderNo'";
+	if(mysqli_query($conn, $sql) === TRUE){
 		return TRUE;
 	}
 }

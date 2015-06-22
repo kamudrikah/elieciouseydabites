@@ -7,40 +7,21 @@
 
         if (isset($_GET['id'])) {
 
-              $id = $_GET['id'];
+            $id = $_GET['id'];
 
-              // List All Detail Product For Price 1
-            $price1 = "SELECT * from product p, product_price pc, status s, category c 
-            where p.product_id = pc.product_id AND pc.price_id = $id AND p.product_category = c.cat_id AND pc.product_status = s.status_id ORDER BY pc.price_id ASC";
-            $detail1 = mysqli_query($conn, $price1);
-            $prod = mysqli_fetch_assoc($detail1);
+        $price1 = "SELECT * from product p, product_price pc, status s, category c 
+        where p.product_id = pc.product_id AND p.product_id = $id AND p.product_category = c.cat_id AND pc.product_status = s.status_id ORDER BY pc.price_id ASC";
+        $detail1 = mysqli_query($conn, $price1);
+        $prod = mysqli_fetch_assoc($detail1);
 
-            // List All Detail Product For Price 2
-            $price2 = "SELECT * from product p, product_price pc, status s, category c 
-            where p.product_id = pc.product_id AND p.product_id = $id AND p.product_category = c.cat_id AND pc.product_status = s.status_id ORDER BY pc.price_id DESC";
-            $detail2 = mysqli_query($conn, $price2);
-            $prod2 = mysqli_fetch_assoc($detail2);
-           
+        // List All Detail Product For Price 2
+        $price2 = "SELECT * from product p, product_price pc, status s, category c 
+        where p.product_id = pc.product_id AND p.product_id = $id AND p.product_category = c.cat_id AND pc.product_status = s.status_id ORDER BY pc.price_id DESC";
+        $detail2 = mysqli_query($conn, $price2);
+        $prod2 = mysqli_fetch_assoc($detail2);
 
-            }else {
+    }
 
-                $id = 0;
-
-              // List All Detail Product For Price 1
-            $price1 = "SELECT * from product p, product_price pc, status s, category c 
-            where p.product_id = pc.product_id AND pc.price_id = $id AND p.product_category = c.cat_id AND pc.product_status = s.status_id ORDER BY pc.price_id ASC";
-            $detail1 = mysqli_query($conn, $price1);
-            $prod = mysqli_fetch_assoc($detail1);
-
-            // List All Detail Product For Price 2
-            $price2 = "SELECT * from product p, product_price pc, status s, category c 
-            where p.product_id = pc.product_id AND p.product_id = $id AND p.product_category = c.cat_id AND pc.product_status = s.status_id ORDER BY pc.price_id DESC";
-            $detail2 = mysqli_query($conn, $price2);
-            $prod2 = mysqli_fetch_assoc($detail2);
-                
-            }
-
-           
         ?>
 
 
@@ -64,12 +45,23 @@
             <link href="../bower_components/morrisjs/morris.css" rel="stylesheet">
             <link href="../bower_components/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
             <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+            <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
 
-<script language="JavaScript">
-                function myFunction() {
-            document.getElementById("form_name").reset();
-        }
+            <script language="JavaScript">
+                            function funcReset() {
+                                productCategory.value="";
+                                productName.value="";
+                                productDesc.value="";
+                                productPrice1.value="";
+                                producCode1.value="";
+                                productWeight1.value="";
+                                productStock.value="";
+                                productPrice2.value="";
+                                productCode2.value="";
+                                productWeight2.value="";
+                                productStock2.value="";
+                        
+                    }
 
             </script>
             <style type="text/css">
@@ -153,14 +145,14 @@
                                     <a href="#"><i class="fa fa-shopping-cart fa-fw"></i> Products<span class="fa arrow"></span></a>
                                     <ul class="nav nav-second-level">
                                       <li>
-                                    		<a href="addProduct.php"><i class="fa fa-edit fa-fw"></i> Add New Product </a>
-                                  		</li>
+                                            <a href="addProduct.php"><i class="fa fa-edit fa-fw"></i> Add New Product </a>
+                                        </li>
                                       <li>
-                                     		<a href="listProduct.php"><i class="fa fa-table fa-fw"></i> List Product</a>
-                                		  </li>
-          				                    <li>
-                                     		<a href="cod.php"><i class="fa fa-table fa-fw"></i> Add Cash On Delivery Places</a>
-                             		      </li>
+                                            <a href="listProduct.php"><i class="fa fa-table fa-fw"></i> List Product</a>
+                                          </li>
+                                            <li>
+                                            <a href="cod.php"><i class="fa fa-table fa-fw"></i> Add Local Delivery Place</a>
+                                          </li>
                                     </ul>
                                     <!-- /.nav-second-level -->
                               </li> 
@@ -191,13 +183,14 @@
                                      <form action="processInsertDouble.php" method="POST" name="form_name" enctype="multipart/form-data">
                                                <table width="112%" border="0" bordercolor="" bgcolor="">
 
-       	       <tr>                                     <input type="text" name="productId" value="<?=$prod['product_id']=!NULL?$prod['product_id']:'' ?>">
-                                                        <input type="hidden" name="priceId1" value="<?=$prod['price_id'];?>">
-                                                        <input type="hidden" name="priceId2" value="<?=$prod2['price_id'];?>">
+       	       <tr>                                     <input type="hidden" name="productId" value="<?=$prod['product_id'] ;?>">
+                                                        <input type="hidden" name="priceId1" value="<?=$prod['price_id'] ;?> ">
+                                                        <input type="hidden" name="priceId2" value="<?=$prod2['price_id']; ?> ">
+                                                        <input type="hidden" name="lastId" value="<?=$product_id+1; ?>">
                                                    		 <td width="281" height="34">* Name </td>
 
                           <td width="8"> <strong>:</strong> </td>
-           		       <td width="847"><input type="text" name="productName" id="productName" value="<?=$prod['product_name'];?>" class="form-control" required placeholder="NAME *"/></td>
+           		       <td width="847"><input type="text" name="productName" id="productName" value="<?=$prod['product_name'] ;?>" class="form-control" required placeholder="NAME *"/></td>
                                                  </tr>
                                                     <tr>                                          
                                                          <td colspan="3"></br> </td>
@@ -206,7 +199,7 @@
                                                    		 <td>* Description </td>
                                                          <td> <strong>:</strong> </td>
     <td>
-      <textarea name="productDesc" id="productDesc" class="form-control" cols="22" rows="5" required placeholder="Capitalize Each Word"> <?=$prod['product_description'];?></textarea>                                              	 
+      <textarea name="productDesc" id="productDesc" class="form-control" cols="22" rows="5" required placeholder="Capitalize Each Word"><?=$prod['product_description'];?></textarea>                                              	 
       <font color="#0099FF"> optional </font></td>
                                                   </tr>
                                                      <tr>                                          
@@ -217,7 +210,7 @@
                                                         <td> <strong>:</strong> </td>
                                                         <td>
                                                         <?php
-                                                         echo "<select name=productCategory  class=form-control><option>Select Category</option>"; 
+                                                         echo "<select name=productCategory  id=productCategory class=form-control><option>Select Category</option>"; 
                                                          
 
                                                             foreach ($con->query($categoryList) as $row){
@@ -274,17 +267,17 @@
                                                           -->
                                                          <?php 
                                                          if ($prod['status_id']==8) {?>
-                                                             <input type="radio" class="form-class" checked name="productStock" value="8">Stock Available
+                                                             <input type="radio" class="form-class" checked name="productStock" id="productStock" value="8">Stock Available
                                                                 <br/>
-                                                             <input type="radio" class="form-class" name="productStock" value="9">Stock Not Available     
+                                                             <input type="radio" class="form-class" name="productStock" id="productStock" value="9">Stock Not Available     
                                                          <?php } else if ($prod['status_id']==9) {?>
-                                                             <input type="radio" class="form-class"  name="productStock" value="8">Stock Available
+                                                             <input type="radio" class="form-class"  name="productStock" id="productStock" value="8">Stock Available
                                                                 <br/>
-                                                             <input type="radio" class="form-class" checked name="productStock" value="9">Stock Not Available
+                                                             <input type="radio" class="form-class" checked name="productStock" id="productStock" value="9">Stock Not Available
                                                          <?php } else { ?>
-                                                             <input type="radio" class="form-class" name="productStock" value="8">Stock Available
+                                                             <input type="radio" class="form-class" name="productStock" id="productStock" value="8">Stock Available
                                                                 <br/>
-                                                             <input type="radio" class="form-class" name="productStock" value="9">Stock Not Available
+                                                             <input type="radio" class="form-class" name="productStock" id="productStock" value="9">Stock Not Available
                                                          <?php } ?>
                                                          </td>
                                                     </tr>
@@ -305,7 +298,7 @@
                                                          <td height="39">Barcode</td>
                                                          <td>  <strong>:</strong> </td>
                                                          <td>
-                                                           <input type="text" name="productCode2" class="form-control" value="<?=$prod2['product_code'];?>" id="productCode2" placeholder="0123456789"/>
+                                                           <input type="text" name="productCode2"  class="form-control" value="<?=$prod2['product_code'];?>" id="productCode2" placeholder="0123456789"/>
                                                 </td> </tr>
                                                     <tr>
                                                   <tr>
@@ -324,17 +317,17 @@
                                                           -->
                                                          <?php 
                                                          if ($prod['status_id']==8) {?>
-                                                             <input type="radio" class="form-class" checked name="productStock2" value="8">Stock Available
+                                                             <input type="radio" class="form-class" checked name="productStock2" id="productStock2" value="8">Stock Available
                                                                 <br/>
-                                                             <input type="radio" class="form-class" name="productStock2" value="9">Stock Not Available     
+                                                             <input type="radio" class="form-class" name="productStock2" id="productStock2" value="9">Stock Not Available     
                                                          <?php } else if ($prod['status_id']==9) {?>
-                                                             <input type="radio" class="form-class"  name="productStock2" value="8">Stock Available
+                                                             <input type="radio" class="form-class"  name="productStock2" id="productStock2" value="8">Stock Available
                                                                 <br/>
-                                                             <input type="radio" class="form-class" checked name="productStock2" value="9">Stock Not Available
+                                                             <input type="radio" class="form-class" checked name="productStock2" id="productStock2" value="9">Stock Not Available
                                                          <?php } else { ?>
-                                                             <input type="radio" class="form-class" name="productStock2" value="8">Stock Available
+                                                             <input type="radio" class="form-class" name="productStock2" id="productStock2" value="8">Stock Available
                                                                 <br/>
-                                                             <input type="radio" class="form-class" name="productStock2" value="9">Stock Not Available
+                                                             <input type="radio" class="form-class" name="productStock2" id="productStock2" value="9">Stock Not Available
                                                          <?php } ?>
                                                          </td>
                                                     </tr>
@@ -343,14 +336,15 @@
                                                          <td colspan="3"></br> </td>
                                                     </tr>
                                                      <tr>
-                                                     	 <td colspan="3" align="center"> <button type="button" class="btn btn-info" onClick="myFunctionRegister()">Reset</button> 
+                                                     	 <td colspan="3" align="center"> 
                                                          <?php if($id != null)  {?>
                                                          <button type="submit" class="btn btn-info" onClick="return confirm('All Data Complete?');">Update
                                                          </button>
                                                          <?php } else { ?> 
                                                          <button type="submit" class="btn btn-info" onClick="return confirm('All Data Complete?');">Add
                                                          </button>
-                                                         <?php } ?></td>
+                                                         <?php } ?>
+                                                         <button type="button" class="btn btn-info" onClick="funcReset();">Reset</button> </td>
                                                     </tr>  
                                                 </table>
                                           </form>
