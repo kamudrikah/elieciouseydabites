@@ -218,9 +218,9 @@ var totalAll=[];
 
 		<section id="do_action">
 			<div class="container">
-				<div class="heading">
+				
 					<h3> Local Delivery </h3>
-				</div>
+				
 				<div class="row">
 					<div class="col-sm-6">
 						<table>
@@ -232,7 +232,7 @@ var totalAll=[];
 										<?php
 										require_once('controller/db_connect.php');
 
-										$cdquery="SELECT ID, place FROM cod ORDER BY ID ASC";
+										$cdquery="SELECT ID, place FROM cod where status = 1 ORDER BY ID ASC";
 										$codQuery=mysqli_query($conn,$cdquery);
 
 										while ($cdrow=mysqli_fetch_array($codQuery)) {
@@ -249,7 +249,7 @@ var totalAll=[];
 							</tr>
 							<tr>                       
 								<td>
-									Delivery Date (at least 3 days & above):
+									<h3>Delivery Date (at least 3 days & above):</h3>
 									</br>
 									<input type="text" name="deliveryDate" class="form-control" id="input_timetable_date" required>
 									<span class="add-on"></span>
@@ -264,11 +264,9 @@ var totalAll=[];
 				</br></br>
 				<div class="col-sm-6">
 					<div class="total_area">
-						<div class="heading">
 							<h3>Total Payment</h3>
-						</div>
 						<ul>
-							<li>Total <span class="totalPayment"> RM <?=array_sum($totalAll)?></span></li>
+							<li> <h4> Total <span class="totalPayment"> RM <?=array_sum($totalAll)?></span> </h4></li>
 						</ul>
 						</br>	
 						<table align="right">

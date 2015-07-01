@@ -106,11 +106,11 @@ if(!isset($_SESSION['user_id'])){
 		</div><!--/header-bottom-->
 	</header><!--/header-->
 	
-	<section id="advertisement">
+<!-- 	<section id="advertisement">
 		<div class="container">
 			<img src="images/shop/advertisement.jpg" alt="" />
 		</div>
-	</section>
+	</section> -->
 	
 	<section>
 		<div class="container">

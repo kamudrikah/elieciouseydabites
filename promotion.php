@@ -207,7 +207,7 @@ while ($row = mysqli_fetch_assoc($rs_result)) {
                       
                                                                                         
                                         </p>
-                    <input type="submit" class="btn btn-default add-to-cart" />
+                    <input type="submit" value="Add to cart" class="btn btn-default add-to-cart" />
                     </form>
                     
                   </div>

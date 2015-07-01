@@ -129,7 +129,8 @@ include('./controller/globalQuery.php');
 					<div class="carousel-inner">
                         
 						<?php   
-						$query2= "SELECT * FROM product JOIN category ON product.product_category=category.cat_id";
+						$query2= "SELECT * FROM product p, category c,product_price pc 
+						WHERE p.product_category=c.cat_id AND p.product_id=pc.product_id GROUP BY pc.product_id";
 						//run the query
 						$rs_result = mysqli_query($conn, $query2);		
 						$i=0;
@@ -197,7 +198,7 @@ include('./controller/globalQuery.php');
 									
 								</div>
 								<div class="col-sm-6">
-								<img src="image.php?id=<?php echo $row["product_id"]; ?>" class="girl img-responsive" alt="" height="1000" width="300" />
+								<img src="./image.php?id=<?php echo $row["product_id"]; ?>" class="girl img-responsive" alt="" height="1000" width="300" />
 								
 
 								</div>

@@ -114,11 +114,11 @@ include('./controller/javasript.php');
                        <form action="loginForm.php" method="POST" name="submit" >  
                       
                        <tr>	
-                   	    	<td colspan="3"><h3>Login</h3></td>
+                   	    	<td colspan="3" align="center"><h3>Login</h3></td>
                        </tr>
                        <tr>
                       		<td width="146">
-							  <label>Email</label>
+							  <label>Username</label>
                             </td>
                             <td width="9"> <strong>:</strong> </td>
 <td width="507">
@@ -149,8 +149,13 @@ include('./controller/javasript.php');
                       <table>
                        <form action="controller/add_customer.php" method="POST" name="insert">                         
                       <tr>
-                           <td colspan="3"><h3>Register</h3></td>
+                           <td colspan="3" align="center" ><h3>Register </h3></td>
                       </tr>
+					  <tr>
+						  <td>
+							<h5> (First Time User)</h5>
+						  </td>
+					  <tr>
                       <tr>
                       		<td width="146">
 							  <label>*First Name</label>
@@ -211,7 +216,7 @@ include('./controller/javasript.php');
                             </td>
                             <td width="11"> <strong>:</strong> </td>
                             <td width="506">
-                           	  <input type="text" name="hp" id="hp" class="form-control" onChange="numericFilter(this);" required placeholder="01X - XXXXXXX"/>
+                           	  <input type="text" name="hp" id="hp" size="11" maxlength="11" class="form-control" onChange="numericFilter(this);" required placeholder="01X - XXXXXXX"/>
                         </td>
                       </tr>
                       <tr>
