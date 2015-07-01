@@ -18,6 +18,9 @@
           where p.product_id = pc.product_id AND p.product_id = $id AND p.product_category = c.cat_id AND pc.product_status = s.status_id ORDER BY pc.price_id DESC";
           $detail2 = mysqli_query($conn, $price2);
           $prod2 = mysqli_fetch_assoc($detail2);
+        }else 
+        {
+          $prod2 = null;
         }
 
     }
@@ -171,6 +174,21 @@
                       </div>
                         <!-- /.col-lg-12 -->
                     </div>
+
+                    <?php
+                    if($_GET['code_exist']==1){
+                    ?>
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="alert alert-danger" role="alert">
+                            Barcode product already existed in the system. Please key in a difference barcode.
+                            </div>
+                      </div>
+                        <!-- /.col-lg-12 -->
+                    </div>
+                    <?php
+                    }
+                    ?>
                     <!-- /.row -->
                     <div class="row">
                         <div class="col-lg-12">
@@ -185,7 +203,7 @@
 
        	       <tr>                                     <input type="hidden" name="productId" value="<?=$prod['product_id'] ;?>">
                                                         <input type="hidden" name="priceId1" value="<?=$prod['price_id'] ;?> ">
-                                                        <input type="hidden" name="priceId2" value="<?=$prod2['price_id']; ?> ">
+                                                        <input type="hidden" name="priceId2" value="<?=$prod2['price_id']; ?>">
                                                         <input type="hidden" name="lastId" value="<?=$product_id+1; ?>">
                                                    		 <td width="281" height="34">* Name </td>
 

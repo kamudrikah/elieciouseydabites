@@ -31,13 +31,22 @@ $productCategory = $_POST['productCategory'];
 $productStock = $_POST['productStock'];
 $productStock2 = $_POST['productStock2'];
 
-$sqlValidateProdCode = "SELECT * FROM `product_price` WHERE product_code = '$producCode1'";
-$resultValidateProdCode = mysqli_query($conn,$sqlValidateProdCode);
+
+$sqlValidateProdCode = "SELECT * FROM `product_price` WHERE product_code = '$producCode1' OR product_code = '$productCode2'";
+$resultValidateProdCode = mysqli_query($conn,$sqlValidateProdCode);	
+
+$sqlValidateProdCode2 = "SELECT * FROM `product_price` WHERE product_code = '$productCode2'";
+$resultValidateProdCode2 = mysqli_query($conn,$sqlValidateProdCode2);	
+
 
 if ($productId==null){
+
 	if(mysqli_num_rows($resultValidateProdCode)>0){
 		header("Location: ./addProduct.php?code_exist=1");
-	}else{
+		mysqli_close($conn);
+		exit();
+	}else { 
+	
 
 		$sql = "INSERT INTO product(product_name,product_category,product_description,product_picture) 
 			VALUES ('$productName','$productCategory','$productDesc','$image_upload')";
@@ -69,7 +78,13 @@ if ($productId==null){
 
 }else {
 
-	if($image == null){
+	if ($priceId2==null && mysqli_num_rows($resultValidateProdCode2)>1){
+		header("Location: ./editProduct.php?code_exist=1&&id=$productId");
+		mysqli_close($conn);
+		exit();
+	}else { 
+
+		if($image == null){
 
 		$sql = "UPDATE product SET product_name ='$productName', product_description = '$productDesc',
 	product_category = '$productCategory' WHERE product_id =$productId";
@@ -91,14 +106,26 @@ if ($productId==null){
 	
 	mysqli_query($conn,$price1);
 
-	if ($productPrice2 !=null && $productCode2 != null && $productWeight2 != null)
+	if ($priceId2!=null && $productPrice2 !=null && $productCode2 != null && $productWeight2 != null)
 	{
 		$price2 = "UPDATE product_price SET product_id = '$productId', product_code = '$productCode2', product_price = '$productPrice2',
 	product_weight = '$productWeight2', product_status = '$productStock2' WHERE price_id = $priceId2";
 	mysqli_query($conn,$price2);
+
+	} else if ($priceId2==null && $productPrice2 !=null && $productCode2 != null && $productWeight2!= null)
+	{
+
+	$price2 = "INSERT INTO product_price(product_id,product_code,product_price,product_weight,product_status) 
+		VALUES ('$productId','$productCode2','$productPrice2','$productWeight2','$productStock2')";
+
+		mysqli_query($conn,$price2);
 	}
 
+
 	    echo "<script type='text/javascript'>alert('Data Update');self.location='listProduct.php';</script>";
+
+		
+	}
 
 }
 

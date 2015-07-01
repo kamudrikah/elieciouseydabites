@@ -147,7 +147,7 @@
                     <div class="row">
                         <div class="col-lg-12">
                             <div class="alert alert-danger" role="alert">
-                            Barcode already existed in the system. Please key in a difference barcode.
+                            Barcode product already existed in the system. Please key in a difference barcode.
                             </div>
                       </div>
                         <!-- /.col-lg-12 -->
