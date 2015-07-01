@@ -248,6 +248,7 @@
                                           <?php echo $person_order['first_name']; ?><?php echo $person_order['last_name']; ?>
                                           <br><?php echo $person_order['address']; ?>
                                           <br><?php echo $person_order['phone']; ?>
+                                          <br><?php echo $person_order['email']; ?>
                                           </div></td>
                                           <td width="18%"><div align="center"><?php echo $person_order['place']; ?></div></td>
                                           <td width="12%"><div align="center">RM <?php echo round($total_price['TOTAL'],4); ?></div></td>

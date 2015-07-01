@@ -5,7 +5,6 @@ if(isset($_POST)){
 	$cat = $_POST['cat'];
 	$month = $_POST['month'];
 
-	if($cat=='all'){
 		$category = ['Promotion','Cake','Dessert','Cookies','Cup Cake'];
 		$numbers = array();
 		foreach ($category as $key => $value) {
@@ -22,28 +21,7 @@ if(isset($_POST)){
 				array_push($numbers, $row['cat_sale']);
 			}
 		}
-	}else{
-		$category = ['Promotion','Cake','Dessert','Cookies','Cup Cake'];
-		$numbers = array();
-		foreach ($category as $key => $value) {
-			if($value==$cat){
-				$sql = "SELECT COUNT(*) cat_sale FROM `product`
-					JOIN `product_price` USING (product_id)
-					JOIN `order` USING (price_id)
-					JOIN `category` ON product.product_category=category.cat_id
-					WHERE order_status=1
-					AND cat_name='$value'
-					AND MONTH(order_date) = '$month'";
-				
-				$result = $conn_obj->query($sql);
-				while($row = $result->fetch_assoc()) {
-					array_push($numbers, $row['cat_sale']);
-				}
-			}else{
-				array_push($numbers, 0);
-			}
-		}
-	}
+
 }
 ?>
 
@@ -193,20 +171,12 @@ if(isset($_POST)){
 								 <form action="reportProduct.php" method="post">
 								  <tr>
 										<td>
-											<select name="cat">
-												  <option value='' selected>Select a Category </option>
-												  <option value='all'>All </option>
-												  <option value='promotion'>Promotion</option>
-												  <option value='cake'>Cake</option>
-												  <option value='dessert'>Dessert</option>
-												  <option value='cookies'>Cookies</option>
-												  <option value='cupcake'>Cup Cake</option>
-											</select>
+										<input name='cat' value='all' type='hidden'>
 										</td>
 										<td>&nbsp;</td>
 										<td>&nbsp; &nbsp;</td>
 										<td>
-											<select name="month">
+											<select name="month" class="form-control">
 												  <option value='' selected>Month </option>
 												  <option value='1'>January</option>
 												  <option value='2'>February</option>

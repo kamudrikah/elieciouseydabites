@@ -25,6 +25,15 @@ include('./controller/globalQuery.php');
     <link rel="apple-touch-icon-precomposed" sizes="114x114" href="images/ico/apple-touch-icon-114-precomposed.png">
     <link rel="apple-touch-icon-precomposed" sizes="72x72" href="images/ico/apple-touch-icon-72-precomposed.png">
     <link rel="apple-touch-icon-precomposed" href="images/ico/apple-touch-icon-57-precomposed.png">
+    <style type="text/css">
+<!--
+.style1 {
+	color: #FF6600;
+	font-weight: bold;
+	font-size: 14px;
+}
+-->
+    </style>
 </head><!--/head-->
 
 <body>
@@ -295,22 +304,24 @@ include('./controller/globalQuery.php');
 						
 						
 					
-					</div>
+				  </div>
 				</div>
 				
 				<div class="col-sm-12 padding-right">
 					<div class="features_items"><!--features_items-->
-						<h2 class="title text-center"> </h2>
 						<div class="col-sm-12">
-								
-										Kepakaran kami adalah menjual pelbagai jenis kek dan dessert sesuai <BR/>
+                        
+								<center>
+										<div align="center" class="style1">Kepakaran kami adalah menjual pelbagai jenis kek dan dessert sesuai <BR/>
                                         dengan citarasa anda penggemar kek …kami menjanjikan kepuasan pada  </BR>
-                                        setiap pelanggan yang menempah kek kami…							
-						
+                                        setiap pelanggan yang menempah kek kami…						                </div>
+                                </center>
+                        
 						</div>
 						
 						
-					</div><!--features_items-->
+				  </div><!--features_items-->
+                  
 					
 					<div class="category-tab"><!--category-tab-->
 						<div class="col-sm-12">

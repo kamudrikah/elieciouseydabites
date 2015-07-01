@@ -200,7 +200,7 @@
                                                          <td> <strong>:</strong> </td>
     <td>
       <textarea name="productDesc" id="productDesc" class="form-control" cols="22" rows="5" required placeholder="Capitalize Each Word"><?=$prod['product_description'];?></textarea>                                              	 
-      <font color="#0099FF"> optional </font></td>
+      </td>
                                                   </tr>
                                                      <tr>                                          
                                                          <td colspan="3"></br> </td>

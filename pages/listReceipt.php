@@ -162,17 +162,10 @@
                             <div class="table-responsive">
                                 <table class="table table-striped table-bordered table-hover" id="dataTables-example">
                                     <thead>
-                                    <td colspan="9">                                          
-                                          <div align="left">
-                                              <select name="act">
-                                                <option value='' selected>Bulk Actions </option>
-                                                <option value='delete'>Delete</option>
-                                            </select>                                        
-                                            <button type="button" class="btn btn-info">Apply</button>
-                                          </div></td>
+                                   
                                         <tr>
                                         <center>
-                                              <th width="5%"><input type="checkbox"> </th>
+                                             
                                               <th width="36%">Name</th>
                                               <th width="19%">Order ID</th>
                                               <th width="17%">Number Phone</th>
@@ -184,7 +177,7 @@
                                     <?php
                                     do { ?>
                                         <tr>
-                                            <td><input type="checkbox"> </td>
+                                           
                                             <td><?=$row_receipt['first_name']; ?> </td>
                                             <td><?=$row_receipt['order_no']; ?></td>
                                           <td><?=$row_receipt['phone']; ?></td>

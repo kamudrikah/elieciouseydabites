@@ -184,7 +184,7 @@
                                                          <td> <strong>:</strong> </td>
     <td>
       <textarea name="productDesc" id="productDesc" class="form-control" cols="22" rows="5" required placeholder="Capitalize Each Word"></textarea>                                                   
-      <font color="#0099FF"> optional </font></td>
+      </td>
                                                   </tr>
                                                      <tr>                                          
                                                          <td colspan="3"></br> </td>
@@ -220,7 +220,7 @@
                                                     <tr>
                                                          <td height="36"><b>* Price 1 (RM)</b></td> 
                                                          <td> <strong>:</strong> </td>
-    <td><span id="sprytextfield2">
+    <td>
                                                        <input type="text" class="form-control" value="" onKeyUp="numericFilter(this);" required name="productPrice1" id="productPrice1" placeholder="RM30 / RM3.50"/>
                                                         </td>
                                                     </tr>
@@ -232,9 +232,9 @@
                                                       </td> </tr>
                                                     <tr>
                                                   <tr>
-                                                         <td height="37">* Weight</td> 
+                                                         <td height="37"> Weight</td> 
                                                          <td> <strong>:</strong> </td>
-                                                         <td><input type="text" class="form-control" value="" required name="productWeight1" id="productWeight1" placeholder="1/2KG , 2KG, 1.4KG or 8 Inch"/> <font color="#0099FF"> optional </font></td>
+                                                         <td><input type="text" class="form-control" value="" name="productWeight1" id="productWeight1" placeholder="1/2KG , 2KG, 1.4KG or 8 Inch"/> <font color="#0099FF"> optional </font></td>
                                                   </tr>
                                                   <tr>
                                                          <td>Stock</td>

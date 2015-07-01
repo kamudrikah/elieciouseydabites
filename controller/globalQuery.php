@@ -142,7 +142,7 @@ function getDeliveryDate($order_no,$conn_obj){
 }
 // New order number (last 2 days)
 function newOrderNumber($conn_obj){
-	$sql = "SELECT COUNT(order_id) new_order FROM `order` WHERE order_date >= DATE_ADD(CURDATE(), INTERVAL -2 DAY);";
+	$sql = "SELECT COUNT(order_id) new_order FROM `order` WHERE order_date >= DATE_ADD(CURDATE(), INTERVAL -2 DAY) AND ORDER_STATUS = 3;";
 	if($result = $conn_obj->query($sql)){
 		while($row = $result->fetch_assoc()){
 			return $row;

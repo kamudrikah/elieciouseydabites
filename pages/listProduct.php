@@ -152,15 +152,13 @@
 
                     <div class="panel panel-default">
                         <div class="panel-heading">
-                            List of Receipt Payment
+                            List of Product
                         </div>
                         <!-- /.panel-heading -->
                         <div class="panel-body">
                             <div class="table-responsive">
                                 <table class="table table-striped table-bordered table-hover" id="dataTables-example">
                                     <thead>
-                                    <td colspan="9">                                          
-                                    </td>
                                         <tr>
                                         <center>
                                               <th width="18%">Image</th>
@@ -168,7 +166,7 @@
                                               <th width="12%">Barcode</th>
                                               <th width="12%">Stock</th>
                                               <th width="10%">Weight</th>
-                                              <th width="10%">Price</th>
+                                              <th width="10%">Price (RM)</th>
                                               <th width="20%">Categories</th>
                                               <th width="10%">Action</th>
                                               </center>
