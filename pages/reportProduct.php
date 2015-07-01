@@ -159,7 +159,51 @@ if(isset($_POST)){
 		<div id="page-wrapper">
 			<div class="row">
 				<div class="col-lg-12">
-					<h1 class="page-header">Product Report</h1>
+					<h3 class="page-header">Product Report Based On Completed Status Order In 
+					<?php if(isset($_POST['month'])) 
+					{
+
+						if($_POST['month']==1)
+						{
+						echo "January";
+						}else if($_POST['month']==2)
+						{
+						echo "February";
+						}else if($_POST['month']==3)
+						{
+						echo "March";
+						}else if($_POST['month']==4)
+						{
+						echo "April";
+						}else if($_POST['month']==5)
+						{
+						echo "May";
+						}else if($_POST['month']==6)
+						{
+						echo "June";
+						}else if($_POST['month']==7)
+						{
+						echo "July";
+						}else if($_POST['month']==8)
+						{
+						echo "August";
+						}else if($_POST['month']==9)
+						{
+						echo "September";
+						}else if($_POST['month']==10)
+						{
+						echo "October";
+						}else if($_POST['month']==11)
+						{
+						echo "November";
+						}else if($_POST['month']==12)
+						{
+						echo "December";
+						}
+
+					}
+
+					?></h3>
 				</div>
 				<!-- /.col-lg-12 -->
 			</div>

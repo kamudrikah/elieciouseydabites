@@ -201,7 +201,17 @@ if(!isset($_SESSION['user_id'])){
                         }
                         ?>
                       </p>
-                      <input type="submit" class="btn btn-default add-to-cart" value="Add to cart" />
+                      <?php
+                        $checkAvai= "SELECT * FROM product_price WHERE product_id = '$product_id' AND product_status='8'";
+                        $check = mysqli_query($conn, $checkAvai);
+                        $row_check = mysqli_fetch_assoc($check);
+                        if($row_check['product_status']==8)
+                        { ?>
+                        <input type="submit" class="btn btn-default add-to-cart" value="Add to cart" />
+                        <?php }else
+                        { ?>
+                        <input type="submit" class="btn btn-danger" value="Product Not Available" />
+                        <?php } ?>
                     </div>
                   </div>
                 </div>

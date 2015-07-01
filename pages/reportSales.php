@@ -120,12 +120,12 @@ if(isset($_POST)){
                         <li>
                             <a href="#"><i class="fa fa-inbox fa-fw"></i> File Manager<span class="fa arrow"></span></a>  
                             <ul class="nav nav-second-level">
-                            	<li>
-                           			 <a href="listOrder.php"><i class="fa fa-table fa-fw"></i> Orders</a>
-                      		    </li>
-				<li>
-				      <a href="listReceipt.php"><i class="fa fa-table fa-fw"></i> List Receipt Payment</a>
- 			   </li>
+                                <li>
+                                     <a href="listOrder.php"><i class="fa fa-table fa-fw"></i> Orders</a>
+                                </li>
+                <li>
+                      <a href="listReceipt.php"><i class="fa fa-table fa-fw"></i> List Receipt Payment</a>
+               </li>
                                 <li>
                                     <a href="reportProduct.php"><i class="fa fa-bar-chart-o fa-fw"></i> Product Report</a>
                                 </li>
@@ -150,7 +150,7 @@ if(isset($_POST)){
                                     </ul>
                                     <!-- /.nav-second-level -->
                               </li> 
-				
+                
                             </ul>
                             <!-- /.nav-second-level -->
                         </li> 
@@ -164,7 +164,51 @@ if(isset($_POST)){
         <div id="page-wrapper">
             <div class="row">
                 <div class="col-lg-12">
-                    <h1 class="page-header">Sales Report</h1>
+                    <h3 class="page-header">Sales Report Based On Completed Status Order In 
+                    <?php if(isset($_POST['month'])) 
+                    {
+
+                        if($_POST['month']==1)
+                        {
+                        echo "January";
+                        }else if($_POST['month']==2)
+                        {
+                        echo "February";
+                        }else if($_POST['month']==3)
+                        {
+                        echo "March";
+                        }else if($_POST['month']==4)
+                        {
+                        echo "April";
+                        }else if($_POST['month']==5)
+                        {
+                        echo "May";
+                        }else if($_POST['month']==6)
+                        {
+                        echo "June";
+                        }else if($_POST['month']==7)
+                        {
+                        echo "July";
+                        }else if($_POST['month']==8)
+                        {
+                        echo "August";
+                        }else if($_POST['month']==9)
+                        {
+                        echo "September";
+                        }else if($_POST['month']==10)
+                        {
+                        echo "October";
+                        }else if($_POST['month']==11)
+                        {
+                        echo "November";
+                        }else if($_POST['month']==12)
+                        {
+                        echo "December";
+                        }
+
+                    }
+
+                    ?></h3>
                 </div>
                 <!-- /.col-lg-12 -->
             </div>
@@ -172,14 +216,14 @@ if(isset($_POST)){
              <div class="panel-body">
                             <div class="dataTable_wrapper">
                             
-                            	<table>
+                                <table>
                                  <form action="./reportSales.php" method="POST">
                                   <tr>
                                         <td>&nbsp;</td>
                                         <td>&nbsp; &nbsp;</td>
                                         <td>
-                                        	<select name="month">
-                                            	  <option value='' selected>Month </option>
+                                            <select name="month">
+                                                  <option value='' selected>Month </option>
                                                 <option value='1'>January</option>
                                                 <option value='2'>February</option>
                                                 <option value='3'>March</option>
@@ -196,7 +240,7 @@ if(isset($_POST)){
                                         </td>
                                         <td>&nbsp;</td>
                                         <td>
-                                        	<button type="submit" class="btn btn-info">Filter</button>
+                                            <button type="submit" class="btn btn-info">Filter</button>
                                         </td>
                                          <td> &nbsp;&nbsp;</td>
                                     </tr>
